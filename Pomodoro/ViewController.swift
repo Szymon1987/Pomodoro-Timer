@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-//    let shapeLayer = CAShapeLayer()
+    lazy var shapeLayer = CAShapeLayer()
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 60)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.backgroundColor = .green
+        //label.backgroundColor = .red
         return label
     }()
     
@@ -50,75 +50,73 @@ class ViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.isUserInteractionEnabled = true
-        //label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
-        label.backgroundColor = .cyan
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
+        //label.backgroundColor = .cyan
         return label
     }()
     
-    let myView: CustomCircleView = {
-        let view = CustomCircleView()
-        view.backgroundColor = .cyan
+    let myView: UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = .cyan
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = #colorLiteral(red: 0.1163143292, green: 0.128652513, blue: 0.2517923713, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         setupLayout()
         setupStackView()
         
-       // uncomment later
-       // setupTimerAnimation()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setupLayout()
+   
+        setupTimerAnimation()
+
     }
     
-    //  CUSTOM CLASS FOR TIMER
-
-//    let circleTimer: CircleTimer = {
-//        let ct = CircleTimer()
-//        ct.backgroundColor = .red
-//        ct.translatesAutoresizingMaskIntoConstraints = false
-//        return ct
-//    }()
+    func setupTimerAnimation() {
+        let frameWidth = myView.frame.width
+        let frameHeight = myView.frame.height
+        let radius = (frameWidth + frameHeight) / 5
     
-//    func setupTimerAnimation() {
-//        let center = view.center
-//        let circularPath = UIBezierPath(arcCenter: center, radius: view.frame.size.width / 3, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
-//        shapeLayer.path = circularPath.cgPath
-//
-//        shapeLayer.strokeColor = UIColor.red.cgColor
-//        shapeLayer.lineWidth = 10
-//        shapeLayer.fillColor = UIColor.clear.cgColor
-//        shapeLayer.lineCap = .round
-//
-//        shapeLayer.strokeEnd = 0
-//
-//        view.layer.addSublayer(shapeLayer)
-//    }
-//
-//    fileprivate func animateCircle() {
-//        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-//
-//        basicAnimation.toValue = 1
-//
-//        basicAnimation.duration = 2
-//
-//        basicAnimation.fillMode = .forwards
-//        basicAnimation.isRemovedOnCompletion = false
-//
-//        shapeLayer.add(basicAnimation, forKey: "animation")
-//    }
-//
-//    @objc func tapped() {
-//
-//        animateCircle()
-//    }
+        let center = CGPoint(x: myView.layer.bounds.midX, y: myView.layer.bounds.midY)
+//        let radius = myView.frame.width / 3
+        let circularPath = UIBezierPath(arcCenter: center, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        shapeLayer.path = circularPath.cgPath
+
+        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineCap = .round
+
+        shapeLayer.strokeEnd = 0
+
+        myView.layer.addSublayer(shapeLayer)
+    }
+    
+    fileprivate func animateCircle() {
+        
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        
+        basicAnimation.toValue = 1
+        
+        basicAnimation.duration = 2
+        
+        basicAnimation.fillMode = .forwards
+        basicAnimation.isRemovedOnCompletion = false
+        
+        shapeLayer.add(basicAnimation, forKey: "animation")
+    }
+    
+    @objc func tapped() {
+        
+        animateCircle()
+    }
     
     func setupStackView() {
         
@@ -146,7 +144,7 @@ class ViewController: UIViewController {
             label.textColor = .white
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
-        
+            
         }()
         
         let longBreakLabel: UILabel = {
@@ -159,7 +157,7 @@ class ViewController: UIViewController {
             label.textColor = .white
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
-        
+            
         }()
         
         let stackView = UIStackView(arrangedSubviews: [pomodoroLabel, shortBreakLabel, longBreakLabel])
@@ -180,26 +178,6 @@ class ViewController: UIViewController {
     
     func setupLayout() {
         
-        
-        view.addSubview(timerLabel)
-        timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        timerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        view.addSubview(titleLabel)
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
-        
-        view.addSubview(pauseLabel)
-        pauseLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 30).isActive = true
-        pauseLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        pauseLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        pauseLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//
-        
-        
-        
         view.addSubview(myView)
         
         myView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -207,20 +185,25 @@ class ViewController: UIViewController {
         myView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         myView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
         
+        view.addSubview(titleLabel)
         
+        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
         
+        myView.addSubview(timerLabel)
         
-//        view.addSubview(circleTimer)
-//
-//        circleTimer.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        circleTimer.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        circleTimer.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        circleTimer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
-
+        timerLabel.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
+        timerLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+    
+        myView.addSubview(pauseLabel)
         
+        pauseLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor).isActive = true
+        pauseLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
         
     }
-
+    
 }
 
 

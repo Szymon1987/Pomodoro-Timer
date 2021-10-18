@@ -14,7 +14,6 @@
 		8CC8051B2719F82B00AF4D99 /* Pomodoro.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805192719F82B00AF4D99 /* Pomodoro.xcdatamodeld */; };
 		8CC8051D2719F83100AF4D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051C2719F83100AF4D99 /* Assets.xcassets */; };
 		8CC805202719F83100AF4D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */; };
-		8CC80528271B3B4B00AF4D99 /* CircleTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC80527271B3B4B00AF4D99 /* CircleTimer.swift */; };
 		8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		8CC8051C2719F83100AF4D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CC8051F2719F83100AF4D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CC805212719F83100AF4D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8CC80527271B3B4B00AF4D99 /* CircleTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleTimer.swift; sourceTree = "<group>"; };
 		8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCIrcleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,7 +64,6 @@
 				8CC805122719F82B00AF4D99 /* SceneDelegate.swift */,
 				8CC805142719F82B00AF4D99 /* ViewController.swift */,
 				8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */,
-				8CC80527271B3B4B00AF4D99 /* CircleTimer.swift */,
 				8CC805162719F82B00AF4D99 /* Main.storyboard */,
 				8CC8051C2719F83100AF4D99 /* Assets.xcassets */,
 				8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */,
@@ -151,7 +148,6 @@
 				8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */,
 				8CC805152719F82B00AF4D99 /* ViewController.swift in Sources */,
 				8CC805112719F82B00AF4D99 /* AppDelegate.swift in Sources */,
-				8CC80528271B3B4B00AF4D99 /* CircleTimer.swift in Sources */,
 				8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
