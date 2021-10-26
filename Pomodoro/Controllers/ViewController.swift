@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var portrait: [NSLayoutConstraint]?
     var landscape: [NSLayoutConstraint]?
     var isPortrait: Bool = false
+   
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -50,6 +51,9 @@ class ViewController: UIViewController {
         return label
     }()
     
+    
+    // lazy var "business" here is needed otherwise "addGestureRecignizer" doesn't work
+    
     lazy var startStop: UILabel = {
         let label = UILabel()
         label.text = "START"
@@ -63,7 +67,7 @@ class ViewController: UIViewController {
         return label
     }()
     
-    let myView: UIView = {
+    let timerView: UIView = {
         let view = UIView()
 //        view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -71,13 +75,37 @@ class ViewController: UIViewController {
         return view
     }()
     
-    let gearIconView: UIImageView = {
+    lazy var settingsIconView: UIImageView = {
         let image = UIImage(systemName: "gearshape.fill")
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsIconTapped)))
         return imageView
     }()
+    
+    let settingsLauncher: SettingsLauncher = {
+        let st = SettingsLauncher()
+        return st
+    }()
+    
+    func setupSettingsLauncher() {
+        
+        view.addSubview(settingsLauncher)
+       
+        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
+        settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60).isActive = true
+        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+       
+
+    }
+    
+    @objc func settingsIconTapped() {
+        setupSettingsLauncher()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,35 +113,50 @@ class ViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         setupLayout()
         setupStackView()
-        //setupTimerAnimation()
+   
         
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        isPortrait = UIDevice.current.orientation.isPortrait
-        if isPortrait {
-            NSLayoutConstraint.deactivate(landscape!)
-            NSLayoutConstraint.activate(portrait!)
-            print("portrait")
-        } else {
-            NSLayoutConstraint.deactivate(portrait!)
-            NSLayoutConstraint.activate(landscape!)
-            print("landscape")
-        }
-        
-        //setupTimerAnimation()
-        
+
+//
+//        isPortrait = UIDevice.current.orientation.isPortrait
+//    print(isPortrait)
+//        if isPortrait {
+//            NSLayoutConstraint.deactivate(landscape!)
+//            NSLayoutConstraint.activate(portrait!)
+//            print("portrait")
+//        } else {
+//            NSLayoutConstraint.deactivate(portrait!)
+//            NSLayoutConstraint.activate(landscape!)
+//            print("landscape")
+//        }
     }
     
-    func setupTimerAnimation() {
-        let frameWidth = myView.frame.width
-        let frameHeight = myView.frame.height
-        let radius = (frameWidth + frameHeight) / 5
-//        let radius = myView.frame.height
+    
+    // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
+    
+    
+    // This method id needed to call setupTimierAnimation() only once after view is loaded and we can set up the size of the circle based on the UIView size. In viewDidLoad() this function doesn't work as the seize of the view is unknown at that time
+   
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupTimerShape()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+       
+    }
+    
+    func setupTimerShape() {
         
-        let center = CGPoint(x: myView.layer.bounds.midX, y: myView.layer.bounds.midY)
+        let radius = timerView.frame.height / 2
+//        let radius = myView.bounds.height / 2
+        
+        let center = CGPoint(x: timerView.layer.bounds.midX, y: timerView.layer.bounds.midY)
         //        let radius = myView.frame.width / 3
         let circularPath = UIBezierPath(arcCenter: center, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
@@ -125,8 +168,11 @@ class ViewController: UIViewController {
         
         shapeLayer.strokeEnd = 0
         
-        myView.layer.addSublayer(shapeLayer)
+        
+        timerView.layer.addSublayer(shapeLayer)
+
     }
+
     
     fileprivate func animateCircle() {
         
@@ -135,7 +181,6 @@ class ViewController: UIViewController {
         basicAnimation.toValue = 1
         
         basicAnimation.duration = 2
-        
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
         
@@ -168,7 +213,6 @@ class ViewController: UIViewController {
             secondsRemaining = 20
         }
         timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
-        
         
     }
     
@@ -239,20 +283,25 @@ class ViewController: UIViewController {
     
     func setupLayout() {
         
-        view.addSubview(myView)
+        view.addSubview(timerView)
         
         portrait = [
-        myView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        myView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        myView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        myView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+        timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
         ]
         
+        NSLayoutConstraint.activate(portrait!)
+        
         landscape = [
-        myView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
-        myView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        myView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+        timerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
+        timerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
         ]
+        
+//        NSLayoutConstraint.activate(landscape!)
         
         view.addSubview(titleLabel)
         
@@ -261,25 +310,22 @@ class ViewController: UIViewController {
         titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
         
-        myView.addSubview(timerLabel)
+        timerView.addSubview(timerLabel)
         
-        timerLabel.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
-        timerLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        timerLabel.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
+        timerLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
-        myView.addSubview(startStop)
+        timerView.addSubview(startStop)
         
         startStop.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 20).isActive = true
-        startStop.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        startStop.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
-        view.addSubview(gearIconView)
+        view.addSubview(settingsIconView)
         
-        gearIconView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-        gearIconView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        gearIconView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        gearIconView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
-        
-        
-        
+        settingsIconView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        settingsIconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        settingsIconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        settingsIconView.widthAnchor.constraint(equalToConstant: 35).isActive = true
         
     }
     

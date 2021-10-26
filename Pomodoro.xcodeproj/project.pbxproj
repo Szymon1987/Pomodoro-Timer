@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C7319FE2721CA380030ABFE /* TimeMinutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7319FD2721CA380030ABFE /* TimeMinutesView.swift */; };
+		8C731A012721CFAB0030ABFE /* FontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C731A002721CFAB0030ABFE /* FontView.swift */; };
+		8C731A032721D2620030ABFE /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C731A022721D2620030ABFE /* ColorView.swift */; };
+		8C7842A827248DB300BC0337 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7842A727248DB300BC0337 /* CircleLabel.swift */; };
+		8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7842AA2725860F00BC0337 /* Extensions.swift */; };
 		8CC805112719F82B00AF4D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805102719F82B00AF4D99 /* AppDelegate.swift */; };
 		8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805122719F82B00AF4D99 /* SceneDelegate.swift */; };
 		8CC805152719F82B00AF4D99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805142719F82B00AF4D99 /* ViewController.swift */; };
@@ -15,9 +20,15 @@
 		8CC8051D2719F83100AF4D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051C2719F83100AF4D99 /* Assets.xcassets */; };
 		8CC805202719F83100AF4D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */; };
 		8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */; };
+		8CFAFF512720B73400D58107 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAFF502720B73400D58107 /* SettingsLauncher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C7319FD2721CA380030ABFE /* TimeMinutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMinutesView.swift; sourceTree = "<group>"; };
+		8C731A002721CFAB0030ABFE /* FontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontView.swift; sourceTree = "<group>"; };
+		8C731A022721D2620030ABFE /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
+		8C7842A727248DB300BC0337 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
+		8C7842AA2725860F00BC0337 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8CC8050D2719F82B00AF4D99 /* Pomodoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pomodoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CC805102719F82B00AF4D99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CC805122719F82B00AF4D99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +39,7 @@
 		8CC8051F2719F83100AF4D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CC805212719F83100AF4D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCIrcleView.swift; sourceTree = "<group>"; };
+		8CFAFF502720B73400D58107 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +53,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C7319FF2721CABA0030ABFE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8CC805142719F82B00AF4D99 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8C7842A927248DB800BC0337 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CFAFF502720B73400D58107 /* SettingsLauncher.swift */,
+				8C7319FD2721CA380030ABFE /* TimeMinutesView.swift */,
+				8C731A002721CFAB0030ABFE /* FontView.swift */,
+				8C731A022721D2620030ABFE /* ColorView.swift */,
+				8C7842A727248DB300BC0337 /* CircleLabel.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8CC805042719F82B00AF4D99 = {
 			isa = PBXGroup;
 			children = (
@@ -60,10 +92,12 @@
 		8CC8050F2719F82B00AF4D99 /* Pomodoro */ = {
 			isa = PBXGroup;
 			children = (
+				8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */,
 				8CC805102719F82B00AF4D99 /* AppDelegate.swift */,
 				8CC805122719F82B00AF4D99 /* SceneDelegate.swift */,
-				8CC805142719F82B00AF4D99 /* ViewController.swift */,
-				8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */,
+				8C7842AA2725860F00BC0337 /* Extensions.swift */,
+				8C7319FF2721CABA0030ABFE /* Controllers */,
+				8C7842A927248DB800BC0337 /* View */,
 				8CC805162719F82B00AF4D99 /* Main.storyboard */,
 				8CC8051C2719F83100AF4D99 /* Assets.xcassets */,
 				8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */,
@@ -144,10 +178,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CFAFF512720B73400D58107 /* SettingsLauncher.swift in Sources */,
+				8C7319FE2721CA380030ABFE /* TimeMinutesView.swift in Sources */,
 				8CC8051B2719F82B00AF4D99 /* Pomodoro.xcdatamodeld in Sources */,
+				8C731A012721CFAB0030ABFE /* FontView.swift in Sources */,
+				8C7842A827248DB300BC0337 /* CircleLabel.swift in Sources */,
 				8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */,
 				8CC805152719F82B00AF4D99 /* ViewController.swift in Sources */,
+				8C731A032721D2620030ABFE /* ColorView.swift in Sources */,
 				8CC805112719F82B00AF4D99 /* AppDelegate.swift in Sources */,
+				8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */,
 				8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
