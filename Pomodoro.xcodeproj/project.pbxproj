@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C7319FE2721CA380030ABFE /* TimeMinutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7319FD2721CA380030ABFE /* TimeMinutesView.swift */; };
-		8C731A012721CFAB0030ABFE /* FontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C731A002721CFAB0030ABFE /* FontView.swift */; };
-		8C731A032721D2620030ABFE /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C731A022721D2620030ABFE /* ColorView.swift */; };
 		8C7842A827248DB300BC0337 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7842A727248DB300BC0337 /* CircleLabel.swift */; };
 		8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7842AA2725860F00BC0337 /* Extensions.swift */; };
 		8CC805112719F82B00AF4D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805102719F82B00AF4D99 /* AppDelegate.swift */; };
@@ -24,9 +21,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8C7319FD2721CA380030ABFE /* TimeMinutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMinutesView.swift; sourceTree = "<group>"; };
-		8C731A002721CFAB0030ABFE /* FontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontView.swift; sourceTree = "<group>"; };
-		8C731A022721D2620030ABFE /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 		8C7842A727248DB300BC0337 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		8C7842AA2725860F00BC0337 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8CC8050D2719F82B00AF4D99 /* Pomodoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pomodoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,9 +59,6 @@
 			isa = PBXGroup;
 			children = (
 				8CFAFF502720B73400D58107 /* SettingsLauncher.swift */,
-				8C7319FD2721CA380030ABFE /* TimeMinutesView.swift */,
-				8C731A002721CFAB0030ABFE /* FontView.swift */,
-				8C731A022721D2620030ABFE /* ColorView.swift */,
 				8C7842A727248DB300BC0337 /* CircleLabel.swift */,
 			);
 			path = View;
@@ -179,13 +170,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CFAFF512720B73400D58107 /* SettingsLauncher.swift in Sources */,
-				8C7319FE2721CA380030ABFE /* TimeMinutesView.swift in Sources */,
 				8CC8051B2719F82B00AF4D99 /* Pomodoro.xcdatamodeld in Sources */,
-				8C731A012721CFAB0030ABFE /* FontView.swift in Sources */,
 				8C7842A827248DB300BC0337 /* CircleLabel.swift in Sources */,
 				8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */,
 				8CC805152719F82B00AF4D99 /* ViewController.swift in Sources */,
-				8C731A032721D2620030ABFE /* ColorView.swift in Sources */,
 				8CC805112719F82B00AF4D99 /* AppDelegate.swift in Sources */,
 				8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */,
 				8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */,

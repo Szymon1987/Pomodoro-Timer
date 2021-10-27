@@ -19,10 +19,10 @@ class CircleLabel: UILabel {
     }
     
     private func setup() {
-       
+        
         textAlignment = .center
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 20
+        layer.cornerRadius = 22
         layer.masksToBounds = true
         backgroundColor = #colorLiteral(red: 0.9421771169, green: 0.9406086802, blue: 0.9791585803, alpha: 1)
         

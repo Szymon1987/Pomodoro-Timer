@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     
     let timerLabel: UILabel = {
         let label = UILabel()
-        label.text = "17:59"
+        label.text = "00:00"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 50)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +71,6 @@ class ViewController: UIViewController {
         let view = UIView()
 //        view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
-                view.backgroundColor = .cyan
         return view
     }()
     
@@ -94,10 +93,10 @@ class ViewController: UIViewController {
         
         view.addSubview(settingsLauncher)
        
-        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
-        settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60).isActive = true
-        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
         
        
 
@@ -229,24 +228,24 @@ class ViewController: UIViewController {
         
         let pomodoroLabel: UILabel = {
             let label = UILabel()
-            label.backgroundColor = .green
+            label.backgroundColor = UIColor(red: 241/255, green: 112/255, blue: 112/255, alpha: 1)
             label.layer.cornerRadius = maskToBound
             label.layer.masksToBounds = true
             label.text = "pomodoro"
             label.textAlignment = .center
-            label.textColor = .white
+            label.textColor = UIColor(red: 215/255, green: 224/255, blue: 255/255, alpha: 1)
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
         }()
         
         let shortBreakLabel: UILabel = {
             let label = UILabel()
-            label.backgroundColor = .red
+//            label.backgroundColor = .red
             label.layer.cornerRadius = maskToBound
             label.layer.masksToBounds = true
             label.text = "short break"
             label.textAlignment = .center
-            label.textColor = .white
+            label.textColor = UIColor(red: 215/255, green: 224/255, blue: 255/255, alpha: 1)
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
             
@@ -254,12 +253,12 @@ class ViewController: UIViewController {
         
         let longBreakLabel: UILabel = {
             let label = UILabel()
-            label.backgroundColor = .blue
+//            label.backgroundColor = .blue
             label.layer.cornerRadius = maskToBound
             label.layer.masksToBounds = true
             label.text = "long break"
             label.textAlignment = .center
-            label.textColor = .white
+            label.textColor = UIColor(red: 215/255, green: 224/255, blue: 255/255, alpha: 1)
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
             
@@ -270,6 +269,8 @@ class ViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.layer.cornerRadius = maskToBound
         stackView.layer.masksToBounds = true
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 4)
         stackView.backgroundColor = #colorLiteral(red: 0.08357880265, green: 0.09788595885, blue: 0.1973884106, alpha: 1)
         
         view.addSubview(stackView)
@@ -277,7 +278,7 @@ class ViewController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
         stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
-        stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
+        stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
         
     }
     
@@ -308,7 +309,7 @@ class ViewController: UIViewController {
         titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
+        titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
         
         timerView.addSubview(timerLabel)
         
