@@ -9,6 +9,7 @@ import UIKit
 
 class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var pomodoroVC: PomodoroViewController?
     
     let pomodoroArray = (1...60).map{($0)}
     let shortBreakArray = (3...10).map{($0)}
@@ -136,10 +137,21 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.layer.cornerRadius = 26
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didUpdateUI), for: .touchUpInside)
+        button.addTarget(self, action: #selector(applyButtonPressed), for: .touchUpInside)
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
+    
+ 
+    
+    @objc func applyButtonPressed() {
+        
+        if let pomodoroVC = pomodoroVC {
+            pomodoroVC.didUpdateUI(inputMinutes: pomodoroMinutes)
+        }
+        
+    }
+    
     
     @objc func handleDismiss() {
         

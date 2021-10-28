@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C71F9CD2729C02D00BA62EC /* TimesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C71F9CC2729C02D00BA62EC /* TimesModel.swift */; };
 		8C7842A827248DB300BC0337 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7842A727248DB300BC0337 /* CircleLabel.swift */; };
 		8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7842AA2725860F00BC0337 /* Extensions.swift */; };
 		8CC805112719F82B00AF4D99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805102719F82B00AF4D99 /* AppDelegate.swift */; };
 		8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805122719F82B00AF4D99 /* SceneDelegate.swift */; };
-		8CC805152719F82B00AF4D99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805142719F82B00AF4D99 /* ViewController.swift */; };
+		8CC805152719F82B00AF4D99 /* PomodoroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805142719F82B00AF4D99 /* PomodoroViewController.swift */; };
 		8CC805182719F82B00AF4D99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC805162719F82B00AF4D99 /* Main.storyboard */; };
 		8CC8051B2719F82B00AF4D99 /* Pomodoro.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805192719F82B00AF4D99 /* Pomodoro.xcdatamodeld */; };
 		8CC8051D2719F83100AF4D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051C2719F83100AF4D99 /* Assets.xcassets */; };
@@ -21,12 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C71F9CC2729C02D00BA62EC /* TimesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesModel.swift; sourceTree = "<group>"; };
 		8C7842A727248DB300BC0337 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		8C7842AA2725860F00BC0337 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8CC8050D2719F82B00AF4D99 /* Pomodoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pomodoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CC805102719F82B00AF4D99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CC805122719F82B00AF4D99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8CC805142719F82B00AF4D99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8CC805142719F82B00AF4D99 /* PomodoroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewController.swift; sourceTree = "<group>"; };
 		8CC805172719F82B00AF4D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8CC8051A2719F82B00AF4D99 /* Pomodoro.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pomodoro.xcdatamodel; sourceTree = "<group>"; };
 		8CC8051C2719F83100AF4D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,10 +49,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C71F9CB2729BFF700BA62EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8C71F9CC2729C02D00BA62EC /* TimesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8C7319FF2721CABA0030ABFE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8CC805142719F82B00AF4D99 /* ViewController.swift */,
+				8CC805142719F82B00AF4D99 /* PomodoroViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -87,6 +97,7 @@
 				8CC805102719F82B00AF4D99 /* AppDelegate.swift */,
 				8CC805122719F82B00AF4D99 /* SceneDelegate.swift */,
 				8C7842AA2725860F00BC0337 /* Extensions.swift */,
+				8C71F9CB2729BFF700BA62EC /* Model */,
 				8C7319FF2721CABA0030ABFE /* Controllers */,
 				8C7842A927248DB800BC0337 /* View */,
 				8CC805162719F82B00AF4D99 /* Main.storyboard */,
@@ -173,7 +184,8 @@
 				8CC8051B2719F82B00AF4D99 /* Pomodoro.xcdatamodeld in Sources */,
 				8C7842A827248DB300BC0337 /* CircleLabel.swift in Sources */,
 				8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */,
-				8CC805152719F82B00AF4D99 /* ViewController.swift in Sources */,
+				8CC805152719F82B00AF4D99 /* PomodoroViewController.swift in Sources */,
+				8C71F9CD2729C02D00BA62EC /* TimesModel.swift in Sources */,
 				8CC805112719F82B00AF4D99 /* AppDelegate.swift in Sources */,
 				8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */,
 				8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */,

@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class PomodoroViewController: UIViewController {
     
     lazy var shapeLayer = CAShapeLayer()
     
-    var secondsRemaining : Int = 63
+    var secondsRemaining : Int = 1500
     var timer = Timer()
     var isCounting = false
     
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     
     let timerLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:00"
+        label.text = "25:00"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 50)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,8 +84,11 @@ class ViewController: UIViewController {
         return imageView
     }()
     
-    let settingsLauncher: SettingsLauncher = {
+    // why lazy var and why st.pomodoroVC = self???
+    
+    lazy var settingsLauncher: SettingsLauncher = {
         let st = SettingsLauncher()
+        st.pomodoroVC = self
         return st
     }()
     
@@ -98,8 +101,6 @@ class ViewController: UIViewController {
         settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
         
-       
-
     }
     
     @objc func settingsIconTapped() {
@@ -112,7 +113,6 @@ class ViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         setupLayout()
         setupStackView()
-   
         
     }
     
@@ -198,7 +198,7 @@ class ViewController: UIViewController {
         } else {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
             isCounting = true
-            startStop.text = "STOP"
+            startStop.text = "PAUSE"
             
         }
     }
@@ -209,17 +209,36 @@ class ViewController: UIViewController {
             secondsRemaining -= 1
         } else {
             timer.invalidate()
-            secondsRemaining = 20
+            secondsRemaining = 1500
         }
         timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
         
     }
     
     func timeString(time: TimeInterval) -> String {
-        let hours = Int(time) / 3600
+//        let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
-        return String(format:"%.2d:%.2d:%.2d", hours, minutes, seconds)
+        return String(format:"%.2d:%.2d", minutes, seconds)
+    }
+    
+    func didUpdateUI(inputMinutes: String) {
+        
+        // probably if statement will not be needed as pomodoro timer mnimum time will be something aroung 10 min
+        
+        if inputMinutes.count < 2 {
+            timerLabel.text =  "0\(inputMinutes):00"
+        } else {
+            timerLabel.text =  "\(inputMinutes):00"
+        }
+        
+    // probably something is wrong below
+        secondsRemaining = Int(inputMinutes) ?? 25 * 60
+        
+        
+    
+        print(inputMinutes)
+    
     }
     
     func setupStackView() {
