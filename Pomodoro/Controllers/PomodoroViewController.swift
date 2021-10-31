@@ -10,10 +10,10 @@ import UIKit
 class PomodoroViewController: UIViewController {
     
     lazy var shapeLayer = CAShapeLayer()
-//    var deafauleTime : Int = 1500
-    var secondsRemaining : Int = 1500
+    var secondsRemaining: Float = 10
     var timer = Timer()
     var isCounting = false
+    var isAnimating = false
     
     var portrait: [NSLayoutConstraint]?
     var landscape: [NSLayoutConstraint]?
@@ -166,60 +166,79 @@ class PomodoroViewController: UIViewController {
         timerView.layer.addSublayer(shapeLayer)
     }
 
-    fileprivate func animateCircle() {
-        
+//    func animateStrokeEnd() {
+//        let percentage = CGFloat(secondsRemaining) / CGFloat(defaultTime)
+//        print(percentage)
+//        shapeLayer.strokeEnd = percentage
+//        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+//        basicAnimation.fromValue = 1
+//        basicAnimation.toValue = 0
+//        basicAnimation.duration = CFTimeInterval(secondsRemaining)
+//        shapeLayer.add(basicAnimation, forKey: "animation")
+//
+//    }
+//
+    fileprivate func startAnimation() {
+
         let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
-//        let fromValue =
+
         circleAnimation.fromValue = 1
         circleAnimation.toValue = 0
         circleAnimation.duration = CFTimeInterval(secondsRemaining)
-//        circleAnimation.fillMode = .forwards
         circleAnimation.isRemovedOnCompletion = false
         shapeLayer.add(circleAnimation, forKey: "animation")
+        isAnimating = true
+        print("dsddsdsdsdds")
     }
 
-    
     @objc func startStopTapped() {
         
         if isCounting {
             isCounting = false
             timer.invalidate()
             startStop.text = "START"
+            print(secondsRemaining)
             pauseAnimation()
         }
         else {
-            
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
             isCounting = true
             startStop.text = "PAUSE"
-            animateCircle()
-            resumeAnimation()
-        
-            
+            print(secondsRemaining)
+            startResumeAnimation()
         }
     }
     
+    func startResumeAnimation() {
+        if !isAnimating {
+            startAnimation()
+            print("firsttime")
+        } else {
+            resumeAnimation()
+        }
+    }
+
     func pauseAnimation() {
         let pausedTime: CFTimeInterval = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
         shapeLayer.speed = 0.0
         shapeLayer.timeOffset = pausedTime
         print(pausedTime)
+
     }
-    
+
     func resumeAnimation() {
         let pausedTime = shapeLayer.timeOffset
+        print(pausedTime)
         shapeLayer.speed = 1.0
         shapeLayer.timeOffset = 0.0
         shapeLayer.beginTime = 0.0
+        shapeLayer.strokeEnd = 0.0
         let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
-//        print(timeSincePause)
-//        shapeLayer.beginTime = timeSincePause
-        shapeLayer.beginTime = Double(30)
-        
+        shapeLayer.beginTime = timeSincePause
+
     }
     
     @objc func timerCounter() {
-        
         if secondsRemaining > 0 {
             secondsRemaining -= 1
         } else {
@@ -247,8 +266,8 @@ class PomodoroViewController: UIViewController {
         }
         
     // probably something is wrong below
-        secondsRemaining = Int(inputMinutes)! * 60
-        
+        secondsRemaining = Float(inputMinutes)! * 60
+
         timer.invalidate()
         startStop.text = "START"
         
