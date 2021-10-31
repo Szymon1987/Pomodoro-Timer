@@ -10,7 +10,7 @@ import UIKit
 class PomodoroViewController: UIViewController {
     
     lazy var shapeLayer = CAShapeLayer()
-    
+//    var deafauleTime : Int = 1500
     var secondsRemaining : Int = 1500
     var timer = Timer()
     var isCounting = false
@@ -93,14 +93,12 @@ class PomodoroViewController: UIViewController {
     }()
     
     func setupSettingsLauncher() {
-        
+    
         view.addSubview(settingsLauncher)
-       
         settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
         settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
-        
     }
     
     @objc func settingsIconTapped() {
@@ -137,7 +135,7 @@ class PomodoroViewController: UIViewController {
     // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
     
     
-    // This method id needed to call setupTimierAnimation() only once after view is loaded and we can set up the size of the circle based on the UIView size. In viewDidLoad() this function doesn't work as the seize of the view is unknown at that time
+    // This method is needed to call setupTimierAnimation() only once after view is loaded and we can set up the size of the circle based on the UIView size. In viewDidLoad() this function doesn't work as the seize of the view is unknown at that time
    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -146,61 +144,78 @@ class PomodoroViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-
-       
     }
     
     func setupTimerShape() {
-        
+
         let radius = timerView.frame.height / 2
-//        let radius = myView.bounds.height / 2
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        shapeLayer.path = circularPath.cgPath
+
+        
+        // had to reposition to the center otherwise there is a bug in the animation when originally setting "startAngle" to -CGFloat.pi / 2
         
         let center = CGPoint(x: timerView.layer.bounds.midX, y: timerView.layer.bounds.midY)
-        //        let radius = myView.frame.width / 3
-        let circularPath = UIBezierPath(arcCenter: center, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
-        shapeLayer.path = circularPath.cgPath
-        
+        shapeLayer.position = center
+        shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
         shapeLayer.strokeColor = UIColor.red.cgColor
         shapeLayer.lineWidth = 10
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = .round
-        
-        shapeLayer.strokeEnd = 0
-        
-        
+        shapeLayer.strokeEnd = 1
         timerView.layer.addSublayer(shapeLayer)
-
     }
 
-    
     fileprivate func animateCircle() {
         
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        
-        basicAnimation.toValue = 1
-        
-        basicAnimation.duration = 2
-        basicAnimation.fillMode = .forwards
-        basicAnimation.isRemovedOnCompletion = false
-        
-        shapeLayer.add(basicAnimation, forKey: "animation")
+        let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
+//        let fromValue =
+        circleAnimation.fromValue = 1
+        circleAnimation.toValue = 0
+        circleAnimation.duration = CFTimeInterval(secondsRemaining)
+//        circleAnimation.fillMode = .forwards
+        circleAnimation.isRemovedOnCompletion = false
+        shapeLayer.add(circleAnimation, forKey: "animation")
     }
+
     
     @objc func startStopTapped() {
-        
-        animateCircle()
         
         if isCounting {
             isCounting = false
             timer.invalidate()
             startStop.text = "START"
+            pauseAnimation()
+        }
+        else {
             
-        } else {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
             isCounting = true
             startStop.text = "PAUSE"
+            animateCircle()
+            resumeAnimation()
+        
             
         }
+    }
+    
+    func pauseAnimation() {
+        let pausedTime: CFTimeInterval = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
+        shapeLayer.speed = 0.0
+        shapeLayer.timeOffset = pausedTime
+        print(pausedTime)
+    }
+    
+    func resumeAnimation() {
+        let pausedTime = shapeLayer.timeOffset
+        shapeLayer.speed = 1.0
+        shapeLayer.timeOffset = 0.0
+        shapeLayer.beginTime = 0.0
+        let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+//        print(timeSincePause)
+//        shapeLayer.beginTime = timeSincePause
+        shapeLayer.beginTime = Double(30)
+        
     }
     
     @objc func timerCounter() {
@@ -212,7 +227,6 @@ class PomodoroViewController: UIViewController {
             secondsRemaining = 1500
         }
         timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
-        
     }
     
     func timeString(time: TimeInterval) -> String {
@@ -233,12 +247,11 @@ class PomodoroViewController: UIViewController {
         }
         
     // probably something is wrong below
-        secondsRemaining = Int(inputMinutes) ?? 25 * 60
+        secondsRemaining = Int(inputMinutes)! * 60
         
+        timer.invalidate()
+        startStop.text = "START"
         
-    
-        print(inputMinutes)
-    
     }
     
     func setupStackView() {
@@ -300,7 +313,6 @@ class PomodoroViewController: UIViewController {
         stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
         
     }
-    
     func setupLayout() {
         
         view.addSubview(timerView)
@@ -346,10 +358,7 @@ class PomodoroViewController: UIViewController {
         settingsIconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         settingsIconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
         settingsIconView.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        
     }
-    
-    
 }
 
 

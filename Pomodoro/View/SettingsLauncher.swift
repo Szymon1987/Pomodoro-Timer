@@ -15,7 +15,9 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     let shortBreakArray = (3...10).map{($0)}
     let longBreakArray = (10...20).map{($0)}
     
-    var pomodoroMinutes = ""
+    
+    // set default value for this
+    var pomodoroMinutes = "1"
     var shortBreakTime = ""
     var longBreakTime = ""
     
@@ -78,14 +80,22 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        if pickerView == pomodoroPickerView {
+        switch pickerView {
+        case pomodoroPickerView:
             pomodoroMinutes = String(pomodoroArray[row])
-            print(pomodoroMinutes)
-        } else if pickerView == shortBreakPickerView {
+        case shortBreakPickerView:
             shortBreakTime = String(shortBreakArray[row])
-        } else {
+        default:
             longBreakTime = String(longBreakArray[row])
         }
+//        if pickerView == pomodoroPickerView {
+//            pomodoroMinutes = String(pomodoroArray[row])
+//            print(pomodoroMinutes)
+//        } else if pickerView == shortBreakPickerView {
+//            shortBreakTime = String(shortBreakArray[row])
+//        } else {
+//            longBreakTime = String(longBreakArray[row])
+//        }
         
     }
     
@@ -98,6 +108,7 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         setUpBottomContainerView()
 //        shortBreakPickerView.delegate = self
 //        shortBreakPickerView.dataSource = self
+        
         
         //print(pomodoroArray, shortBreakArray, longBreakArray)
         backgroundColor = .white
@@ -163,7 +174,9 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
 //        view.backgroundColor = .yellow
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+        
     }()
+    
     
     let timeMinutesLabel: UILabel = {
         let label = UILabel()
