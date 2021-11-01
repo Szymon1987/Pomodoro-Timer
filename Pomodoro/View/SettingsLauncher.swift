@@ -158,7 +158,7 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     @objc func applyButtonPressed() {
         
         if let pomodoroVC = pomodoroVC {
-            pomodoroVC.didUpdateUI(inputMinutes: pomodoroMinutes)
+            pomodoroVC.didUpdateUI(pomodoroMinutes: pomodoroMinutes)
         }
         
     }

@@ -13,7 +13,7 @@ class PomodoroViewController: UIViewController {
     var secondsRemaining: Double = 10
     var timer = Timer()
     var isCounting = false
-    var isAnimating = false
+    var isAnimatingFirstTime = true
     
     var portrait: [NSLayoutConstraint]?
     var landscape: [NSLayoutConstraint]?
@@ -166,27 +166,15 @@ class PomodoroViewController: UIViewController {
         timerView.layer.addSublayer(shapeLayer)
     }
 
-//    func animateStrokeEnd() {
-//        let percentage = CGFloat(secondsRemaining) / CGFloat(defaultTime)
-//        print(percentage)
-//        shapeLayer.strokeEnd = percentage
-//        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-//        basicAnimation.fromValue = 1
-//        basicAnimation.toValue = 0
-//        basicAnimation.duration = CFTimeInterval(secondsRemaining)
-//        shapeLayer.add(basicAnimation, forKey: "animation")
-//
-//    }
-//
-    
-    
     
     fileprivate func startAnimation() {
         let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
         circleAnimation.fromValue = 1
         circleAnimation.toValue = 0
         circleAnimation.duration = CFTimeInterval(secondsRemaining)
-        circleAnimation.isRemovedOnCompletion = false
+        
+        // apparently it is bad practise to set "isRemovedOnCompletion = false"
+//        circleAnimation.isRemovedOnCompletion = false
         shapeLayer.add(circleAnimation, forKey: "animation")
     }
 
@@ -209,13 +197,13 @@ class PomodoroViewController: UIViewController {
     }
     
     func startResumeAnimation() {
-        if !isAnimating {
+        if isAnimatingFirstTime {
             startAnimation()
-            isAnimating = true
+            isAnimatingFirstTime = false
             print("firsttime")
         } else {
             resumeAnimation()
-            isAnimating = false
+            isAnimatingFirstTime = true
             print("resume")
         }
     }
@@ -224,18 +212,16 @@ class PomodoroViewController: UIViewController {
         let pausedTime: CFTimeInterval = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
         shapeLayer.speed = 0.0
         shapeLayer.timeOffset = pausedTime
-        print(pausedTime)
-        isAnimating = true
+        isAnimatingFirstTime = false
 
     }
 
     func resumeAnimation() {
         let pausedTime = shapeLayer.timeOffset
-        print(pausedTime)
         shapeLayer.speed = 1.0
         shapeLayer.timeOffset = 0.0
         shapeLayer.beginTime = 0.0
-        shapeLayer.strokeEnd = 0.0
+        shapeLayer.strokeEnd = 1.0
         let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
         shapeLayer.beginTime = timeSincePause
         
@@ -248,7 +234,7 @@ class PomodoroViewController: UIViewController {
             timer.invalidate()
             secondsRemaining = 10
             startStop.text = "START"
-            isAnimating = false
+            isAnimatingFirstTime = true
             isCounting = false
           
         }
@@ -262,21 +248,22 @@ class PomodoroViewController: UIViewController {
         return String(format:"%.2d:%.2d", minutes, seconds)
     }
     
-    func didUpdateUI(inputMinutes: String) {
+    func didUpdateUI(pomodoroMinutes: String) {
         
         // probably if statement will not be needed as pomodoro timer mnimum time will be something aroung 10 min
         
-        if inputMinutes.count < 2 {
-            timerLabel.text =  "0\(inputMinutes):00"
+        if pomodoroMinutes.count < 2 {
+            timerLabel.text =  "0\(pomodoroMinutes):00"
         } else {
-            timerLabel.text =  "\(inputMinutes):00"
+            timerLabel.text =  "\(pomodoroMinutes):00"
         }
         
     // probably something is wrong below
-        secondsRemaining = Double(inputMinutes)! * 60
+        secondsRemaining = Double(pomodoroMinutes)! * 60
 
         timer.invalidate()
         startStop.text = "START"
+        startAnimation()
         
     }
     
