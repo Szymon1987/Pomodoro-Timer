@@ -19,6 +19,7 @@
 		8CC805202719F83100AF4D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */; };
 		8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */; };
 		8CFAFF512720B73400D58107 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAFF502720B73400D58107 /* SettingsLauncher.swift */; };
+		AD7E9FD52730932000F891BF /* CircleColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E9FD42730932000F891BF /* CircleColorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		8CC805212719F83100AF4D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCIrcleView.swift; sourceTree = "<group>"; };
 		8CFAFF502720B73400D58107 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
+		AD7E9FD42730932000F891BF /* CircleColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleColorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			children = (
 				8CFAFF502720B73400D58107 /* SettingsLauncher.swift */,
 				8C7842A727248DB300BC0337 /* CircleLabel.swift */,
+				AD7E9FD42730932000F891BF /* CircleColorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			files = (
 				8CFAFF512720B73400D58107 /* SettingsLauncher.swift in Sources */,
 				8CC8051B2719F82B00AF4D99 /* Pomodoro.xcdatamodeld in Sources */,
+				AD7E9FD52730932000F891BF /* CircleColorView.swift in Sources */,
 				8C7842A827248DB300BC0337 /* CircleLabel.swift in Sources */,
 				8CC8052A271C5E0500AF4D99 /* CustomCIrcleView.swift in Sources */,
 				8CC805152719F82B00AF4D99 /* PomodoroViewController.swift in Sources */,

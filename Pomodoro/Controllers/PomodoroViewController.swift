@@ -4,13 +4,16 @@
 //
 //  Created by Szymon Tadrzak on 15/10/2021.
 //
-
 import UIKit
 
 class PomodoroViewController: UIViewController {
     
     lazy var shapeLayer = CAShapeLayer()
-    var secondsRemaining: Double = 10
+    var secondsRemaining: Double = 10 {
+        didSet {
+                timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
+               }
+    }
     var timer = Timer()
     var isCounting = false
     var isAnimatingFirstTime = true
@@ -179,7 +182,6 @@ class PomodoroViewController: UIViewController {
     }
 
     @objc func startStopTapped() {
-        
         if isCounting {
             isCounting = false
             timer.invalidate()
@@ -236,9 +238,9 @@ class PomodoroViewController: UIViewController {
             startStop.text = "START"
             isAnimatingFirstTime = true
             isCounting = false
-          
+            print(timer.isValid)
         }
-        timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
+//        timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
     }
     
     func timeString(time: TimeInterval) -> String {
@@ -264,13 +266,10 @@ class PomodoroViewController: UIViewController {
         timer.invalidate()
         startStop.text = "START"
         startAnimation()
-        
     }
     
     func setupStackView() {
-        
         let maskToBound = 28.0
-        
         let pomodoroLabel: UILabel = {
             let label = UILabel()
             label.backgroundColor = UIColor(red: 241/255, green: 112/255, blue: 112/255, alpha: 1)

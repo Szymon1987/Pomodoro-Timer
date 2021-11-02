@@ -378,45 +378,47 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         return view
     }()
     
-    let centerColorLabel: CircleLabel = {
-        let label = CircleLabel()
-        label.backgroundColor = UIColor(red: 112/255, green: 243/255, blue: 248/255, alpha: 1)
-        return label
+    let centerColorView: UIView = {
+        let view = CircleColorView()
+        view.backgroundColor = UIColor(red: 112/255, green: 243/255, blue: 248/255, alpha: 1)
+        return view
+    }()
+
+    let leftColorView: UIView = {
+        let view = CircleColorView()
+        view.checkMarkView.isHidden = false
+        view.backgroundColor = UIColor(red: 248/255, green: 112/255, blue: 112/255, alpha: 1)
+        return view
     }()
     
-    let leftColorLabel: CircleLabel = {
-        let label = CircleLabel()
-        label.backgroundColor = UIColor(red: 248/255, green: 112/255, blue: 112/255, alpha: 1)
-        return label
+    let rightColorView: UIView = {
+        let view = CircleColorView()
+        view.backgroundColor = UIColor(red: 216/255, green: 129/255, blue: 248/255, alpha: 1)
+        return view
     }()
-    
-    let rightColorLabel: CircleLabel = {
-        let label = CircleLabel()
-        label.backgroundColor = UIColor(red: 216/255, green: 129/255, blue: 248/255, alpha: 1)
-        return label
-    }()
+   
     
     func setUpBottomContainerView() {
         
         translatesAutoresizingMaskIntoConstraints = false
-        [colorLabel,bottomDividerView, centerColorLabel, leftColorLabel, rightColorLabel].forEach{bottomContainerView.addSubview($0)}
+        [colorLabel,bottomDividerView, centerColorView, leftColorView, rightColorView].forEach{bottomContainerView.addSubview($0)}
 
         colorLabel.anchor(top: bottomContainerView.topAnchor, bottom: nil, leading: bottomContainerView.leadingAnchor, trailing: bottomContainerView.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 40))
 
         bottomDividerView.anchor(top: bottomContainerView.topAnchor, bottom: nil, leading: bottomContainerView.leadingAnchor, trailing: bottomContainerView.trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: -20), size: .init(width: 0, height: 1))
 
 
-        centerColorLabel.anchor(top: nil, bottom: nil, leading: nil, trailing: nil, size: .init(width: 44, height: 44))
+        centerColorView.anchor(top: nil, bottom: nil, leading: nil, trailing: nil, size: .init(width: 44, height: 44))
 
-        centerColorLabel.centerXAnchor.constraint(equalTo: bottomContainerView.centerXAnchor).isActive = true
-        centerColorLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
+        centerColorView.centerXAnchor.constraint(equalTo: bottomContainerView.centerXAnchor).isActive = true
+        centerColorView.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
 
-        leftColorLabel.anchor(top: nil, bottom: centerColorLabel.bottomAnchor, leading: nil, trailing: centerColorLabel.leadingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -10))
-        leftColorLabel.anchorSize(to: centerColorLabel)
+        leftColorView.anchor(top: nil, bottom: centerColorView.bottomAnchor, leading: nil, trailing: centerColorView.leadingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -10))
+        leftColorView.anchorSize(to: centerColorView)
 
-        rightColorLabel.anchor(top: nil, bottom: centerColorLabel.bottomAnchor, leading: centerColorLabel.trailingAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
+        rightColorView.anchor(top: nil, bottom: centerColorView.bottomAnchor, leading: centerColorView.trailingAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
 
-        rightColorLabel.anchorSize(to: centerColorLabel)
+        rightColorView.anchorSize(to: centerColorView)
    
     }
 
