@@ -1,13 +1,13 @@
 //
-//  CircleLabel.swift
+//  CircleView.swift
 //  Pomodoro
 //
-//  Created by Szymon Tadrzak on 23/10/2021.
+//  Created by Szymon Tadrzak on 02/11/2021.
 //
 
 import UIKit
 
-class CircleLabel: UILabel {
+class CircleView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,12 +18,9 @@ class CircleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {
-        textAlignment = .center
+    func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 22
         layer.masksToBounds = true
-        backgroundColor = #colorLiteral(red: 0.9421771169, green: 0.9406086802, blue: 0.9791585803, alpha: 1)
     }
-    
 }

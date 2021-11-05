@@ -378,30 +378,41 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         return view
     }()
     
-    let centerColorView: UIView = {
+    let centerColorView: CircleColorView = {
         let view = CircleColorView()
         view.backgroundColor = UIColor(red: 112/255, green: 243/255, blue: 248/255, alpha: 1)
         return view
     }()
 
-    let leftColorView: UIView = {
+    lazy var leftColorView: CircleColorView = {
         let view = CircleColorView()
         view.checkMarkView.isHidden = false
         view.backgroundColor = UIColor(red: 248/255, green: 112/255, blue: 112/255, alpha: 1)
         return view
     }()
     
-    let rightColorView: UIView = {
+    
+    let rightColorView: CircleColorView = {
         let view = CircleColorView()
         view.backgroundColor = UIColor(red: 216/255, green: 129/255, blue: 248/255, alpha: 1)
         return view
     }()
-   
+    
+    lazy var views = [leftColorView.checkMarkView, centerColorView.checkMarkView, rightColorView.checkMarkView]
+    
+    func moveCheckMark(view: CircleColorView) {
+        
+        for view in views {
+            view.isHidden = false
+        }
+    }
+
     
     func setUpBottomContainerView() {
+      
         
         translatesAutoresizingMaskIntoConstraints = false
-        [colorLabel,bottomDividerView, centerColorView, leftColorView, rightColorView].forEach{bottomContainerView.addSubview($0)}
+        [colorLabel,bottomDividerView, centerColorView, leftColorView, rightColorView,].forEach{bottomContainerView.addSubview($0)}
 
         colorLabel.anchor(top: bottomContainerView.topAnchor, bottom: nil, leading: bottomContainerView.leadingAnchor, trailing: bottomContainerView.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 40))
 
@@ -419,7 +430,7 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         rightColorView.anchor(top: nil, bottom: centerColorView.bottomAnchor, leading: centerColorView.trailingAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
 
         rightColorView.anchorSize(to: centerColorView)
-   
+ 
     }
 
     
