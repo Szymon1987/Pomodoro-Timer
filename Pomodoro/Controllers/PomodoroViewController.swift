@@ -9,11 +9,12 @@ import UIKit
 class PomodoroViewController: UIViewController {
     
     lazy var shapeLayer = CAShapeLayer()
-    var secondsRemaining: Double = 10 {
+    var secondsRemaining: Int = 1500 {
         didSet {
                 timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
                }
     }
+//    var pomodoroMinutes: Int = 25
     var timer = Timer()
     var isCounting = false
     var isAnimatingFirstTime = true
@@ -111,7 +112,6 @@ class PomodoroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         setupLayout()
         setupStackView()
         
@@ -161,7 +161,7 @@ class PomodoroViewController: UIViewController {
         let center = CGPoint(x: timerView.layer.bounds.midX, y: timerView.layer.bounds.midY)
         shapeLayer.position = center
         shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = ColorManager.pomodoroOrange.cgColor
         shapeLayer.lineWidth = 10
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = .round
@@ -187,7 +187,7 @@ class PomodoroViewController: UIViewController {
             timer.invalidate()
             startStop.text = "START"
             pauseAnimation()
-            
+    
         }
         else {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
@@ -230,7 +230,7 @@ class PomodoroViewController: UIViewController {
     }
     
     @objc func timerCounter() {
-        if secondsRemaining > 0 {
+        if secondsRemaining > 1 {
             secondsRemaining -= 1
         } else {
             timer.invalidate()
@@ -238,7 +238,7 @@ class PomodoroViewController: UIViewController {
             startStop.text = "START"
             isAnimatingFirstTime = true
             isCounting = false
-            print(timer.isValid)
+
         }
 //        timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
     }
@@ -250,18 +250,10 @@ class PomodoroViewController: UIViewController {
         return String(format:"%.2d:%.2d", minutes, seconds)
     }
     
-    func didUpdateUI(pomodoroMinutes: String) {
-        
-        // probably if statement will not be needed as pomodoro timer mnimum time will be something aroung 10 min
-        
-        if pomodoroMinutes.count < 2 {
-            timerLabel.text =  "0\(pomodoroMinutes):00"
-        } else {
+    func didUpdateTimer(pomodoroMinutes: Int) {
             timerLabel.text =  "\(pomodoroMinutes):00"
-        }
-        
     // probably something is wrong below
-        secondsRemaining = Double(pomodoroMinutes)! * 60
+        secondsRemaining = pomodoroMinutes * 60
 
         timer.invalidate()
         startStop.text = "START"
@@ -272,7 +264,7 @@ class PomodoroViewController: UIViewController {
         let maskToBound = 28.0
         let pomodoroLabel: UILabel = {
             let label = UILabel()
-            label.backgroundColor = UIColor(red: 241/255, green: 112/255, blue: 112/255, alpha: 1)
+            label.backgroundColor = ColorManager.pomodoroOrange
             label.layer.cornerRadius = maskToBound
             label.layer.masksToBounds = true
             label.text = "pomodoro"
@@ -315,7 +307,8 @@ class PomodoroViewController: UIViewController {
         stackView.layer.masksToBounds = true
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 4)
-        stackView.backgroundColor = #colorLiteral(red: 0.08357880265, green: 0.09788595885, blue: 0.1973884106, alpha: 1)
+        stackView.backgroundColor = ColorManager.pomodoroDarkPurple
+//        stackView.backgroundColor = #colorLiteral(red: 0.08357880265, green: 0.09788595885, blue: 0.1973884106, alpha: 1)
         
         view.addSubview(stackView)
         
@@ -326,7 +319,7 @@ class PomodoroViewController: UIViewController {
         
     }
     func setupLayout() {
-        
+        view.backgroundColor = ColorManager.pomodoroBackgroundPurple
         view.addSubview(timerView)
         
         portrait = [

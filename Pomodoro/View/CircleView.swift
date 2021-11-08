@@ -19,8 +19,13 @@ class CircleView: UIView {
     }
     
     func setup() {
+        isUserInteractionEnabled = true
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 22
         layer.masksToBounds = true
+    }
+    
+    func backgroundColor(bakkldjckds: UIColor) {
+        backgroundColor = bakkldjckds
     }
 }
