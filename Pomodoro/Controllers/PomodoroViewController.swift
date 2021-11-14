@@ -9,21 +9,12 @@ import UIKit
 class PomodoroViewController: UIViewController {
     
     lazy var shapeLayer = CAShapeLayer()
-    var secondsRemaining: Int = 1500 {
-        didSet {
-                timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
-               }
-    }
-//    var pomodoroMinutes: Int = 25
+    var secondsRemaining = 0
+    var pomodoroSeconds = 1500
     var timer = Timer()
     var isCounting = false
     var isAnimatingFirstTime = true
-    
-    var portrait: [NSLayoutConstraint]?
-    var landscape: [NSLayoutConstraint]?
-    var isPortrait: Bool = false
-   
-    
+
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -111,30 +102,11 @@ class PomodoroViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        secondsRemaining = pomodoroSeconds
         setupLayout()
         setupStackView()
-        
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
 
-//
-//        isPortrait = UIDevice.current.orientation.isPortrait
-//    print(isPortrait)
-//        if isPortrait {
-//            NSLayoutConstraint.deactivate(landscape!)
-//            NSLayoutConstraint.activate(portrait!)
-//            print("portrait")
-//        } else {
-//            NSLayoutConstraint.deactivate(portrait!)
-//            NSLayoutConstraint.activate(landscape!)
-//            print("landscape")
-//        }
-    }
-    
-    
     // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
     
     
@@ -240,7 +212,7 @@ class PomodoroViewController: UIViewController {
             isCounting = false
 
         }
-//        timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
+        timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
     }
     
     func timeString(time: TimeInterval) -> String {
@@ -251,13 +223,14 @@ class PomodoroViewController: UIViewController {
     }
     
     func didUpdateTimer(pomodoroMinutes: Int) {
-            timerLabel.text =  "\(pomodoroMinutes):00"
-    // probably something is wrong below
-        secondsRemaining = pomodoroMinutes * 60
+        pomodoroSeconds = pomodoroMinutes
+        // probably something is wrong below
+        secondsRemaining = pomodoroSeconds * 60
 
         timer.invalidate()
         startStop.text = "START"
         startAnimation()
+        timerLabel.text =  "\(pomodoroSeconds):00"
     }
     
     func setupStackView() {
@@ -322,24 +295,11 @@ class PomodoroViewController: UIViewController {
         view.backgroundColor = ColorManager.pomodoroBackgroundPurple
         view.addSubview(timerView)
         
-        portrait = [
-        timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
-        ]
-        
-        NSLayoutConstraint.activate(portrait!)
-        
-        landscape = [
-        timerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
-        timerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
-        ]
-        
-//        NSLayoutConstraint.activate(landscape!)
-        
+        timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
+
         view.addSubview(titleLabel)
         
         titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

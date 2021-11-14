@@ -11,7 +11,7 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var pomodoroVC: PomodoroViewController?
     
-    let pomodoroArray = (1...60).map{($0)}
+    let pomodoroArray = (10...60).map{($0)}
     let shortBreakArray = (3...10).map{($0)}
     let longBreakArray = (10...20).map{($0)}
     
@@ -107,10 +107,12 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         setUpBottomContainerView()
 //        shortBreakPickerView.delegate = self
 //        shortBreakPickerView.dataSource = self
-        
-        
-        //print(pomodoroArray, shortBreakArray, longBreakArray)
         backgroundColor = .white
+        
+        // chooses the default vaule for the minutes
+        self.pomodoroPickerView.selectRow(15, inComponent: 0, animated: false)
+//        self.shortBreakPickerView.selectRow(15, inComponent: 0, animated: false)
+//        self.longBreakPickerView.selectRow(15, inComponent: 0, animated: false)
     }
     
     required init?(coder: NSCoder) {
@@ -149,7 +151,6 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
-    
  
     @objc func applyButtonPressed() {
         
@@ -220,6 +221,7 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.translatesAutoresizingMaskIntoConstraints = false
+//        self.pickerView.selectRow(1, inComponent: 0, animated: false)
         return pickerView
     }()
 

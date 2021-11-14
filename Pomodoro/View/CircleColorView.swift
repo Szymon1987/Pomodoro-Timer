@@ -26,5 +26,4 @@ class CircleColorView: CircleView {
         checkMarkView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         checkMarkView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-    
 }
