@@ -313,9 +313,10 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         let view = CircleFontView()
         view.label.font = UIFont(name: "Apple SD Gothic Neo Heavy", size: 13)
         view.label.text = "Aa"
-        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
-        view.addGestureRecognizer(tap)
-        tap.view?.tag = 1
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
+//        view.addGestureRecognizer(tap)
+//        tap.view?.tag = 1
+        view.tap.view?.tag = 1
         return view
     }()
     
@@ -325,9 +326,10 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         view.label.textColor = .white
         view.label.font = UIFont(name: "MalayalamSangamMN", size: 13)
         view.label.text = "Aa"
-        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
-        view.addGestureRecognizer(tap)
-        tap.view?.tag = 0
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
+//        view.addGestureRecognizer(tap)
+//        tap.view?.tag = 0
+        view.tap.view?.tag = 0
         return view
     }()
     
@@ -335,15 +337,19 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         let view = CircleFontView()
         view.label.font = UIFont(name: "ChalkboardSE-Bold", size: 13)
         view.label.text = "Aa"
-        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
-        view.addGestureRecognizer(tap)
-        tap.view?.tag = 2
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
+//        view.addGestureRecognizer(tap)
+//        tap.view?.tag = 2
+        view.tap.view?.tag = 2
         return view
     }()
     
+    
+ 
     @objc func fontIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
         updateFontColor(selectedTag: getTag)
+        print("child")
     }
     
     func updateFontColor(selectedTag: Int) {

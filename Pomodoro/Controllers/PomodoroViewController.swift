@@ -14,6 +14,8 @@ class PomodoroViewController: UIViewController {
     var timer = Timer()
     var isCounting = false
     var isAnimatingFirstTime = true
+    let intervals = ["Pomodoro", "ShortBreak", "Pomodoro", "ShortBreak", "Pomodoro", "LongBreak"]
+    var currentInterval = 0
 
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -105,6 +107,9 @@ class PomodoroViewController: UIViewController {
         secondsRemaining = pomodoroSeconds
         setupLayout()
         setupStackView()
+        
+      
+        
     }
 
     // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
@@ -200,6 +205,29 @@ class PomodoroViewController: UIViewController {
         shapeLayer.beginTime = timeSincePause
         
     }
+    
+//    func startNextInterval() {
+//      if currentInterval < intervals.count {
+//    
+//        if intervals[currentInterval] == "Pomodoro" {
+//          // Pomodoro interval
+//          timeRemaining = pomodoroIntervalTime
+//          intervalLabel.text = "Pomodoro!"
+//          let tomatoes = (currentInterval + 2) / 2
+//          print("\(tomatoes) tomatoes")
+//          setTomatoMeter(to: tomatoes)
+//        } else {
+//          // Rest break interval
+//          timeRemaining = restBreakIntervalTime
+//          intervalLabel.text = "Rest break."
+//        }
+//        updateDisplay()
+//        startTimer()
+//        currentInterval += 1
+//      } else {
+//      
+//      }
+//    }
     
     @objc func timerCounter() {
         if secondsRemaining > 1 {
