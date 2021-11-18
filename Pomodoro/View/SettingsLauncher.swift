@@ -13,7 +13,7 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let pomodoroArray = (10...60).map{($0)}
     let shortBreakArray = (3...10).map{($0)}
-    let longBreakArray = (10...20).map{($0)}
+    let longBreakArray = (11...20).map{($0)}
     
     
     // set default value for this

@@ -9,13 +9,18 @@ import UIKit
 class PomodoroViewController: UIViewController {
     
     lazy var shapeLayer = CAShapeLayer()
+    var isAnimatingFirstTime = true
+    
     var secondsRemaining = 0
-    var pomodoroSeconds = 1500
+    var pomodoroSeconds = 6
+    var shortBreakSeconds = 3
+    var longBreakSeconds = 5
+    
     var timer = Timer()
     var isCounting = false
-    var isAnimatingFirstTime = true
+    
     let intervals = ["Pomodoro", "ShortBreak", "Pomodoro", "ShortBreak", "Pomodoro", "LongBreak"]
-    var currentInterval = 0
+    var currentInterval = 1
 
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -39,7 +44,7 @@ class PomodoroViewController: UIViewController {
     
     let timerLabel: UILabel = {
         let label = UILabel()
-        label.text = "25:00"
+        label.text = "00:06"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 50)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -104,14 +109,19 @@ class PomodoroViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        secondsRemaining = pomodoroSeconds
         setupLayout()
         setupStackView()
-        
-      
-        
+        secondsRemaining = pomodoroSeconds
     }
 
+    
+    func resetToBeginning() {
+        currentInterval = 0
+        secondsRemaining = 0
+        secondsRemaining = pomodoroSeconds
+        startStop.text = "START"
+        isCounting = false
+    }
     // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
     
     
@@ -120,11 +130,16 @@ class PomodoroViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupTimerShape()
-    }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
     }
+//
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//    }
+    
+    
+// MARK: Circle Timer Functions
+    
     
     func setupTimerShape() {
 
@@ -157,36 +172,7 @@ class PomodoroViewController: UIViewController {
 //        circleAnimation.isRemovedOnCompletion = false
         shapeLayer.add(circleAnimation, forKey: "animation")
     }
-
-    @objc func startStopTapped() {
-        if isCounting {
-            isCounting = false
-            timer.invalidate()
-            startStop.text = "START"
-            pauseAnimation()
     
-        }
-        else {
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
-            isCounting = true
-            startStop.text = "PAUSE"
-            startResumeAnimation()
-            
-        }
-    }
-    
-    func startResumeAnimation() {
-        if isAnimatingFirstTime {
-            startAnimation()
-            isAnimatingFirstTime = false
-            print("firsttime")
-        } else {
-            resumeAnimation()
-            isAnimatingFirstTime = true
-            print("resume")
-        }
-    }
-
     func pauseAnimation() {
         let pausedTime: CFTimeInterval = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
         shapeLayer.speed = 0.0
@@ -206,42 +192,79 @@ class PomodoroViewController: UIViewController {
         
     }
     
-//    func startNextInterval() {
-//      if currentInterval < intervals.count {
-//    
-//        if intervals[currentInterval] == "Pomodoro" {
-//          // Pomodoro interval
-//          timeRemaining = pomodoroIntervalTime
-//          intervalLabel.text = "Pomodoro!"
-//          let tomatoes = (currentInterval + 2) / 2
-//          print("\(tomatoes) tomatoes")
-//          setTomatoMeter(to: tomatoes)
-//        } else {
-//          // Rest break interval
-//          timeRemaining = restBreakIntervalTime
-//          intervalLabel.text = "Rest break."
-//        }
-//        updateDisplay()
-//        startTimer()
-//        currentInterval += 1
-//      } else {
-//      
-//      }
-//    }
+    func startResumeAnimation() {
+        if isAnimatingFirstTime {
+            startAnimation()
+            isAnimatingFirstTime = false
+        
+        } else {
+            resumeAnimation()
+            isAnimatingFirstTime = true
+        }
+    }
+
+    // MARK: Timer functions
     
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+    }
+    
+    @objc func startStopTapped() {
+        if isCounting {
+            isCounting = false
+            timer.invalidate()
+            startStop.text = "START"
+            pauseAnimation()
+        }
+        else {
+            isCounting = true
+            startStop.text = "PAUSE"
+            startResumeAnimation()
+            
+// we had to inform that next interval is about to start. Otherwise pomodoro time will run twice
+            if currentInterval == 0 && secondsRemaining == pomodoroSeconds {
+                startNextInterval()
+            } else {
+                startTimer()
+            }
+        }
+    }
+
     @objc func timerCounter() {
         if secondsRemaining > 1 {
             secondsRemaining -= 1
         } else {
             timer.invalidate()
-            secondsRemaining = 10
-            startStop.text = "START"
+            startNextInterval()
             isAnimatingFirstTime = true
-            isCounting = false
 
         }
         timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
     }
+    
+    
+    func startNextInterval() {
+
+      if currentInterval < intervals.count  {
+        if intervals[currentInterval] == "Pomodoro" {
+            secondsRemaining = pomodoroSeconds
+
+
+        } else if intervals[currentInterval] == "ShortBreak" {
+            secondsRemaining = shortBreakSeconds
+
+        } else if intervals[currentInterval] == "LongBreak" {
+                    secondsRemaining = longBreakSeconds
+      }
+          currentInterval += 1
+          startTimer()
+          startAnimation()
+      } else {
+          resetToBeginning()
+      }
+        
+}
+    
     
     func timeString(time: TimeInterval) -> String {
 //        let hours = Int(time) / 3600
@@ -253,7 +276,6 @@ class PomodoroViewController: UIViewController {
     func didUpdateTimer(pomodoroMinutes: Int) {
         pomodoroSeconds = pomodoroMinutes
         // probably something is wrong below
-        secondsRemaining = pomodoroSeconds * 60
 
         timer.invalidate()
         startStop.text = "START"
