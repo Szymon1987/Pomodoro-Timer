@@ -142,8 +142,8 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         let button = UIButton(type: .system)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Apply", for: .normal)
-        let applyButtonColor = ColorManager.pomodoroOrange
-        button.backgroundColor = applyButtonColor
+//        let applyButtonColor = ColorManager.pomodoroOrange
+        button.backgroundColor = ColorManager.pomodoroOrange
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.layer.cornerRadius = 26
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -155,7 +155,7 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     @objc func applyButtonPressed() {
         
         if let pomodoroVC = pomodoroVC {
-            pomodoroVC.didUpdateTimer(pomodoroMinutes: pomodoroMinutes)
+            pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
         }
     }
     
@@ -439,6 +439,14 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     @objc func colorIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
         updateCheckmarkPosition(selectedTag: getTag)
+
+        if let senderColor = sender.view?.backgroundColor {
+            applyButton.backgroundColor = senderColor
+            pomodoroVC?.pomodoroLabel.backgroundColor = senderColor
+            pomodoroVC?.labelColor = senderColor
+        }
+        
+        
     }
     
     func updateCheckmarkPosition(selectedTag: Int) {

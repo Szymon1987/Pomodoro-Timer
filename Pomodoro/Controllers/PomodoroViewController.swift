@@ -12,14 +12,29 @@ class PomodoroViewController: UIViewController {
     var isAnimatingFirstTime = true
     
     var secondsRemaining = 0
-    var pomodoroSeconds = 6
-    var shortBreakSeconds = 3
-    var longBreakSeconds = 5
+    var pomodoroSeconds = 4
+    var shortBreakSeconds = 2
+    var longBreakSeconds = 3
     
     var timer = Timer()
     var isCounting = false
     
-    let intervals = ["Pomodoro", "ShortBreak", "Pomodoro", "ShortBreak", "Pomodoro", "LongBreak"]
+    var labelColor = ColorManager.pomodoroOrange {
+        didSet {
+            shapeLayer.strokeColor = labelColor.cgColor
+        }
+    }
+    
+    enum TimeIntervals {
+        case pomodoro
+        case shortBreak
+        case longBreak
+    }
+    let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .shortBreak, .pomodoro, .longBreak]
+  
+   
+    
+//    let intervals = ["Pomodoro", "ShortBreak", "Pomodoro", "ShortBreak", "Pomodoro", "LongBreak"]
     var currentInterval = 1
 
     let titleLabel: UILabel = {
@@ -33,7 +48,7 @@ class PomodoroViewController: UIViewController {
         return label
     }()
     
-    let menuLabel: UILabel = {
+    let intervalsBackgroundLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .green
@@ -109,8 +124,8 @@ class PomodoroViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupLayout()
-        setupStackView()
         secondsRemaining = pomodoroSeconds
     }
 
@@ -121,6 +136,10 @@ class PomodoroViewController: UIViewController {
         secondsRemaining = pomodoroSeconds
         startStop.text = "START"
         isCounting = false
+        shapeLayer.removeAllAnimations()
+        pomodoroLabel.backgroundColor = labelColor
+        longBreakLabel.backgroundColor = .clear
+
     }
     // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
     
@@ -162,8 +181,10 @@ class PomodoroViewController: UIViewController {
     }
 
     
-    fileprivate func startAnimation() {
-        let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
+    // should circleAnimation be inside the startAnimation()?
+    private let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
+    
+    private func startAnimation() {
         circleAnimation.fromValue = 1
         circleAnimation.toValue = 0
         circleAnimation.duration = CFTimeInterval(secondsRemaining)
@@ -246,15 +267,25 @@ class PomodoroViewController: UIViewController {
     func startNextInterval() {
 
       if currentInterval < intervals.count  {
-        if intervals[currentInterval] == "Pomodoro" {
+          if intervals[currentInterval] == .pomodoro {
             secondsRemaining = pomodoroSeconds
+              pomodoroLabel.backgroundColor = labelColor
+              shortBreakLabel.backgroundColor = .clear
+              longBreakLabel.backgroundColor = .clear
+              
 
 
-        } else if intervals[currentInterval] == "ShortBreak" {
+          } else if intervals[currentInterval] == .shortBreak {
             secondsRemaining = shortBreakSeconds
+              shortBreakLabel.backgroundColor = labelColor
+              pomodoroLabel.backgroundColor = .clear
+              longBreakLabel.backgroundColor = .clear
 
-        } else if intervals[currentInterval] == "LongBreak" {
+          } else if intervals[currentInterval] == .longBreak {
                     secondsRemaining = longBreakSeconds
+              longBreakLabel.backgroundColor = labelColor
+              pomodoroLabel.backgroundColor = .clear
+              shortBreakLabel.backgroundColor = .clear
       }
           currentInterval += 1
           startTimer()
@@ -273,22 +304,22 @@ class PomodoroViewController: UIViewController {
         return String(format:"%.2d:%.2d", minutes, seconds)
     }
     
-    func didUpdateTimer(pomodoroMinutes: Int) {
-        pomodoroSeconds = pomodoroMinutes
-        // probably something is wrong below
-
+    func didUpdateTimer(with pomodoroTime: Int, with shortBreakTime: Int, with longBreakTime: Int) {
+        
+        timerLabel.text =  "\(pomodoroTime):00"
+        pomodoroSeconds = pomodoroTime * 60
+        shortBreakSeconds = shortBreakTime * 60
+        longBreakSeconds = longBreakTime * 60
         timer.invalidate()
         startStop.text = "START"
-        startAnimation()
-        timerLabel.text =  "\(pomodoroSeconds):00"
+        resetToBeginning()
+        
     }
     
-    func setupStackView() {
-        let maskToBound = 28.0
         let pomodoroLabel: UILabel = {
             let label = UILabel()
             label.backgroundColor = ColorManager.pomodoroOrange
-            label.layer.cornerRadius = maskToBound
+            label.layer.cornerRadius = 28.0
             label.layer.masksToBounds = true
             label.text = "pomodoro"
             label.textAlignment = .center
@@ -300,7 +331,7 @@ class PomodoroViewController: UIViewController {
         let shortBreakLabel: UILabel = {
             let label = UILabel()
 //            label.backgroundColor = .red
-            label.layer.cornerRadius = maskToBound
+            label.layer.cornerRadius = 28.0
             label.layer.masksToBounds = true
             label.text = "short break"
             label.textAlignment = .center
@@ -313,7 +344,7 @@ class PomodoroViewController: UIViewController {
         let longBreakLabel: UILabel = {
             let label = UILabel()
 //            label.backgroundColor = .blue
-            label.layer.cornerRadius = maskToBound
+            label.layer.cornerRadius = 28.0
             label.layer.masksToBounds = true
             label.text = "long break"
             label.textAlignment = .center
@@ -322,18 +353,20 @@ class PomodoroViewController: UIViewController {
             return label
             
         }()
+    func setupStackView() {
         
         let stackView = UIStackView(arrangedSubviews: [pomodoroLabel, shortBreakLabel, longBreakLabel])
+        view.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
-        stackView.layer.cornerRadius = maskToBound
+        stackView.layer.cornerRadius = 28
         stackView.layer.masksToBounds = true
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 4)
         stackView.backgroundColor = ColorManager.pomodoroDarkPurple
 //        stackView.backgroundColor = #colorLiteral(red: 0.08357880265, green: 0.09788595885, blue: 0.1973884106, alpha: 1)
         
-        view.addSubview(stackView)
+        
         
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
@@ -373,6 +406,9 @@ class PomodoroViewController: UIViewController {
         settingsIconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         settingsIconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
         settingsIconView.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        setupStackView()
+        
     }
 }
 
