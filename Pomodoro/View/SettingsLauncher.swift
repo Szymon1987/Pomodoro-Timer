@@ -12,14 +12,14 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     var pomodoroVC: PomodoroViewController?
     
     let pomodoroArray = (10...60).map{($0)}
-    let shortBreakArray = (3...10).map{($0)}
-    let longBreakArray = (11...20).map{($0)}
+    let shortBreakArray = (3...8).map{($0)}
+    let longBreakArray = (9...20).map{($0)}
     
     
     // set default value for this
     var pomodoroMinutes = 25
-    var shortBreakTime = 5
-    var longBreakTime = 10
+    var shortBreakMinutes = 5
+    var longBreakMinutes = 10
     
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -83,9 +83,9 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         case pomodoroPickerView:
             pomodoroMinutes = pomodoroArray[row]
         case shortBreakPickerView:
-            shortBreakTime = shortBreakArray[row]
+            shortBreakMinutes = shortBreakArray[row]
         default:
-            longBreakTime = longBreakArray[row]
+            longBreakMinutes = longBreakArray[row]
         }
 //        if pickerView == pomodoroPickerView {
 //            pomodoroMinutes = String(pomodoroArray[row])
@@ -111,8 +111,8 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         // chooses the default vaule for the minutes
         self.pomodoroPickerView.selectRow(15, inComponent: 0, animated: false)
-//        self.shortBreakPickerView.selectRow(15, inComponent: 0, animated: false)
-//        self.longBreakPickerView.selectRow(15, inComponent: 0, animated: false)
+        self.shortBreakPickerView.selectRow(2, inComponent: 0, animated: false)
+        self.longBreakPickerView.selectRow(1, inComponent: 0, animated: false)
     }
     
     required init?(coder: NSCoder) {
