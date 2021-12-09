@@ -8,7 +8,7 @@
 import UIKit
 
 class CircleView: UIView {
-    lazy var tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
+//    lazy var tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +24,9 @@ class CircleView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 22
         layer.masksToBounds = true
-        self.addGestureRecognizer(tap)
+//        self.addGestureRecognizer(tap)
     }
-    @objc func fontIconTapped(sender: UITapGestureRecognizer) {
-      print("parent")
-    }
+//    @objc func fontIconTapped(sender: UITapGestureRecognizer) {
+//      print("parent")
+//    }
 }

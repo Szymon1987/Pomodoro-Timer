@@ -11,12 +11,10 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var pomodoroVC: PomodoroViewController?
     
-    let pomodoroArray = (10...60).map{($0)}
-    let shortBreakArray = (3...8).map{($0)}
-    let longBreakArray = (9...20).map{($0)}
-    
-    
-    // set default value for this
+    let pomodoroArray = (10...60).map{$0}
+    let shortBreakArray = (3...8).map{$0}
+    let longBreakArray = (9...20).map{$0}
+
     var pomodoroMinutes = 25
     var shortBreakMinutes = 5
     var longBreakMinutes = 10
@@ -36,17 +34,6 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         }
 
     }
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//
-//        if pickerView == pomodoroPickerView {
-//            return String(pomodoroArray[row])
-//        } else if pickerView == shortBreakPickerView {
-//            return String(shortBreakArray[row])
-//        } else {
-//            return String(longBreakArray[row])
-//        }
-//
-//    }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
     
@@ -87,14 +74,6 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         default:
             longBreakMinutes = longBreakArray[row]
         }
-//        if pickerView == pomodoroPickerView {
-//            pomodoroMinutes = String(pomodoroArray[row])
-//            print(pomodoroMinutes)
-//        } else if pickerView == shortBreakPickerView {
-//            shortBreakTime = String(shortBreakArray[row])
-//        } else {
-//            longBreakTime = String(longBreakArray[row])
-//        }
         
     }
     
@@ -142,7 +121,6 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         let button = UIButton(type: .system)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Apply", for: .normal)
-//        let applyButtonColor = ColorManager.pomodoroOrange
         button.backgroundColor = ColorManager.pomodoroOrange
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.layer.cornerRadius = 26
@@ -221,7 +199,6 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.translatesAutoresizingMaskIntoConstraints = false
-//        self.pickerView.selectRow(1, inComponent: 0, animated: false)
         return pickerView
     }()
 
@@ -311,12 +288,12 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     lazy var centerFontView: CircleFontView = {
         let view = CircleFontView()
-        view.label.font = UIFont(name: "Apple SD Gothic Neo Heavy", size: 13)
+        view.label.font = UIFont(name: "ArialRoundedMTBold", size: 13)
         view.label.text = "Aa"
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
-//        view.addGestureRecognizer(tap)
-//        tap.view?.tag = 1
-        view.tap.view?.tag = 1
+        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
+        view.addGestureRecognizer(tap)
+        tap.view?.tag = 1
+//        view.tap.view?.tag = 1
         return view
     }()
     
@@ -326,21 +303,22 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         view.label.textColor = .white
         view.label.font = UIFont(name: "MalayalamSangamMN", size: 13)
         view.label.text = "Aa"
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
-//        view.addGestureRecognizer(tap)
-//        tap.view?.tag = 0
-        view.tap.view?.tag = 0
+        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
+        view.addGestureRecognizer(tap)
+        tap.view?.tag = 0
+//        view.tap.view?.tag = 0
         return view
     }()
     
     lazy var rightFontView: CircleFontView = {
         let view = CircleFontView()
+        let font = UIFont.systemFont(ofSize: 16)
         view.label.font = UIFont(name: "ChalkboardSE-Bold", size: 13)
         view.label.text = "Aa"
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
-//        view.addGestureRecognizer(tap)
-//        tap.view?.tag = 2
-        view.tap.view?.tag = 2
+        let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
+        view.addGestureRecognizer(tap)
+        tap.view?.tag = 2
+//        view.tap.view?.tag = 2
         return view
     }()
     
@@ -349,7 +327,15 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     @objc func fontIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
         updateFontColor(selectedTag: getTag)
-        print("child")
+        if let pomodoroVC = pomodoroVC {
+            if sender.view?.tag == 0 {
+                pomodoroVC.customizedFont = "MalayalamSangamMN"
+            } else if sender.view?.tag == 1 {
+                pomodoroVC.customizedFont = "ArialRoundedMTBold"
+            } else if sender.view?.tag == 2 {
+                pomodoroVC.customizedFont = "ChalkboardSE-Bold"
+            }
+        }
     }
     
     func updateFontColor(selectedTag: Int) {
@@ -435,18 +421,27 @@ class SettingsLauncher: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         return view
     }()
     
-    
+
     @objc func colorIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
         updateCheckmarkPosition(selectedTag: getTag)
 
         if let senderColor = sender.view?.backgroundColor {
             applyButton.backgroundColor = senderColor
-            pomodoroVC?.pomodoroLabel.backgroundColor = senderColor
-            pomodoroVC?.labelColor = senderColor
+            if let pomodoroVC = pomodoroVC {
+                pomodoroVC.labelColor = senderColor
+                
+// such messy code below.... :/ fix bloody else statements
+                
+                if pomodoroVC.currentInterval == 0 || pomodoroVC.currentInterval == 1 || pomodoroVC.currentInterval == 3 || pomodoroVC.currentInterval == 5 {
+                    pomodoroVC.pomodoroLabel.backgroundColor = senderColor
+                } else if pomodoroVC.currentInterval == 2 || pomodoroVC.currentInterval == 4 {
+                    pomodoroVC.shortBreakLabel.backgroundColor = senderColor
+                } else if pomodoroVC.currentInterval == 6 {
+                    pomodoroVC.longBreakLabel.backgroundColor = senderColor
+                }
+            }
         }
-        
-        
     }
     
     func updateCheckmarkPosition(selectedTag: Int) {
