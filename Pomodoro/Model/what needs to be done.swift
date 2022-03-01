@@ -1,6 +1,6 @@
 /*
  
- - CASgradienl layer around the circle clocl
+ - CASgradienlt layer around the circle clock
  - fix corner radious to be dinamically (it doesn't look good on larger screens right now)
  - maybe also fixing the font sizes dinamically as well
  - implement MVC design pattern

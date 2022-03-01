@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class CircleColorView: CircleView {
             
     lazy var checkMarkView: UIImageView = {
