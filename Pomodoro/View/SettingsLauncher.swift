@@ -22,7 +22,7 @@ class SettingsLauncher: UIView {
     var longBreakMinutes = 10
     
     var fontName: String?
-    var colorTheme: String?
+    var colorTheme: UIColor?
     
     //MARK: - Initialization
     
@@ -175,7 +175,6 @@ class SettingsLauncher: UIView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
         view.addGestureRecognizer(tap)
         tap.view?.tag = 0
-//        view.tap.view?.tag = 0
         return view
     }()
     
@@ -185,8 +184,6 @@ class SettingsLauncher: UIView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
         view.addGestureRecognizer(tap)
         tap.view?.tag = 2
-//        view.tap.view?.tag = 2
-        
         return view
     }()
     
@@ -253,13 +250,17 @@ class SettingsLauncher: UIView {
         return button
     }()
     
-    //MARK - Helpers
+    //MARK: - Helpers
  
     @objc func applyButtonPressed() {
-        if let pomodoroVC = pomodoroVC, let fontName = fontName {
+        if let pomodoroVC = pomodoroVC {
             pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
-            pomodoroVC.customizedFont = fontName
-        
+            if let fontName = fontName {
+                pomodoroVC.customizedFont = fontName
+            }
+            if let colorTheme = colorTheme {
+                pomodoroVC.labelColor = colorTheme
+            }
         }
         removeFromSuperview()
     }
@@ -271,17 +272,7 @@ class SettingsLauncher: UIView {
     
     @objc func fontIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
-        updateFontColor(selectedTag: getTag)
-//        if let pomodoroVC = pomodoroVC {
-//            if sender.view?.tag == 0 {
-//                pomodoroVC.customizedFont = "MalayalamSangamMN"
-//            } else if sender.view?.tag == 1 {
-//                pomodoroVC.customizedFont = "ArialRoundedMTBold"
-//            } else if sender.view?.tag == 2 {
-//                pomodoroVC.customizedFont = "ChalkboardSE-Bold"
-//            }
-//        }
-        
+        updateFontViewBackgroundColor(selectedTag: getTag)
         switch sender.view?.tag {
         case 0:
             fontName = "MalayalamSangamMN"
@@ -294,10 +285,10 @@ class SettingsLauncher: UIView {
         }
     }
     
-    func updateFontColor(selectedTag: Int) {
+    func updateFontViewBackgroundColor(selectedTag: Int) {
         let views = [leftFontView, centerFontView, rightFontView]
         for view in views {
-            view.backgroundColor = #colorLiteral(red: 0.9333208203, green: 0.9437040687, blue: 0.9826990962, alpha: 1)
+            view.backgroundColor = ColorManager.fontViewBackgroundColor
             view.label.textColor = .black
         }
         views[selectedTag].backgroundColor = .black
@@ -310,27 +301,27 @@ class SettingsLauncher: UIView {
 
         if let senderColor = sender.view?.backgroundColor {
             applyButton.backgroundColor = senderColor
-            if let pomodoroVC = pomodoroVC {
-                pomodoroVC.labelColor = senderColor
-                
-// such messy code below.... :/ fix bloody else statements
-                
-                if pomodoroVC.currentInterval == 0 || pomodoroVC.currentInterval == 1 || pomodoroVC.currentInterval == 3 || pomodoroVC.currentInterval == 5 {
-                    pomodoroVC.pomodoroLabel.backgroundColor = senderColor
-                } else if pomodoroVC.currentInterval == 2 || pomodoroVC.currentInterval == 4 {
-                    pomodoroVC.shortBreakLabel.backgroundColor = senderColor
-                } else if pomodoroVC.currentInterval == 6 {
-                    pomodoroVC.longBreakLabel.backgroundColor = senderColor
-                }
-            }
+//            if let pomodoroVC = pomodoroVC {
+//                pomodoroVC.labelColor = senderColor
+//
+//// such messy code below.... :/ fix bloody else statements
+//
+//                if pomodoroVC.currentInterval == 0 || pomodoroVC.currentInterval == 1 || pomodoroVC.currentInterval == 3 || pomodoroVC.currentInterval == 5 {
+//                    pomodoroVC.pomodoroLabel.backgroundColor = senderColor
+//                } else if pomodoroVC.currentInterval == 2 || pomodoroVC.currentInterval == 4 {
+//                    pomodoroVC.shortBreakLabel.backgroundColor = senderColor
+//                } else if pomodoroVC.currentInterval == 6 {
+//                    pomodoroVC.longBreakLabel.backgroundColor = senderColor
+//                }
+//            }
+            
+            colorTheme = senderColor
         }
     }
     
     func updateCheckmarkPosition(selectedTag: Int) {
         let views = [leftColorView, centerColorView, rightColorView]
-        for view in views {
-            view.checkMarkView.isHidden = true
-        }
+        views.forEach {$0.checkMarkView.isHidden = true}
         views[selectedTag].checkMarkView.isHidden = false
     }
     

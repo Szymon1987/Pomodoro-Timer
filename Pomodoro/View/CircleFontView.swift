@@ -11,11 +11,11 @@ class CircleFontView: CircleView {
     
 //    lazy var tap = UITapGestureRecognizer(target: self, action: #selector(fontViewTapped(_:)))
     let label = UILabel()
-//    var fontName: String?
+//    var fontString: String?
     
     override func setup() {
         super.setup()
-        backgroundColor = #colorLiteral(red: 0.9333208203, green: 0.9437040687, blue: 0.9826990962, alpha: 1)
+        backgroundColor = ColorManager.fontViewBackgroundColor
         label.text = "Aa"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)

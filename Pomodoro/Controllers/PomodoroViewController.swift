@@ -29,13 +29,7 @@ class PomodoroViewController: UIViewController {
         case longBreak
     }
     let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .shortBreak, .pomodoro, .longBreak]
-    
-    var labelColor = ColorManager.pomodoroOrange {
-        didSet {
-            shapeLayer.strokeColor = labelColor.cgColor
-        }
-    }
-    
+        
     var customizedFont: String = "MalayalamSangamMN" {
         didSet {
             titleLabel.font = UIFont(name: customizedFont, size: titleLabel.font.pointSize)
@@ -46,6 +40,14 @@ class PomodoroViewController: UIViewController {
             timerLabel.font = UIFont(name: customizedFont, size: timerLabel.font.pointSize)
         }
     }
+    
+    var labelColor = ColorManager.pomodoroOrange {
+        didSet {
+            shapeLayer.strokeColor = labelColor.cgColor
+            changeLabelBackgroundColor()
+        }
+    }
+    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -53,7 +55,7 @@ class PomodoroViewController: UIViewController {
         setupLayout()
         secondsRemaining = pomodoroSeconds
     }
-    
+  
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupTimerShape()
@@ -75,7 +77,6 @@ class PomodoroViewController: UIViewController {
         label.textColor = .white
         let fontName = "MalayalamSangamMN"
         label.font = UIFont(name: fontName, size: 24)
-//        label.font = UIFont.boldSystemFont(ofSize: 24)
         return label
     }()
     
@@ -135,7 +136,7 @@ class PomodoroViewController: UIViewController {
     
     let shortBreakLabel: UILabel = {
         let label = UILabel()
-//            label.backgroundColor = .red
+            label.backgroundColor = .clear
         label.layer.cornerRadius = 28.0
         label.layer.masksToBounds = true
         label.text = "short break"
@@ -143,7 +144,6 @@ class PomodoroViewController: UIViewController {
         label.textColor = ColorManager.lightTextColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
-        
     }()
     
     let longBreakLabel: UILabel = {
@@ -259,16 +259,29 @@ class PomodoroViewController: UIViewController {
     @objc func settingsIconTapped() {
         setupSettingsLauncher()
     }
+    
+    func changeLabelBackgroundColor() {
+        
+        let labels = [pomodoroLabel, shortBreakLabel, longBreakLabel]
+        for label in labels {
+            if label.backgroundColor != .clear {
+                label.backgroundColor = labelColor
+            } else {
+                label.backgroundColor = .clear
+            }
+        }
+//        if currentInterval == 0 || currentInterval == 1 || currentInterval ==
+//
+//        if pomodoroVC.currentInterval == 0 || pomodoroVC.currentInterval == 1 || pomodoroVC.currentInterval == 3 || pomodoroVC.currentInterval == 5 {
+//            pomodoroVC.pomodoroLabel.backgroundColor = senderColor
+//        } else if pomodoroVC.currentInterval == 2 || pomodoroVC.currentInterval == 4 {
+//            pomodoroVC.shortBreakLabel.backgroundColor = senderColor
+//        } else if pomodoroVC.currentInterval == 6 {
+//            pomodoroVC.longBreakLabel.backgroundColor = senderColor
+//        }
+//    }
+    }
 
-    
-    // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
-    
-    
-    // This method is needed to call setupTimierAnimation() only once after view is loaded and we can set up the size of the circle based on the UIView size. In viewDidLoad() this function doesn't work as the seize of the view is unknown at that time
-   
-
-    
-    
 // MARK: Circle Timer Functions
     
     func setupTimerShape() {
@@ -300,7 +313,7 @@ class PomodoroViewController: UIViewController {
         circleAnimation.toValue = 0
         circleAnimation.duration = CFTimeInterval(secondsRemaining)
         
-        // apparently it is bad practise to set "isRemovedOnCompletion = false"
+        // apparently it is a bad practise to set "isRemovedOnCompletion = false"
 //        circleAnimation.isRemovedOnCompletion = false
         shapeLayer.add(circleAnimation, forKey: "animation")
     }
@@ -353,7 +366,7 @@ class PomodoroViewController: UIViewController {
             startStop.text = "PAUSE"
             startResumeAnimation()
             
-// we had to inform that next interval is about to start. Otherwise pomodoro time will run twice
+// we have to inform that next interval is about to start. Otherwise pomodoro time will run twice
             if currentInterval == 0 && secondsRemaining == pomodoroSeconds {
                 startNextInterval()
             } else {
@@ -443,7 +456,6 @@ class PomodoroViewController: UIViewController {
         resetToBeginning()
         
     }
-
 }
 
 
