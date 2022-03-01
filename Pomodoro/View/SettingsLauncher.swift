@@ -256,8 +256,9 @@ class SettingsLauncher: UIView {
     //MARK - Helpers
  
     @objc func applyButtonPressed() {
-        if let pomodoroVC = pomodoroVC {
+        if let pomodoroVC = pomodoroVC, let fontName = fontName {
             pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
+            pomodoroVC.customizedFont = fontName
         
         }
         removeFromSuperview()
@@ -271,14 +272,25 @@ class SettingsLauncher: UIView {
     @objc func fontIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
         updateFontColor(selectedTag: getTag)
-        if let pomodoroVC = pomodoroVC {
-            if sender.view?.tag == 0 {
-                pomodoroVC.customizedFont = "MalayalamSangamMN"
-            } else if sender.view?.tag == 1 {
-                pomodoroVC.customizedFont = "ArialRoundedMTBold"
-            } else if sender.view?.tag == 2 {
-                pomodoroVC.customizedFont = "ChalkboardSE-Bold"
-            }
+//        if let pomodoroVC = pomodoroVC {
+//            if sender.view?.tag == 0 {
+//                pomodoroVC.customizedFont = "MalayalamSangamMN"
+//            } else if sender.view?.tag == 1 {
+//                pomodoroVC.customizedFont = "ArialRoundedMTBold"
+//            } else if sender.view?.tag == 2 {
+//                pomodoroVC.customizedFont = "ChalkboardSE-Bold"
+//            }
+//        }
+        
+        switch sender.view?.tag {
+        case 0:
+            fontName = "MalayalamSangamMN"
+        case 1:
+            fontName = "ArialRoundedMTBold"
+        case 2:
+            fontName = "ChalkboardSE-Bold"
+        default:
+            print("Error switching fonts")
         }
     }
     

@@ -8,6 +8,8 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
+    // MARK: - Properties
+    
     lazy var shapeLayer = CAShapeLayer()
     var isAnimatingFirstTime = true
     
@@ -21,13 +23,19 @@ class PomodoroViewController: UIViewController {
     
     var currentInterval = 1
     
+    enum TimeIntervals {
+        case pomodoro
+        case shortBreak
+        case longBreak
+    }
+    let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .shortBreak, .pomodoro, .longBreak]
+    
     var labelColor = ColorManager.pomodoroOrange {
         didSet {
             shapeLayer.strokeColor = labelColor.cgColor
         }
     }
     
-    // does it always have to have a values?
     var customizedFont: String = "MalayalamSangamMN" {
         didSet {
             titleLabel.font = UIFont(name: customizedFont, size: titleLabel.font.pointSize)
@@ -38,14 +46,26 @@ class PomodoroViewController: UIViewController {
             timerLabel.font = UIFont(name: customizedFont, size: timerLabel.font.pointSize)
         }
     }
+    //MARK: - LifeCycle
     
-    enum TimeIntervals {
-        case pomodoro
-        case shortBreak
-        case longBreak
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupLayout()
+        secondsRemaining = pomodoroSeconds
     }
-    let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .shortBreak, .pomodoro, .longBreak]
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupTimerShape()
+    }
+//
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//    }
+   
 
+    //MARK: - UIComponents
+    
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -78,10 +98,7 @@ class PomodoroViewController: UIViewController {
         //label.backgroundColor = .red
         return label
     }()
-    
-    
-    // lazy var "business" here is needed otherwise "addGestureRecignizer" doesn't work
-    
+
     lazy var startStop: UILabel = {
         let label = UILabel()
         label.text = "START"
@@ -104,6 +121,43 @@ class PomodoroViewController: UIViewController {
         return view
     }()
     
+    let pomodoroLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = ColorManager.pomodoroOrange
+        label.layer.cornerRadius = 28.0
+        label.layer.masksToBounds = true
+        label.text = "pomodoro"
+        label.textAlignment = .center
+        label.textColor = ColorManager.darkPurple
+        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
+        return label
+    }()
+    
+    let shortBreakLabel: UILabel = {
+        let label = UILabel()
+//            label.backgroundColor = .red
+        label.layer.cornerRadius = 28.0
+        label.layer.masksToBounds = true
+        label.text = "short break"
+        label.textAlignment = .center
+        label.textColor = ColorManager.lightTextColor
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        return label
+        
+    }()
+    
+    let longBreakLabel: UILabel = {
+        let label = UILabel()
+//            label.backgroundColor = .blue
+        label.layer.cornerRadius = 28.0
+        label.layer.masksToBounds = true
+        label.text = "long break"
+        label.textAlignment = .center
+        label.textColor = ColorManager.lightTextColor
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        return label
+    }()
+    
     lazy var settingsIconView: UIImageView = {
         let image = UIImage(systemName: "gearshape.fill")
         let imageView = UIImageView(image: image)
@@ -116,7 +170,7 @@ class PomodoroViewController: UIViewController {
         return imageView
     }()
     
-    // why lazy var and why st.pomodoroVC = self???
+    // why lazy var and why st.pomodoroVC = self??? check if st.pomodoroVC = self is needed here
     
     lazy var settingsLauncher: SettingsLauncher = {
         let st = SettingsLauncher()
@@ -124,8 +178,10 @@ class PomodoroViewController: UIViewController {
         return st
     }()
     
-    func setupSettingsLauncher() {
+    //MARK: - SettingUp The Views Methods
     
+    
+    func setupSettingsLauncher() {
         view.addSubview(settingsLauncher)
         
 //        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 280).isActive = true
@@ -139,46 +195,81 @@ class PomodoroViewController: UIViewController {
         settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
     }
     
+    func setupStackView() {
+        
+        let stackView = UIStackView(arrangedSubviews: [pomodoroLabel, shortBreakLabel, longBreakLabel])
+        view.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillEqually
+        stackView.layer.cornerRadius = 28
+        stackView.layer.masksToBounds = true
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 4)
+        stackView.backgroundColor = ColorManager.darkPurple
+//        stackView.backgroundColor = #colorLiteral(red: 0.08357880265, green: 0.09788595885, blue: 0.1973884106, alpha: 1)
+        
+        
+        
+        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
+        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+        stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
+        
+    }
+    func setupLayout() {
+        view.backgroundColor = ColorManager.backgroundPurple
+        view.addSubview(timerView)
+        
+        
+        timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
+
+        view.addSubview(titleLabel)
+        
+        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
+        
+        timerView.addSubview(timerLabel)
+        
+        timerLabel.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
+        timerLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
+        
+        timerView.addSubview(startStop)
+        
+        startStop.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 20).isActive = true
+        startStop.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
+        
+        view.addSubview(settingsIconView)
+        
+        settingsIconView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        settingsIconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        settingsIconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        settingsIconView.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        setupStackView()
+        
+    }
+    
+    //MARK: - Helpers
+    
     @objc func settingsIconTapped() {
         setupSettingsLauncher()
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupLayout()
-        secondsRemaining = pomodoroSeconds
-    }
 
-    func resetToBeginning() {
-        currentInterval = 0
-        secondsRemaining = 0
-        secondsRemaining = pomodoroSeconds
-        startStop.text = "START"
-        isCounting = false
-        shapeLayer.removeAllAnimations()
-        pomodoroLabel.backgroundColor = labelColor
-        pomodoroLabel.textColor = ColorManager.darkPurple
-        longBreakLabel.backgroundColor = .clear
-        longBreakLabel.textColor = ColorManager.lightTextColor
-    }
+    
     // Function setupAnimation can be fire only once thus it can't be in the viewDidLayoutSubviews as it is fired every time when UI changes (label or rotation of the screen)
     
     
     // This method is needed to call setupTimierAnimation() only once after view is loaded and we can set up the size of the circle based on the UIView size. In viewDidLoad() this function doesn't work as the seize of the view is unknown at that time
    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setupTimerShape()
-    
-    }
-//
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//    }
+
     
     
 // MARK: Circle Timer Functions
-    
     
     func setupTimerShape() {
 
@@ -322,7 +413,18 @@ class PomodoroViewController: UIViewController {
       }
         
 }
-    
+    func resetToBeginning() {
+        currentInterval = 0
+        secondsRemaining = 0
+        secondsRemaining = pomodoroSeconds
+        startStop.text = "START"
+        isCounting = false
+        shapeLayer.removeAllAnimations()
+        pomodoroLabel.backgroundColor = labelColor
+        pomodoroLabel.textColor = ColorManager.darkPurple
+        longBreakLabel.backgroundColor = .clear
+        longBreakLabel.textColor = ColorManager.lightTextColor
+    }
     func timeString(time: TimeInterval) -> String {
 //        let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
@@ -341,102 +443,7 @@ class PomodoroViewController: UIViewController {
         resetToBeginning()
         
     }
-    
-        let pomodoroLabel: UILabel = {
-            let label = UILabel()
-            label.backgroundColor = ColorManager.pomodoroOrange
-            label.layer.cornerRadius = 28.0
-            label.layer.masksToBounds = true
-            label.text = "pomodoro"
-            label.textAlignment = .center
-            label.textColor = ColorManager.darkPurple
-            label.font = UIFont(name: "MalayalamSangamMN", size: 18)
-            return label
-        }()
-        
-        let shortBreakLabel: UILabel = {
-            let label = UILabel()
-//            label.backgroundColor = .red
-            label.layer.cornerRadius = 28.0
-            label.layer.masksToBounds = true
-            label.text = "short break"
-            label.textAlignment = .center
-            label.textColor = ColorManager.lightTextColor
-            label.font = UIFont.boldSystemFont(ofSize: 18)
-            return label
-            
-        }()
-        
-        let longBreakLabel: UILabel = {
-            let label = UILabel()
-//            label.backgroundColor = .blue
-            label.layer.cornerRadius = 28.0
-            label.layer.masksToBounds = true
-            label.text = "long break"
-            label.textAlignment = .center
-            label.textColor = ColorManager.lightTextColor
-            label.font = UIFont.boldSystemFont(ofSize: 18)
-            return label
-            
-        }()
-    func setupStackView() {
-        
-        let stackView = UIStackView(arrangedSubviews: [pomodoroLabel, shortBreakLabel, longBreakLabel])
-        view.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fillEqually
-        stackView.layer.cornerRadius = 28
-        stackView.layer.masksToBounds = true
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 4)
-        stackView.backgroundColor = ColorManager.darkPurple
-//        stackView.backgroundColor = #colorLiteral(red: 0.08357880265, green: 0.09788595885, blue: 0.1973884106, alpha: 1)
-        
-        
-        
-        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
-        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
-        stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
-        
-    }
-    func setupLayout() {
-        view.backgroundColor = ColorManager.backgroundPurple
-        view.addSubview(timerView)
-        
-        
-        timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
 
-        view.addSubview(titleLabel)
-        
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
-        
-        timerView.addSubview(timerLabel)
-        
-        timerLabel.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
-        timerLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
-        
-        timerView.addSubview(startStop)
-        
-        startStop.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 20).isActive = true
-        startStop.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
-        
-        view.addSubview(settingsIconView)
-        
-        settingsIconView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-        settingsIconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        settingsIconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        settingsIconView.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        
-        setupStackView()
-        
-    }
 }
 
 

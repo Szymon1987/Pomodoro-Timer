@@ -30,7 +30,6 @@ class CustomCircleView: UIView {
     
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-
         setup()
         setupLayout()
         
@@ -81,7 +80,6 @@ class CustomCircleView: UIView {
     
     
     func setupLayout() {
-
         self.addSubview(label2)
         label2.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         label2.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true

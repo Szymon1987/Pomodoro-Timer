@@ -79,9 +79,9 @@
 		8C7842A927248DB800BC0337 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8CFAFF502720B73400D58107 /* SettingsLauncher.swift */,
-				AD00B95827CD6E2800A83D73 /* CustomPicker.swift */,
 				8CC80529271C5E0500AF4D99 /* CustomCIrcleView.swift */,
+				AD00B95827CD6E2800A83D73 /* CustomPicker.swift */,
+				8CFAFF502720B73400D58107 /* SettingsLauncher.swift */,
 				8C7842A727248DB300BC0337 /* CircleFontView.swift */,
 				AD7E9FD42730932000F891BF /* CircleColorView.swift */,
 				AD89B8532731C389000F8AEB /* CircleView.swift */,
