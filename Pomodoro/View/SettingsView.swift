@@ -13,6 +13,10 @@ class SettingsView: UIView {
     
     var pomodoroVC: PomodoroViewController?
     
+//    let pomodoroArray = (10...60).map{$0}
+//    let shortBreakArray = (3...8).map{$0}
+//    let longBreakArray = (9...20).map{$0}
+    
     let pomodoroArray = (10...60).map{$0}
     let shortBreakArray = (3...8).map{$0}
     let longBreakArray = (9...20).map{$0}
@@ -21,8 +25,8 @@ class SettingsView: UIView {
     var shortBreakMinutes = 5
     var longBreakMinutes = 10
     
-    var fontName: String?
-    var colorTheme: UIColor?
+    private var fontName: String?
+    private var colorTheme: UIColor?
     
     //MARK: - LifeCycle
     
@@ -48,7 +52,7 @@ class SettingsView: UIView {
     
     //MARK: - UIComponents
     
-    let settingsLabel: UILabel = {
+    private let settingsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "   Settings"
@@ -56,7 +60,7 @@ class SettingsView: UIView {
         return label
     }()
 
-    lazy var xmarkView: UIImageView = {
+   private lazy var xmarkView: UIImageView = {
         let image = UIImage(systemName: "xmark")
         let imageView = UIImageView(image: image)
         imageView.tintColor = .systemGray
@@ -67,13 +71,13 @@ class SettingsView: UIView {
         return imageView
     }()
     
-    let topContainerView: UIView = {
+   private let topContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let timeMinutesLabel: UILabel = {
+    private let timeMinutesLabel: UILabel = {
         let label = UILabel()
         label.text = "TIME (MINUTES)"
         label.textAlignment = .center
@@ -81,28 +85,28 @@ class SettingsView: UIView {
         return label
     }()
     
-    let topDividerView: UIView = {
+   private let topDividerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
         return view
     }()
     
-    let pomodoroLabel: UILabel = {
+   private let pomodoroLabel: UILabel = {
         let label = UILabel()
 //        label.backgroundColor = .red
         label.text = "    pomodoro"
         return label
     }()
     
-    let shortBreakLabel: UILabel = {
+    private let shortBreakLabel: UILabel = {
         let label = UILabel()
 //        label.backgroundColor = .blue
         label.text = "    short break"
         return label
     }()
     
-    let longBreakLabel: UILabel = {
+    private let longBreakLabel: UILabel = {
         let label = UILabel()
 //        label.backgroundColor = .green
         label.text = "    long break"
@@ -110,7 +114,7 @@ class SettingsView: UIView {
     }()
 
     
-    lazy var pomodoroPickerView: UIPickerView = {
+    private lazy var pomodoroPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -118,7 +122,7 @@ class SettingsView: UIView {
         return pickerView
     }()
 
-    lazy var shortBreakPickerView: UIPickerView = {
+    private lazy var shortBreakPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.delegate = self
@@ -126,7 +130,7 @@ class SettingsView: UIView {
         return pickerView
     }()
     
-    lazy var longBreakPickerView: UIPickerView = {
+    private lazy var longBreakPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -134,19 +138,19 @@ class SettingsView: UIView {
         return pickerView
     }()
     
-    let middleDividerView: UIView = {
+    private let middleDividerView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
         return view
     }()
     
-    let middleContainerView: UIView = {
+    private let middleContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let fontLabel: UILabel = {
+    private let fontLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "FONT"
@@ -156,7 +160,7 @@ class SettingsView: UIView {
         return label
     }()
     
-    lazy var centerFontView: CircleFontView = {
+    private lazy var centerFontView: CircleFontView = {
         let view = CircleFontView()
         view.label.font = UIFont(name: "ArialRoundedMTBold", size: 13)
         let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
@@ -166,7 +170,7 @@ class SettingsView: UIView {
         return view
     }()
     
-    lazy var leftFontView: CircleFontView = {
+    private lazy var leftFontView: CircleFontView = {
         let view = CircleFontView()
         view.backgroundColor = .black
         view.label.textColor = .white
@@ -177,7 +181,7 @@ class SettingsView: UIView {
         return view
     }()
     
-    lazy var rightFontView: CircleFontView = {
+    private lazy var rightFontView: CircleFontView = {
         let view = CircleFontView()
         view.label.font = UIFont(name: "ChalkboardSE-Bold", size: 13)
         let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
@@ -186,20 +190,20 @@ class SettingsView: UIView {
         return view
     }()
     
-    let bottomDividerView: UIView = {
+    private let bottomDividerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
         return view
     }()
     
-    let bottomContainerView: UIView = {
+    private let bottomContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let colorLabel: UILabel = {
+    private let colorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "COLOR"
@@ -209,7 +213,7 @@ class SettingsView: UIView {
         return label
     }()
     
-    lazy var centerColorView: CircleColorView = {
+    private lazy var centerColorView: CircleColorView = {
         let view = CircleColorView()
         view.backgroundColor = ColorManager.pomodoroBlue
         let tap = UITapGestureRecognizer(target: self, action: #selector(colorIconTapped))
@@ -218,7 +222,7 @@ class SettingsView: UIView {
         return view
     }()
 
-    lazy var leftColorView: CircleColorView = {
+   private lazy var leftColorView: CircleColorView = {
         let view = CircleColorView()
         view.checkMarkView.isHidden = false
         view.backgroundColor = ColorManager.pomodoroOrange
@@ -228,7 +232,7 @@ class SettingsView: UIView {
         return view
     }()
     
-    lazy var rightColorView: CircleColorView = {
+    private lazy var rightColorView: CircleColorView = {
         let view = CircleColorView()
         view.backgroundColor = ColorManager.pomodoroPurple
         let tap = UITapGestureRecognizer(target: self, action: #selector(colorIconTapped))
@@ -251,7 +255,7 @@ class SettingsView: UIView {
     
     //MARK: - Helpers
  
-    @objc func applyButtonPressed() {
+    @objc private func applyButtonPressed() {
         Haptics.playLightImpact()
         if let pomodoroVC = pomodoroVC {
             pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
@@ -265,7 +269,7 @@ class SettingsView: UIView {
         removeFromSuperview()
     }
     
-    @objc func handleDismiss() {
+    @objc private func handleDismiss() {
         Haptics.playLightImpact()
         // improve the function, find proper animation for dismissing the view
         let animation = CABasicAnimation()
@@ -278,7 +282,7 @@ class SettingsView: UIView {
     }
  
     
-    @objc func fontIconTapped(sender: UITapGestureRecognizer) {
+    @objc private func fontIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
         updateFontViewBackgroundColor(selectedTag: getTag)
         switch sender.view?.tag {
@@ -293,7 +297,7 @@ class SettingsView: UIView {
         }
     }
     
-    func updateFontViewBackgroundColor(selectedTag: Int) {
+    private func updateFontViewBackgroundColor(selectedTag: Int) {
         let views = [leftFontView, centerFontView, rightFontView]
         for view in views {
             view.backgroundColor = ColorManager.fontViewBackgroundColor
@@ -303,7 +307,7 @@ class SettingsView: UIView {
         views[selectedTag].label.textColor = .white
     }
     
-    @objc func colorIconTapped(sender: UITapGestureRecognizer) {
+    @objc private func colorIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
         if getTag == 1 {
             applyButton.titleLabel?.textColor = .black
@@ -333,7 +337,7 @@ class SettingsView: UIView {
         }
     }
     
-    func updateCheckmarkPosition(selectedTag: Int) {
+    private func updateCheckmarkPosition(selectedTag: Int) {
         let views = [leftColorView, centerColorView, rightColorView]
         views.forEach {$0.checkMarkView.isHidden = true}
         views[selectedTag].checkMarkView.isHidden = false
@@ -341,7 +345,7 @@ class SettingsView: UIView {
     
     // MARK: - SettingUp The Views Methods
     
-    func setUpTopContainerView() {
+    private func setUpTopContainerView() {
         translatesAutoresizingMaskIntoConstraints = false
         
         [timeMinutesLabel, topDividerView, middleDividerView, shortBreakLabel, longBreakLabel, pomodoroLabel].forEach{topContainerView.addSubview($0)}
@@ -390,7 +394,7 @@ class SettingsView: UIView {
         
     }
  
-    func setUpMiddleContainerView() {
+    private func setUpMiddleContainerView() {
         
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -410,7 +414,7 @@ class SettingsView: UIView {
         rightFontView.anchorSize(to: centerFontView)
     }
 
-    func setUpBottomContainerView() {
+    private func setUpBottomContainerView() {
         translatesAutoresizingMaskIntoConstraints = false
         [colorLabel,bottomDividerView, centerColorView, leftColorView, rightColorView,].forEach{bottomContainerView.addSubview($0)}
 

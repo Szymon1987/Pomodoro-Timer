@@ -8,11 +8,6 @@
 import UIKit
 
 class CustomCircleView: UIView {
-    
-//        override class var layerClass: AnyClass {
-//            return CAShapeLayer.self
-//        }
-    
     lazy var shapeLayer = CAShapeLayer()
     
     lazy var label2: UILabel = {
