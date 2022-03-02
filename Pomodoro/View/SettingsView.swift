@@ -13,10 +13,6 @@ class SettingsView: UIView {
     
     var pomodoroVC: PomodoroViewController?
     
-//    let pomodoroArray = (10...60).map{$0}
-//    let shortBreakArray = (3...8).map{$0}
-//    let longBreakArray = (9...20).map{$0}
-    
     let pomodoroArray = (10...60).map{$0}
     let shortBreakArray = (3...8).map{$0}
     let longBreakArray = (9...20).map{$0}
@@ -32,6 +28,7 @@ class SettingsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("initialized")
         showSettings()
         setUpTopContainerView()
         setUpMiddleContainerView()
@@ -94,21 +91,21 @@ class SettingsView: UIView {
     
    private let pomodoroLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .red
+        label.textColor = .black
         label.text = "    pomodoro"
         return label
     }()
     
     private let shortBreakLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .blue
+        label.textColor = .black
         label.text = "    short break"
         return label
     }()
     
     private let longBreakLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .green
+        label.textColor = .black
         label.text = "    long break"
         return label
     }()
@@ -263,7 +260,7 @@ class SettingsView: UIView {
                 pomodoroVC.customizedFont = fontName
             }
             if let colorTheme = colorTheme {
-                pomodoroVC.labelColor = colorTheme
+                pomodoroVC.themeColor = colorTheme
             }
         }
         removeFromSuperview()
@@ -309,12 +306,6 @@ class SettingsView: UIView {
     
     @objc private func colorIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
-        if getTag == 1 {
-            applyButton.titleLabel?.textColor = .black
-            } else {
-                applyButton.titleLabel?.textColor = .white
-            }
-        
         updateCheckmarkPosition(selectedTag: getTag)
 
         if let senderColor = sender.view?.backgroundColor {
@@ -530,6 +521,7 @@ extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource {
             label?.textColor = .black
         }
         return label!
+    
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {

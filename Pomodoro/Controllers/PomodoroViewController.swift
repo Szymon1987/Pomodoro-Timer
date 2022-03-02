@@ -12,7 +12,7 @@ class PomodoroViewController: UIViewController {
     private let start: String = "S T A R T"
     private let pause: String = "P A U S E"
     
-    private lazy var shapeLayer = CAShapeLayer()
+    private var shapeLayer = CAShapeLayer()
     private var isAnimatingFirstTime = true
     
     private var secondsRemaining = 0
@@ -43,10 +43,11 @@ class PomodoroViewController: UIViewController {
         }
     }
     
-    var labelColor = ColorManager.pomodoroOrange {
+    var themeColor = ColorManager.pomodoroOrange {
         didSet {
-            shapeLayer.strokeColor = labelColor.cgColor
-            changeLabelBackgroundColor()
+                shapeLayer.strokeColor = themeColor.cgColor
+            print(themeColor.cgColor)
+                changeLabelBackgroundColor()
         }
     }
     
@@ -105,7 +106,8 @@ class PomodoroViewController: UIViewController {
         label.text = "short break"
         label.textAlignment = .center
         label.textColor = ColorManager.lightTextColor
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
+//        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -115,7 +117,8 @@ class PomodoroViewController: UIViewController {
         label.text = "long break"
         label.textAlignment = .center
         label.textColor = ColorManager.lightTextColor
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
+//        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -164,7 +167,7 @@ class PomodoroViewController: UIViewController {
     
     // why lazy var and why st.pomodoroVC = self??? check if st.pomodoroVC = self is needed here
     
-    private lazy var settingsLauncher: SettingsView = {
+    private lazy var settingsView: SettingsView = {
         let st = SettingsView()
         st.pomodoroVC = self
         return st
@@ -190,8 +193,8 @@ class PomodoroViewController: UIViewController {
 //                       completion: nil)
 //    }
 //
-    private func setupSettingsLauncher() {
-        view.addSubview(settingsLauncher)
+    private func setupSettingsView() {
+        view.addSubview(settingsView)
   
 //        topSpace = settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200)
 //        topSpace?.isActive = true
@@ -207,10 +210,10 @@ class PomodoroViewController: UIViewController {
 //        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 100).isActive = true
 //        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100).isActive = true
 
-        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
-        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
+        settingsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        settingsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+        settingsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        settingsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
     }
     
     private func setupStackView() {
@@ -227,7 +230,7 @@ class PomodoroViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.layer.masksToBounds = true
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 7, left: 4, bottom: 7, right: 4)
+        stackView.layoutMargins = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 10)
         
         stackView.anchorSize(to: intervalsBackgroundView)
     }
@@ -239,7 +242,7 @@ class PomodoroViewController: UIViewController {
         timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35).isActive = true
+        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.32).isActive = true
 
         view.addSubview(titleLabel)
         
@@ -273,7 +276,7 @@ class PomodoroViewController: UIViewController {
     
     @objc private func settingsIconTapped() {
         Haptics.playLightImpact()
-        setupSettingsLauncher()
+        setupSettingsView()
 //        animate()
     }
     
@@ -282,7 +285,7 @@ class PomodoroViewController: UIViewController {
         let labels = [pomodoroLabel, shortBreakLabel, longBreakLabel]
         for label in labels {
             if label.backgroundColor != .clear {
-                label.backgroundColor = labelColor
+                label.backgroundColor = themeColor
             } else {
                 label.backgroundColor = .clear
             }
@@ -351,7 +354,6 @@ class PomodoroViewController: UIViewController {
         shapeLayer.strokeEnd = 1.0
         let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
         shapeLayer.beginTime = timeSincePause
-        
     }
     
     private func startResumeAnimation() {
@@ -410,7 +412,7 @@ class PomodoroViewController: UIViewController {
       if currentInterval < intervals.count  {
           if intervals[currentInterval] == .pomodoro {
             secondsRemaining = pomodoroSeconds
-              pomodoroLabel.backgroundColor = labelColor
+              pomodoroLabel.backgroundColor = themeColor
               pomodoroLabel.textColor = ColorManager.darkPurple
               shortBreakLabel.backgroundColor = .clear
               shortBreakLabel.textColor = ColorManager.lightTextColor
@@ -419,7 +421,7 @@ class PomodoroViewController: UIViewController {
 
           } else if intervals[currentInterval] == .shortBreak {
             secondsRemaining = shortBreakSeconds
-              shortBreakLabel.backgroundColor = labelColor
+              shortBreakLabel.backgroundColor = themeColor
               shortBreakLabel.textColor = ColorManager.darkPurple
               pomodoroLabel.backgroundColor = .clear
               pomodoroLabel.textColor = ColorManager.lightTextColor
@@ -428,7 +430,7 @@ class PomodoroViewController: UIViewController {
 
           } else if intervals[currentInterval] == .longBreak {
              secondsRemaining = longBreakSeconds
-              longBreakLabel.backgroundColor = labelColor
+              longBreakLabel.backgroundColor = themeColor
               longBreakLabel.textColor = ColorManager.darkPurple
               pomodoroLabel.backgroundColor = .clear
               pomodoroLabel.textColor = ColorManager.lightTextColor
@@ -449,8 +451,9 @@ class PomodoroViewController: UIViewController {
         secondsRemaining = pomodoroSeconds
         startStopLabel.text = start
         isCounting = false
+        isAnimatingFirstTime = true
         shapeLayer.removeAllAnimations()
-        pomodoroLabel.backgroundColor = labelColor
+        pomodoroLabel.backgroundColor = themeColor
         pomodoroLabel.textColor = ColorManager.darkPurple
         longBreakLabel.backgroundColor = .clear
         longBreakLabel.textColor = ColorManager.lightTextColor
@@ -463,15 +466,14 @@ class PomodoroViewController: UIViewController {
     }
     
     func didUpdateTimer(with pomodoroTime: Int, with shortBreakTime: Int, with longBreakTime: Int) {
-        
+       
+        resetToBeginning()
         timerLabel.text =  "\(pomodoroTime):00"
         pomodoroSeconds = pomodoroTime * 60
         shortBreakSeconds = shortBreakTime * 60
         longBreakSeconds = longBreakTime * 60
         timer.invalidate()
         startStopLabel.text = start
-        resetToBeginning()
-        
     }
 }
 
