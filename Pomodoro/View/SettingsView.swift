@@ -152,7 +152,7 @@ class SettingsView: UIView {
         label.text = "FONT"
         label.textAlignment = .center
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
     
@@ -205,7 +205,7 @@ class SettingsView: UIView {
         label.text = "COLOR"
         label.textAlignment = .center
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
     
@@ -265,7 +265,6 @@ class SettingsView: UIView {
         removeFromSuperview()
     }
     
-
     @objc func handleDismiss() {
         Haptics.playLightImpact()
         // improve the function, find proper animation for dismissing the view
@@ -273,9 +272,9 @@ class SettingsView: UIView {
         animation.keyPath = "transform.scale"
         animation.fromValue = 1
         animation.toValue = 0.00001
-        animation.duration = 0.4
+        animation.duration = 0.2
         self.layer.add(animation, forKey: "basic")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: self.removeFromSuperview)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: self.removeFromSuperview)
     }
  
     
@@ -306,6 +305,12 @@ class SettingsView: UIView {
     
     @objc func colorIconTapped(sender: UITapGestureRecognizer) {
         guard let getTag = sender.view?.tag else { return }
+        if getTag == 1 {
+            applyButton.titleLabel?.textColor = .black
+            } else {
+                applyButton.titleLabel?.textColor = .white
+            }
+        
         updateCheckmarkPosition(selectedTag: getTag)
 
         if let senderColor = sender.view?.backgroundColor {

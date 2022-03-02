@@ -9,6 +9,8 @@ import UIKit
 class PomodoroViewController: UIViewController {
     
     // MARK: - Properties
+    let start: String = "S T A R T"
+    let pause: String = "P A U S E"
     
     lazy var shapeLayer = CAShapeLayer()
     var isAnimatingFirstTime = true
@@ -36,7 +38,7 @@ class PomodoroViewController: UIViewController {
             pomodoroLabel.font = UIFont(name: customizedFont, size: pomodoroLabel.font.pointSize)
             shortBreakLabel.font = UIFont(name: customizedFont, size: shortBreakLabel.font.pointSize)
             longBreakLabel.font = UIFont(name: customizedFont, size: longBreakLabel.font.pointSize)
-            startStop.font = UIFont(name: customizedFont, size: startStop.font.pointSize)
+            startStopLabel.font = UIFont(name: customizedFont, size: startStopLabel.font.pointSize)
             timerLabel.font = UIFont(name: customizedFont, size: timerLabel.font.pointSize)
         }
     }
@@ -58,13 +60,10 @@ class PomodoroViewController: UIViewController {
   
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        [pomodoroLabel, shortBreakLabel, longBreakLabel].forEach {$0.layer.cornerRadius = pomodoroLabel.frame.height / 2}
+        intervalsBackgroundView.layer.cornerRadius = intervalsBackgroundView.frame.height / 2
         setupTimerShape()
     }
-//
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//    }
-   
 
     //MARK: - UIComponents
     
@@ -80,12 +79,47 @@ class PomodoroViewController: UIViewController {
         return label
     }()
     
-    let intervalsBackgroundLabel: UILabel = {
+    let intervalsBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = ColorManager.darkPurple
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    let pomodoroLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .green
-        label.layer.cornerRadius = 30
+        label.backgroundColor = ColorManager.pomodoroOrange
+//        label.layer.cornerRadius = 28.0
         label.layer.masksToBounds = true
+        label.text = "pomodoro"
+        label.textAlignment = .center
+        label.textColor = ColorManager.darkPurple
+        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
+        return label
+    }()
+    
+    let shortBreakLabel: UILabel = {
+        let label = UILabel()
+            label.backgroundColor = .clear
+//        label.layer.cornerRadius = 28.0
+        label.layer.masksToBounds = true
+        label.text = "short break"
+        label.textAlignment = .center
+        label.textColor = ColorManager.lightTextColor
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        return label
+    }()
+    
+    let longBreakLabel: UILabel = {
+        let label = UILabel()
+//            label.backgroundColor = .blue
+//        label.layer.cornerRadius = 28.0
+        label.layer.masksToBounds = true
+        label.text = "long break"
+        label.textAlignment = .center
+        label.textColor = ColorManager.lightTextColor
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -93,19 +127,19 @@ class PomodoroViewController: UIViewController {
         let label = UILabel()
         label.text = "00:06"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 50)
+        label.font = UIFont.boldSystemFont(ofSize: 54)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         //label.backgroundColor = .red
         return label
     }()
 
-    lazy var startStop: UILabel = {
+    lazy var startStopLabel: UILabel = {
         let label = UILabel()
-        label.text = "START"
+        label.text = start
         label.textAlignment = .center
 //        label.font = UIFont(name: "MalayalamSangamMN", size: 24)
-        label.font = label.font.withSize(24)
+        label.font = label.font.withSize(22)
 //        label.font. = UIFont("MalayalamSangamMN")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
@@ -120,42 +154,6 @@ class PomodoroViewController: UIViewController {
 //        view.backgroundColor = #colorLiteral(red: 0.139921248, green: 0.1541073918, blue: 0.3137726188, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    
-    let pomodoroLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = ColorManager.pomodoroOrange
-        label.layer.cornerRadius = 28.0
-        label.layer.masksToBounds = true
-        label.text = "pomodoro"
-        label.textAlignment = .center
-        label.textColor = ColorManager.darkPurple
-        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
-        return label
-    }()
-    
-    let shortBreakLabel: UILabel = {
-        let label = UILabel()
-            label.backgroundColor = .clear
-        label.layer.cornerRadius = 28.0
-        label.layer.masksToBounds = true
-        label.text = "short break"
-        label.textAlignment = .center
-        label.textColor = ColorManager.lightTextColor
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        return label
-    }()
-    
-    let longBreakLabel: UILabel = {
-        let label = UILabel()
-//            label.backgroundColor = .blue
-        label.layer.cornerRadius = 28.0
-        label.layer.masksToBounds = true
-        label.text = "long break"
-        label.textAlignment = .center
-        label.textColor = ColorManager.lightTextColor
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        return label
     }()
     
     lazy var settingsIconView: UIImageView = {
@@ -223,23 +221,37 @@ class PomodoroViewController: UIViewController {
     
     func setupStackView() {
         
+        view.addSubview(intervalsBackgroundView)
+        intervalsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+        intervalsBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
+        intervalsBackgroundView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+        intervalsBackgroundView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
+        
         let stackView = UIStackView(arrangedSubviews: [pomodoroLabel, shortBreakLabel, longBreakLabel])
-        view.addSubview(stackView)
+        intervalsBackgroundView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
-        stackView.layer.cornerRadius = 28
+//        stackView.layer.cornerRadius = 28
         stackView.layer.masksToBounds = true
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 6, left: 4, bottom: 6, right: 4)
-        stackView.backgroundColor = ColorManager.darkPurple
-//        stackView.backgroundColor = #colorLiteral(red: 0.08357880265, green: 0.09788595885, blue: 0.1973884106, alpha: 1)
+        stackView.layoutMargins = UIEdgeInsets(top: 7, left: 4, bottom: 7, right: 4)
+        
+        stackView.anchorSize(to: intervalsBackgroundView)
+        
+        
+//        stackView.backgroundColor = ColorManager.darkPurple
         
         
         
-        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
-        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
-        stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
+
+        
+        
+        
+        
+//        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+//        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
+//        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+//        stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
         
     }
     func setupLayout() {
@@ -264,10 +276,10 @@ class PomodoroViewController: UIViewController {
         timerLabel.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
         timerLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
-        timerView.addSubview(startStop)
+        timerView.addSubview(startStopLabel)
         
-        startStop.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 20).isActive = true
-        startStop.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
+        startStopLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 20).isActive = true
+        startStopLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
         view.addSubview(settingsIconView)
         
@@ -386,12 +398,12 @@ class PomodoroViewController: UIViewController {
         if isCounting {
             isCounting = false
             timer.invalidate()
-            startStop.text = "START"
+            startStopLabel.text = start
             pauseAnimation()
         }
         else {
             isCounting = true
-            startStop.text = "PAUSE"
+            startStopLabel.text = pause
             startResumeAnimation()
             
 // we have to inform that next interval is about to start. Otherwise pomodoro time will run twice
@@ -458,7 +470,7 @@ class PomodoroViewController: UIViewController {
         currentInterval = 0
         secondsRemaining = 0
         secondsRemaining = pomodoroSeconds
-        startStop.text = "START"
+        startStopLabel.text = start
         isCounting = false
         shapeLayer.removeAllAnimations()
         pomodoroLabel.backgroundColor = labelColor
@@ -480,7 +492,7 @@ class PomodoroViewController: UIViewController {
         shortBreakSeconds = shortBreakTime * 60
         longBreakSeconds = longBreakTime * 60
         timer.invalidate()
-        startStop.text = "START"
+        startStopLabel.text = start
         resetToBeginning()
         
     }
