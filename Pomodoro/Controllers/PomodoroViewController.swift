@@ -172,23 +172,49 @@ class PomodoroViewController: UIViewController {
     
     // why lazy var and why st.pomodoroVC = self??? check if st.pomodoroVC = self is needed here
     
-    lazy var settingsLauncher: SettingsLauncher = {
-        let st = SettingsLauncher()
+    lazy var settingsLauncher: SettingsView = {
+        let st = SettingsView()
         st.pomodoroVC = self
         return st
     }()
     
     //MARK: - SettingUp The Views Methods
-    
-    
+//    var topSpace: NSLayoutConstraint?
+//    var bottomSpace: NSLayoutConstraint?
+//    var leftSpace: NSLayoutConstraint?
+//    var rightSpace: NSLayoutConstraint?
+//
+//    func animate() {
+//        topSpace?.constant = 20
+//        bottomSpace?.constant = -40
+//        leftSpace?.constant = 15
+//        rightSpace?.constant = -15
+//        UIView.animate(withDuration: 1.0,
+//                       delay: 1,
+//                       options: .curveEaseIn,
+//                       animations: {
+//                        self.view.layoutIfNeeded()
+//        },
+//                       completion: nil)
+//    }
+//
     func setupSettingsLauncher() {
         view.addSubview(settingsLauncher)
-        
-//        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 280).isActive = true
-//        settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80).isActive = true
-//        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
-//        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
-        
+  
+//        topSpace = settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200)
+//        topSpace?.isActive = true
+//        bottomSpace = settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -200)
+//        bottomSpace?.isActive = true
+//        leftSpace = settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 100)
+//        leftSpace?.isActive = true
+//        rightSpace = settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100)
+//        rightSpace?.isActive = true
+
+//        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200).isActive = true
+//        settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -200).isActive = true
+//        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 100).isActive = true
+//        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100).isActive = true
+
         settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
         settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
@@ -257,7 +283,9 @@ class PomodoroViewController: UIViewController {
     //MARK: - Helpers
     
     @objc func settingsIconTapped() {
+        Haptics.playLightImpact()
         setupSettingsLauncher()
+//        animate()
     }
     
     func changeLabelBackgroundColor() {
@@ -341,7 +369,6 @@ class PomodoroViewController: UIViewController {
         if isAnimatingFirstTime {
             startAnimation()
             isAnimatingFirstTime = false
-        
         } else {
             resumeAnimation()
             isAnimatingFirstTime = true
@@ -355,6 +382,7 @@ class PomodoroViewController: UIViewController {
     }
     
     @objc func startStopTapped() {
+        Haptics.playLightImpact()
         if isCounting {
             isCounting = false
             timer.invalidate()

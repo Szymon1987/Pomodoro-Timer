@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsLauncher: UIView {
+class SettingsView: UIView {
 
     // MARK: - Properties
     
@@ -24,7 +24,7 @@ class SettingsLauncher: UIView {
     var fontName: String?
     var colorTheme: UIColor?
     
-    //MARK: - Initialization
+    //MARK: - LifeCycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -120,7 +120,6 @@ class SettingsLauncher: UIView {
 
     lazy var shortBreakPickerView: UIPickerView = {
         let pickerView = UIPickerView()
-        pickerView.clipsToBounds = true
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -253,6 +252,7 @@ class SettingsLauncher: UIView {
     //MARK: - Helpers
  
     @objc func applyButtonPressed() {
+        Haptics.playLightImpact()
         if let pomodoroVC = pomodoroVC {
             pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
             if let fontName = fontName {
@@ -265,8 +265,17 @@ class SettingsLauncher: UIView {
         removeFromSuperview()
     }
     
+
     @objc func handleDismiss() {
-        self.removeFromSuperview()
+        Haptics.playLightImpact()
+        // improve the function, find proper animation for dismissing the view
+        let animation = CABasicAnimation()
+        animation.keyPath = "transform.scale"
+        animation.fromValue = 1
+        animation.toValue = 0.00001
+        animation.duration = 0.4
+        self.layer.add(animation, forKey: "basic")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: self.removeFromSuperview)
     }
  
     
@@ -473,7 +482,7 @@ class SettingsLauncher: UIView {
 
     // MARK: - UIPickerViewDelegate and UIPickerViewDataSource
 
-extension SettingsLauncher: UIPickerViewDelegate, UIPickerViewDataSource {
+extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
