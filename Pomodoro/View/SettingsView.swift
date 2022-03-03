@@ -36,7 +36,6 @@ class SettingsView: UIView {
 //        shortBreakPickerView.delegate = self
 //        shortBreakPickerView.dataSource = self
         backgroundColor = .white
-        
         // chooses the default vaule for the minutes
         self.pomodoroPickerView.selectRow(15, inComponent: 0, animated: false)
         self.shortBreakPickerView.selectRow(2, inComponent: 0, animated: false)

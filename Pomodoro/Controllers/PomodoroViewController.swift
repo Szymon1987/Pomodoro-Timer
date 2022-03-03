@@ -51,7 +51,7 @@ class PomodoroViewController: UIViewController {
         }
     }
     
-    //MARK: - LifeCycle
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +64,49 @@ class PomodoroViewController: UIViewController {
         [pomodoroLabel, shortBreakLabel, longBreakLabel].forEach {$0.layer.cornerRadius = pomodoroLabel.frame.height / 2}
         intervalsBackgroundView.layer.cornerRadius = intervalsBackgroundView.frame.height / 2
         setupTimerShape()
+        backgroundGradient.frame = view.bounds
+        lightPurpleCircleViewGradient.frame = lightPurpleCircleView.bounds
+        
     }
+    
+    // MARK: - GradientLayers Properties and Views
+    
+    lazy var backgroundGradient: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.type = .radial
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 1, y: 1)
+        gradient.colors = [ColorManager.backgroundPurple.cgColor, ColorManager.backgroundPurpleLight.cgColor, ColorManager.backgroundPurple.cgColor]
+        gradient.locations = [0, 0.3, 1]
+        return gradient
+    }()
 
-    //MARK: - UIComponents
+    lazy var lightPurpleCircleViewGradient: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 1, y: 1)
+        gradient.colors = [ColorManager.darkPurple.cgColor, ColorManager.backgroundPurpleLight.cgColor]
+//        gradient.colors = [UIColor.red.cgColor, UIColor.green.cgColor]
+        gradient.locations = [0.2, 1]
+        return gradient
+    }()
+    
+    let darkPurpleCircleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorManager.darkPurple
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let lightPurpleCircleView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
+    // MARK: - UIComponents
     
     private var titleLabel: UILabel = {
         let label = UILabel()
@@ -75,7 +115,7 @@ class PomodoroViewController: UIViewController {
         label.text = "pomodoro"
         label.textAlignment = .center
         label.textColor = .white
-        let fontName = "MalayalamSangamMN"
+        let fontName = "MalayalamSangamMN-Bold"
         label.font = UIFont(name: fontName, size: 24)
         return label
     }()
@@ -173,7 +213,7 @@ class PomodoroViewController: UIViewController {
         return st
     }()
     
-    //MARK: - SettingUp The Views Methods
+    // MARK: - SettingUp The Views Methods
 //    var topSpace: NSLayoutConstraint?
 //    var bottomSpace: NSLayoutConstraint?
 //    var leftSpace: NSLayoutConstraint?
@@ -235,14 +275,31 @@ class PomodoroViewController: UIViewController {
         stackView.anchorSize(to: intervalsBackgroundView)
     }
     private func setupLayout() {
-        view.backgroundColor = ColorManager.backgroundPurple
+        
+        view.layer.addSublayer(backgroundGradient)
+        
         view.addSubview(timerView)
         
+        timerView.addSubview(lightPurpleCircleView)
+        lightPurpleCircleView.layer.addSublayer(lightPurpleCircleViewGradient)
+        
+        lightPurpleCircleView.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
+        lightPurpleCircleView.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
+        lightPurpleCircleView.heightAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
+        lightPurpleCircleView.widthAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
+        
+        
+        timerView.addSubview(darkPurpleCircleView)
+
+        darkPurpleCircleView.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
+        darkPurpleCircleView.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
+        darkPurpleCircleView.heightAnchor.constraint(equalTo: timerView.heightAnchor, constant: -30).isActive = true
+        darkPurpleCircleView.widthAnchor.constraint(equalTo: timerView.heightAnchor, constant: -30).isActive = true
         
         timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.32).isActive = true
+        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40).isActive = true
 
         view.addSubview(titleLabel)
         
@@ -253,12 +310,12 @@ class PomodoroViewController: UIViewController {
         
         timerView.addSubview(timerLabel)
         
-        timerLabel.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
+        timerLabel.centerYAnchor.constraint(equalTo: timerView.centerYAnchor, constant: -10).isActive = true
         timerLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
         timerView.addSubview(startStopLabel)
         
-        startStopLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 20).isActive = true
+        startStopLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 17).isActive = true
         startStopLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
         view.addSubview(settingsIconView)
@@ -272,7 +329,7 @@ class PomodoroViewController: UIViewController {
         
     }
     
-    //MARK: - Helpers
+    // MARK: - Helpers
     
     @objc private func settingsIconTapped() {
         Haptics.playLightImpact()
@@ -302,11 +359,11 @@ class PomodoroViewController: UIViewController {
 //    }
     }
 
-// MARK: Circle Timer Functions
+    // MARK: Circle Timer Functions
     
     private func setupTimerShape() {
 
-        let radius = timerView.frame.height / 2
+        let radius = (timerView.frame.height - 60) / 2
         let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
 
@@ -322,6 +379,9 @@ class PomodoroViewController: UIViewController {
         shapeLayer.lineCap = .round
         shapeLayer.strokeEnd = 1
         timerView.layer.addSublayer(shapeLayer)
+        
+        darkPurpleCircleView.layer.cornerRadius = darkPurpleCircleView.frame.height / 2
+        lightPurpleCircleView.layer.cornerRadius = lightPurpleCircleView.frame.height / 2
     }
 
     
