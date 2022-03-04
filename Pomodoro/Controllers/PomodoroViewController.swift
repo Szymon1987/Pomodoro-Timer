@@ -8,16 +8,18 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: - Constants
     private let start: String = "S T A R T"
     private let pause: String = "P A U S E"
+    
+    // MARK: - Properties
     
     private var shapeLayer = CAShapeLayer()
     private var isAnimatingFirstTime = true
     
     private var secondsRemaining = 0
     private var pomodoroSeconds = 4
-    private var shortBreakSeconds = 2
+    private var shortBreakSeconds = 2t
     private var longBreakSeconds = 3
     
     private var timer = Timer()
@@ -58,35 +60,22 @@ class PomodoroViewController: UIViewController {
         setupLayout()
         secondsRemaining = pomodoroSeconds
     }
-  
+      // it isn't probaly correct function
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         [pomodoroLabel, shortBreakLabel, longBreakLabel].forEach {$0.layer.cornerRadius = pomodoroLabel.frame.height / 2}
         intervalsBackgroundView.layer.cornerRadius = intervalsBackgroundView.frame.height / 2
         setupTimerShape()
-        backgroundGradient.frame = view.bounds
-        lightPurpleCircleViewGradient.frame = lightPurpleCircleView.bounds
-        
+        setupRoundedViews()
     }
     
     // MARK: - GradientLayers Properties and Views
-    
-    lazy var backgroundGradient: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.type = .radial
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-        gradient.colors = [ColorManager.backgroundPurple.cgColor, ColorManager.backgroundPurpleLight.cgColor, ColorManager.backgroundPurple.cgColor]
-        gradient.locations = [0, 0.3, 1]
-        return gradient
-    }()
 
-    lazy var lightPurpleCircleViewGradient: CAGradientLayer = {
+    lazy var roundedGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 1)
         gradient.colors = [ColorManager.darkPurple.cgColor, ColorManager.backgroundPurpleLight.cgColor]
-//        gradient.colors = [UIColor.red.cgColor, UIColor.green.cgColor]
         gradient.locations = [0.2, 1]
         return gradient
     }()
@@ -102,6 +91,11 @@ class PomodoroViewController: UIViewController {
         let view = UIView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.shouldRasterize = true
+//        view.layer.rasterizationScale = UIScreen.main.scale
+//        view.layer.shadowRadius = 20
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.shadowOffset = CGSize(width: 30, height: 30)
         return view
     }()
     
@@ -111,7 +105,6 @@ class PomodoroViewController: UIViewController {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.backgroundColor = .blue
         label.text = "pomodoro"
         label.textAlignment = .center
         label.textColor = .white
@@ -176,14 +169,11 @@ class PomodoroViewController: UIViewController {
         let label = UILabel()
         label.text = start
         label.textAlignment = .center
-//        label.font = UIFont(name: "MalayalamSangamMN", size: 24)
         label.font = label.font.withSize(22)
-//        label.font. = UIFont("MalayalamSangamMN")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(startStopTapped)))
-        //label.backgroundColor = .cyan
         return label
     }()
     
@@ -214,42 +204,10 @@ class PomodoroViewController: UIViewController {
     }()
     
     // MARK: - SettingUp The Views Methods
-//    var topSpace: NSLayoutConstraint?
-//    var bottomSpace: NSLayoutConstraint?
-//    var leftSpace: NSLayoutConstraint?
-//    var rightSpace: NSLayoutConstraint?
-//
-//    func animate() {
-//        topSpace?.constant = 20
-//        bottomSpace?.constant = -40
-//        leftSpace?.constant = 15
-//        rightSpace?.constant = -15
-//        UIView.animate(withDuration: 1.0,
-//                       delay: 1,
-//                       options: .curveEaseIn,
-//                       animations: {
-//                        self.view.layoutIfNeeded()
-//        },
-//                       completion: nil)
-//    }
-//
+
     private func setupSettingsView() {
+        
         view.addSubview(settingsView)
-  
-//        topSpace = settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200)
-//        topSpace?.isActive = true
-//        bottomSpace = settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -200)
-//        bottomSpace?.isActive = true
-//        leftSpace = settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 100)
-//        leftSpace?.isActive = true
-//        rightSpace = settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100)
-//        rightSpace?.isActive = true
-
-//        settingsLauncher.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200).isActive = true
-//        settingsLauncher.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -200).isActive = true
-//        settingsLauncher.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 100).isActive = true
-//        settingsLauncher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100).isActive = true
-
         settingsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         settingsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
         settingsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
@@ -276,57 +234,47 @@ class PomodoroViewController: UIViewController {
     }
     private func setupLayout() {
         
-        view.layer.addSublayer(backgroundGradient)
+        view.backgroundColor = ColorManager.backgroundPurple
         
         view.addSubview(timerView)
+        timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40).isActive = true
         
         timerView.addSubview(lightPurpleCircleView)
-        lightPurpleCircleView.layer.addSublayer(lightPurpleCircleViewGradient)
-        
         lightPurpleCircleView.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         lightPurpleCircleView.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
         lightPurpleCircleView.heightAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
         lightPurpleCircleView.widthAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
         
-        
         timerView.addSubview(darkPurpleCircleView)
-
         darkPurpleCircleView.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         darkPurpleCircleView.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
         darkPurpleCircleView.heightAnchor.constraint(equalTo: timerView.heightAnchor, constant: -30).isActive = true
         darkPurpleCircleView.widthAnchor.constraint(equalTo: timerView.heightAnchor, constant: -30).isActive = true
         
-        timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        timerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40).isActive = true
-
         view.addSubview(titleLabel)
-        
         titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
         
         timerView.addSubview(timerLabel)
-        
         timerLabel.centerYAnchor.constraint(equalTo: timerView.centerYAnchor, constant: -10).isActive = true
         timerLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
         timerView.addSubview(startStopLabel)
-        
         startStopLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 17).isActive = true
         startStopLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
         view.addSubview(settingsIconView)
-        
         settingsIconView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         settingsIconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         settingsIconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
         settingsIconView.widthAnchor.constraint(equalToConstant: 35).isActive = true
-        
+    
         setupStackView()
-        
     }
     
     // MARK: - Helpers
@@ -334,11 +282,9 @@ class PomodoroViewController: UIViewController {
     @objc private func settingsIconTapped() {
         Haptics.playLightImpact()
         setupSettingsView()
-//        animate()
     }
     
     private func changeLabelBackgroundColor() {
-        
         let labels = [pomodoroLabel, shortBreakLabel, longBreakLabel]
         for label in labels {
             if label.backgroundColor != .clear {
@@ -361,8 +307,19 @@ class PomodoroViewController: UIViewController {
 
     // MARK: Circle Timer Functions
     
+    private func setupRoundedViews() {
+        darkPurpleCircleView.layer.cornerRadius = darkPurpleCircleView.frame.height / 2
+        roundedGradient.frame = lightPurpleCircleView.bounds
+        
+        lightPurpleCircleView.layer.addSublayer(roundedGradient)
+        lightPurpleCircleView.layer.cornerRadius = lightPurpleCircleView.frame.height / 2
+        lightPurpleCircleView.layer.shadowColor = UIColor.black.cgColor
+        lightPurpleCircleView.layer.shadowOffset = CGSize(width: 60, height: 60)
+        lightPurpleCircleView.layer.shadowOpacity = 1
+        lightPurpleCircleView.layer.shadowRadius = 10
+    }
+    
     private func setupTimerShape() {
-
         let radius = (timerView.frame.height - 60) / 2
         let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
@@ -379,9 +336,6 @@ class PomodoroViewController: UIViewController {
         shapeLayer.lineCap = .round
         shapeLayer.strokeEnd = 1
         timerView.layer.addSublayer(shapeLayer)
-        
-        darkPurpleCircleView.layer.cornerRadius = darkPurpleCircleView.frame.height / 2
-        lightPurpleCircleView.layer.cornerRadius = lightPurpleCircleView.frame.height / 2
     }
 
     
@@ -526,7 +480,6 @@ class PomodoroViewController: UIViewController {
     }
     
     func didUpdateTimer(with pomodoroTime: Int, with shortBreakTime: Int, with longBreakTime: Int) {
-       
         resetToBeginning()
         timerLabel.text =  "\(pomodoroTime):00"
         pomodoroSeconds = pomodoroTime * 60
