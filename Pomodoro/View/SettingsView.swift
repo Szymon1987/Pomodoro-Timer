@@ -252,17 +252,17 @@ class SettingsView: UIView {
     //MARK: - Helpers
  
     @objc private func applyButtonPressed() {
-        Haptics.playLightImpact()
-        if let pomodoroVC = pomodoroVC {
-            pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
-            if let fontName = fontName {
-                pomodoroVC.customizedFont = fontName
-            }
-            if let colorTheme = colorTheme {
-                pomodoroVC.themeColor = colorTheme
-            }
-        }
-        removeFromSuperview()
+//        Haptics.playLightImpact()
+//        if let pomodoroVC = pomodoroVC {
+//            pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
+//            if let fontName = fontName {
+//                pomodoroVC.customizedFont = fontName
+//            }
+//            if let colorTheme = colorTheme {
+//                pomodoroVC.themeColor = colorTheme
+//            }
+//        }
+//        removeFromSuperview()
     }
     
     @objc private func handleDismiss() {
