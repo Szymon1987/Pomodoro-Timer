@@ -10,8 +10,8 @@ class PomodoroViewController: UIViewController {
     
     
     // MARK: - Constants
-//    private let start: String = "S T A R T"
-//    private let pause: String = "P A U S E"
+    private let start: String = "S T A R T"
+    private let pause: String = "P A U S E"
     
     // MARK: - Properties
     
@@ -379,7 +379,8 @@ class PomodoroViewController: UIViewController {
     private func startAnimation() {
         circleAnimation.fromValue = 1
         circleAnimation.toValue = 0
-        circleAnimation.duration = CFTimeInterval(secondsRemaining)
+//        circleAnimation.duration = CFTimeInterval(secondsRemaining)
+        circleAnimation.duration = CFTimeInterval(totalSeconds)
         
         // apparently it is a bad practise to set "isRemovedOnCompletion = false"
 //        circleAnimation.isRemovedOnCompletion = false
@@ -532,19 +533,24 @@ class PomodoroViewController: UIViewController {
     
 
     @objc private func startStopTapped() {
+        
         Haptics.playLightImpact()
         if timerCounting {
             setStopTime(date: Date())
             stopTimer()
+            pauseAnimation()
         } else {
             if let stop = stopTime {
                 let restartTime = calculateRestartTime(start: startTime!, stop: stop)
                 setStopTime(date: nil)
                 setStartTime(date: restartTime)
+                resumeAnimation()
             } else {
                 setStartTime(date: Date())
+                startAnimation()
             }
             startTimer()
+            
         }
     }
     
@@ -637,6 +643,7 @@ class PomodoroViewController: UIViewController {
             setStartTime(date: Date())
             startTimer()
             currentInterval += 1
+            startAnimation()
         } else {
             print("intervals finished")
             stopTimer()
