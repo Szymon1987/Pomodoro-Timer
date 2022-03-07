@@ -31,13 +31,7 @@ class PomodoroViewController: UIViewController {
 
 //    private var isAnimatingFirstTime = true
     
-    enum TimeIntervals {
-        case pomodoro
-        case shortBreak
-        case longBreak
-    }
-    private let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .shortBreak, .pomodoro, .longBreak]
-        
+       
     var customizedFont: String = "MalayalamSangamMN" {
         didSet {
             titleLabel.font = UIFont(name: customizedFont, size: titleLabel.font.pointSize)
@@ -66,6 +60,8 @@ class PomodoroViewController: UIViewController {
 //        startTime = userDefaults.object(forKey: START_TIME_KEY) as? Date
 //        stopTime = userDefaults.object(forKey: STOP_TIME_KEY) as? Date
 //        timerCounting = userDefaults.bool(forKey: COUNTING_KEY)
+        
+        totalSeconds = pomodoroSeconds
         
         if timerCounting {
             startTimer()
@@ -507,12 +503,25 @@ class PomodoroViewController: UIViewController {
 //    }
 //
 
+    
+    enum TimeIntervals {
+        case pomodoro
+        case shortBreak
+        case longBreak
+    }
+    private let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
+    
+    var totalSeconds: Int = 6
+    var pomodoroSeconds: Int = 6
+    var shortBreakSeconds: Int = 2
+    var longBreakSeconds: Int = 4
+    
     var timerCounting: Bool = false
     var startTime: Date?
     var stopTime: Date?
-    var totalSeconds: Int = 30
     var scheduledTimer: Timer!
-    var curretnInterval: Int = 0
+    var currentInterval: Int = 1
+    
     
     let userDefaults = UserDefaults.standard
     let START_TIME_KEY = "startTime"
@@ -537,7 +546,6 @@ class PomodoroViewController: UIViewController {
             }
             startTimer()
         }
-        
     }
     
     func calculateRestartTime(start: Date, stop: Date) -> Date {
@@ -555,18 +563,19 @@ class PomodoroViewController: UIViewController {
     @objc func refreshValue() {
         if let start = startTime {
             let elapsedTime = Date().timeIntervalSince(start)
-            let currentTime = totalSeconds - Int(elapsedTime)
-            if currentTime > 0 {
-                setTimeLabel(currentTime)
+            let displayedTime = totalSeconds - Int(elapsedTime)
+            
+            if displayedTime > 0 {
+                setTimeLabel(displayedTime)
+                
             } else {
-                switchInterval()
-            }
-        } else {
             stopTimer()
-            setTimeLabel(0)
+            switchInterval()
+//
+//            setTimeLabel(0)
+            }
         }
     }
-    
     func setTimeLabel(_ val: Int) {
         let time = SecondsToHoursMinutesSeconds(val)
         let timeString = makeTimeString(min: time.1, sec: time.2)
@@ -601,7 +610,7 @@ class PomodoroViewController: UIViewController {
         userDefaults.set(startTime, forKey: START_TIME_KEY)
     }
     
-    func setStopTime(date: Date?) {t
+    func setStopTime(date: Date?) {
         stopTime = date
         userDefaults.set(stopTime, forKey: STOP_TIME_KEY)
     }
@@ -611,8 +620,36 @@ class PomodoroViewController: UIViewController {
     }
     
     func switchInterval() {
-        
+        if currentInterval < intervals.count {
+            switch intervals[currentInterval] {
+            case .pomodoro:
+                totalSeconds = pomodoroSeconds
+                print("pomodoro")
+            case .shortBreak:
+                totalSeconds = shortBreakSeconds
+                print("short break")
+            case .longBreak:
+                totalSeconds = longBreakSeconds
+                print("long break")
+            default:
+                print("Error switchig intervals")
+            }
+            setStartTime(date: Date())
+            startTimer()
+            currentInterval += 1
+        } else {
+            print("intervals finished")
+            stopTimer()
+            setTimeLabel(0)
+            currentInterval = 1
+            totalSeconds = pomodoroSeconds
+        }
     }
+    
+    
+    
+    
+    
     
 //    private func timeString(time: TimeInterval) -> String {
 ////        let hours = Int(time) / 3600
