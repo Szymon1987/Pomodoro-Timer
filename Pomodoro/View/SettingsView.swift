@@ -11,35 +11,31 @@ class SettingsView: UIView {
 
     // MARK: - Properties
     
-    var pomodoroVC: PomodoroViewController?
+    weak var pomodoroVC: PomodoroViewController?
+//
+    let pomodoroArray = (1...120).map{$0}
+    let shortBreakArray = (1...120).map{$0}
+    let longBreakArray = (1...120).map{$0}
     
-    let pomodoroArray = (10...60).map{$0}
-    let shortBreakArray = (3...8).map{$0}
-    let longBreakArray = (9...20).map{$0}
-
     var pomodoroMinutes = 25
     var shortBreakMinutes = 5
     var longBreakMinutes = 10
     
-    private var fontName: String?
-    private var colorTheme: UIColor?
+    private var fontName: String = "MalayalamSangamMN-Bold"
+    private var colorTheme: UIColor = ColorManager.pomodoroOrange
     
     //MARK: - LifeCycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("initialized")
         showSettings()
         setUpTopContainerView()
         setUpMiddleContainerView()
         setUpBottomContainerView()
-//        shortBreakPickerView.delegate = self
-//        shortBreakPickerView.dataSource = self
         backgroundColor = .white
-        // chooses the default vaule for the minutes
-        self.pomodoroPickerView.selectRow(15, inComponent: 0, animated: false)
-        self.shortBreakPickerView.selectRow(2, inComponent: 0, animated: false)
-        self.longBreakPickerView.selectRow(1, inComponent: 0, animated: false)
+        self.pomodoroPickerView.selectRow(24, inComponent: 0, animated: false)
+        self.shortBreakPickerView.selectRow(4, inComponent: 0, animated: false)
+        self.longBreakPickerView.selectRow(9, inComponent: 0, animated: false)
     }
     
     required init?(coder: NSCoder) {
@@ -170,7 +166,7 @@ class SettingsView: UIView {
         let view = CircleFontView()
         view.backgroundColor = .black
         view.label.textColor = .white
-        view.label.font = UIFont(name: "MalayalamSangamMN", size: 13)
+        view.label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 13)
         let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
         view.addGestureRecognizer(tap)
         tap.view?.tag = 0
@@ -252,17 +248,11 @@ class SettingsView: UIView {
     //MARK: - Helpers
  
     @objc private func applyButtonPressed() {
-//        Haptics.playLightImpact()
-//        if let pomodoroVC = pomodoroVC {
-//            pomodoroVC.didUpdateTimer(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes)
-//            if let fontName = fontName {
-//                pomodoroVC.customizedFont = fontName
-//            }
-//            if let colorTheme = colorTheme {
-//                pomodoroVC.themeColor = colorTheme
-//            }
-//        }
-//        removeFromSuperview()
+        Haptics.playLightImpact()
+        if let pomodoroVC = pomodoroVC {
+                pomodoroVC.didUpdateUI(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes, font: fontName, color: colorTheme)
+        }
+        removeFromSuperview()
     }
     
     @objc private func handleDismiss() {
@@ -283,7 +273,7 @@ class SettingsView: UIView {
         updateFontViewBackgroundColor(selectedTag: getTag)
         switch sender.view?.tag {
         case 0:
-            fontName = "MalayalamSangamMN"
+            fontName = "MalayalamSangamMN-Bold"
         case 1:
             fontName = "ArialRoundedMTBold"
         case 2:
@@ -309,20 +299,6 @@ class SettingsView: UIView {
 
         if let senderColor = sender.view?.backgroundColor {
             applyButton.backgroundColor = senderColor
-//            if let pomodoroVC = pomodoroVC {
-//                pomodoroVC.labelColor = senderColor
-//
-//// such messy code below.... :/ fix bloody else statements
-//
-//                if pomodoroVC.currentInterval == 0 || pomodoroVC.currentInterval == 1 || pomodoroVC.currentInterval == 3 || pomodoroVC.currentInterval == 5 {
-//                    pomodoroVC.pomodoroLabel.backgroundColor = senderColor
-//                } else if pomodoroVC.currentInterval == 2 || pomodoroVC.currentInterval == 4 {
-//                    pomodoroVC.shortBreakLabel.backgroundColor = senderColor
-//                } else if pomodoroVC.currentInterval == 6 {
-//                    pomodoroVC.longBreakLabel.backgroundColor = senderColor
-//                }
-//            }
-            
             colorTheme = senderColor
         }
     }
@@ -424,10 +400,8 @@ class SettingsView: UIView {
         rightColorView.anchor(top: nil, bottom: centerColorView.bottomAnchor, leading: centerColorView.trailingAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
 
         rightColorView.anchorSize(to: centerColorView)
- 
     }
 
-    
     private func showSettings() {
         self.translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 20
@@ -528,7 +502,6 @@ extension SettingsView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         switch pickerView {
         case pomodoroPickerView:
             pomodoroMinutes = pomodoroArray[row]

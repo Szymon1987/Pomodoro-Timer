@@ -8,6 +8,34 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
+    enum TimeIntervals {
+        case pomodoro
+        case shortBreak
+        case longBreak
+    }
+    private let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
+    
+    
+    var totalSeconds: Int = 6
+    var pomodoroSeconds: Int = 6
+    var shortBreakSeconds: Int = 2
+    var longBreakSeconds: Int = 4
+    
+    var timerCounting: Bool = false
+    var startTime: Date?
+    var stopTime: Date?
+    var scheduledTimer: Timer!
+    var currentInterval: Int = 1
+    private var colorTheme: UIColor = ColorManager.pomodoroOrange
+    private var fontTheme: String = "MalayalamSangamMN"
+    
+    
+    let userDefaults = UserDefaults.standard
+    let START_TIME_KEY = "startTime"
+    let STOP_TIME_KEY = "stopTime"
+    let COUNTING_KEY = "countingKey"
+    
+    
     
     // MARK: - Constants
     private let start: String = "S T A R T"
@@ -22,39 +50,11 @@ class PomodoroViewController: UIViewController {
         return st
     }()
     
-    private var shapeLayer = CAShapeLayer()
-    private var secondsRemaining = 0
-//    private var pomodoroSeconds: Double = 4
-//    private var shortBreakSeconds = 2
-//    private var longBreakSeconds = 3
-//    private var currentInterval = 1
-
-//    private var isAnimatingFirstTime = true
-    
-       
-    var customizedFont: String = "MalayalamSangamMN" {
-        didSet {
-            titleLabel.font = UIFont(name: customizedFont, size: titleLabel.font.pointSize)
-            pomodoroLabel.font = UIFont(name: customizedFont, size: pomodoroLabel.font.pointSize)
-            shortBreakLabel.font = UIFont(name: customizedFont, size: shortBreakLabel.font.pointSize)
-            longBreakLabel.font = UIFont(name: customizedFont, size: longBreakLabel.font.pointSize)
-            startStopLabel.font = UIFont(name: customizedFont, size: startStopLabel.font.pointSize)
-            timerLabel.font = UIFont(name: customizedFont, size: timerLabel.font.pointSize)
-        }
-    }
-    
-    var themeColor = ColorManager.pomodoroOrange {
-        didSet {
-                shapeLayer.strokeColor = themeColor.cgColor
-            print(themeColor.cgColor)
-                changeLabelBackgroundColor()
-        }
-    }
-    
     // MARK: - LifeCycle
      
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 //        timerLabel.text = "\(totalSeconds)"
         setupLayout()
 //        startTime = userDefaults.object(forKey: START_TIME_KEY) as? Date
@@ -75,10 +75,9 @@ class PomodoroViewController: UIViewController {
                 }
             }
         }
-        
-        
-//        secondsRemaining = pomodoroSeconds
+
     }
+ 
       // it isn't probaly correct function
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -118,6 +117,8 @@ class PomodoroViewController: UIViewController {
         return view
     }()
     
+
+    
     
     // MARK: - UIComponents
     
@@ -147,7 +148,7 @@ class PomodoroViewController: UIViewController {
         label.text = "pomodoro"
         label.textAlignment = .center
         label.textColor = ColorManager.darkPurple
-        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 18)
         return label
     }()
     
@@ -158,10 +159,11 @@ class PomodoroViewController: UIViewController {
         label.text = "short break"
         label.textAlignment = .center
         label.textColor = ColorManager.lightTextColor
-        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 18)
 //        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
+
     
     private let longBreakLabel: UILabel = {
         let label = UILabel()
@@ -169,16 +171,16 @@ class PomodoroViewController: UIViewController {
         label.text = "long break"
         label.textAlignment = .center
         label.textColor = ColorManager.lightTextColor
-        label.font = UIFont(name: "MalayalamSangamMN", size: 18)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 18)
 //        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
     private let timerLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:30"
+        label.text = "00:06"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 54)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 54)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         return label
@@ -186,9 +188,9 @@ class PomodoroViewController: UIViewController {
 
     private lazy var startStopLabel: UILabel = {
         let label = UILabel()
-//        label.text = start
+        label.text = start
         label.textAlignment = .center
-        label.font = label.font.withSize(22)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.isUserInteractionEnabled = true
@@ -200,6 +202,17 @@ class PomodoroViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    lazy var shapeLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
+        layer.strokeColor = ColorManager.pomodoroOrange.cgColor
+        layer.lineWidth = 10
+        layer.fillColor = UIColor.clear.cgColor
+        layer.lineCap = .round
+        layer.strokeEnd = 1
+        return layer
     }()
     
     private lazy var settingsIconView: UIImageView = {
@@ -290,55 +303,11 @@ class PomodoroViewController: UIViewController {
     }
     
     // MARK: - UIActions
-    
-//    @objc private func startStopTapped() {
-//        Haptics.playLightImpact()
-//        if isCounting {
-//            isCounting = false
-//            timer.invalidate()
-//            startStopLabel.text = start
-//            pauseAnimation()
-//        }
-//        else {
-//            isCounting = true
-//            startStopLabel.text = pause
-//            startResumeAnimation()
-//
-//// we have to inform that next interval is about to start. Otherwise pomodoro time will run twice
-//            if currentInterval == 0 && secondsRemaining == pomodoroSeconds {
-//                startNextInterval()
-//            } else {
-//                startTimer()
-//            }
-//        }
-//    }
-    
+
     @objc private func settingsIconTapped() {
         Haptics.playLightImpact()
         setupSettingsView()
     }
-    
-    private func changeLabelBackgroundColor() {
-        let labels = [pomodoroLabel, shortBreakLabel, longBreakLabel]
-        for label in labels {
-            if label.backgroundColor != .clear {
-                label.backgroundColor = themeColor
-            } else {
-                label.backgroundColor = .clear
-            }
-        }
-//        if currentInterval == 0 || currentInterval == 1 || currentInterval ==
-//
-//        if pomodoroVC.currentInterval == 0 || pomodoroVC.currentInterval == 1 || pomodoroVC.currentInterval == 3 || pomodoroVC.currentInterval == 5 {
-//            pomodoroVC.pomodoroLabel.backgroundColor = senderColor
-//        } else if pomodoroVC.currentInterval == 2 || pomodoroVC.currentInterval == 4 {
-//            pomodoroVC.shortBreakLabel.backgroundColor = senderColor
-//        } else if pomodoroVC.currentInterval == 6 {
-//            pomodoroVC.longBreakLabel.backgroundColor = senderColor
-//        }
-//    }
-    }
-
     
     private func setupRoundedViews() {
         darkPurpleCircleView.layer.cornerRadius = darkPurpleCircleView.frame.height / 2
@@ -356,34 +325,22 @@ class PomodoroViewController: UIViewController {
         let radius = (timerView.frame.height - 60) / 2
         let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
-
-        
         // had to reposition to the center otherwise there is a bug in the animation when originally setting "startAngle" to -CGFloat.pi / 2
         
         let center = CGPoint(x: timerView.layer.bounds.midX, y: timerView.layer.bounds.midY)
         shapeLayer.position = center
-        shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
-        shapeLayer.strokeColor = ColorManager.pomodoroOrange.cgColor
-        shapeLayer.lineWidth = 10
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.lineCap = .round
-        shapeLayer.strokeEnd = 1
         timerView.layer.addSublayer(shapeLayer)
-        
+
     }
 
     // MARK: - Animation Methods
-    // should circleAnimation be inside the startAnimation()?
-    private let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
-    
-    private func startAnimation() {
+
+    func startAnimation() {
+        let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
         circleAnimation.fromValue = 1
         circleAnimation.toValue = 0
-//        circleAnimation.duration = CFTimeInterval(secondsRemaining)
         circleAnimation.duration = CFTimeInterval(totalSeconds)
-        
-        // apparently it is a bad practise to set "isRemovedOnCompletion = false"
-//        circleAnimation.isRemovedOnCompletion = false
+        circleAnimation.isRemovedOnCompletion = false
         shapeLayer.add(circleAnimation, forKey: "animation")
     }
     
@@ -391,8 +348,6 @@ class PomodoroViewController: UIViewController {
         let pausedTime: CFTimeInterval = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
         shapeLayer.speed = 0.0
         shapeLayer.timeOffset = pausedTime
-//        isAnimatingFirstTime = false
-
     }
 
     private func resumeAnimation() {
@@ -404,96 +359,31 @@ class PomodoroViewController: UIViewController {
         let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
         shapeLayer.beginTime = timeSincePause
     }
-    
-    private func startResumeAnimation() {
-//        if isAnimatingFirstTime {
-//            startAnimation()
-//            isAnimatingFirstTime = false
-//        } else {
-//            resumeAnimation()
-//            isAnimatingFirstTime = true
-//        }
-    }
-
-
-    
-    
+ 
     
     // MARK: Timer functions
 
-//    private func startTimer() {
-//        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
-//    }
-//
-//
-//    @objc private func timerCounter() {
-//        if secondsRemaining > 1 {
-//            secondsRemaining -= 1
-//        } else {
-//            timer.invalidate()
-//            startNextInterval()
-//            isAnimatingFirstTime = true
-//
-//        }
-//        timerLabel.text = timeString(time: TimeInterval(secondsRemaining))
-//
-//    }
-//
-//
-//    private func startNextInterval() {
-//
-//      if currentInterval < intervals.count  {
-//          if intervals[currentInterval] == .pomodoro {
-//            secondsRemaining = pomodoroSeconds
-//              pomodoroLabel.backgroundColor = themeColor
-//              pomodoroLabel.textColor = ColorManager.darkPurple
-//              shortBreakLabel.backgroundColor = .clear
-//              shortBreakLabel.textColor = ColorManager.lightTextColor
-//              longBreakLabel.backgroundColor = .clear
-//              longBreakLabel.textColor = ColorManager.lightTextColor
-//
-//          } else if intervals[currentInterval] == .shortBreak {
-//            secondsRemaining = shortBreakSeconds
-//              shortBreakLabel.backgroundColor = themeColor
-//              shortBreakLabel.textColor = ColorManager.darkPurple
-//              pomodoroLabel.backgroundColor = .clear
-//              pomodoroLabel.textColor = ColorManager.lightTextColor
-//              longBreakLabel.backgroundColor = .clear
-//              longBreakLabel.textColor = ColorManager.lightTextColor
-//
-//          } else if intervals[currentInterval] == .longBreak {
-//             secondsRemaining = longBreakSeconds
-//              longBreakLabel.backgroundColor = themeColor
-//              longBreakLabel.textColor = ColorManager.darkPurple
-//              pomodoroLabel.backgroundColor = .clear
-//              pomodoroLabel.textColor = ColorManager.lightTextColor
-//              shortBreakLabel.backgroundColor = .clear
-//              shortBreakLabel.textColor = ColorManager.lightTextColor
-//      }
-//          currentInterval += 1
-//          startTimer()
-//          startAnimation()
-//      } else {
-//          resetToBeginning()
-//      }
-//
-//}
-//    private func resetToBeginning() {
-//        currentInterval = 0
-//        secondsRemaining = 0
-//        secondsRemaining = pomodoroSeconds
-//        startStopLabel.text = start
-//        isCounting = false
-//        isAnimatingFirstTime = true
-//        shapeLayer.removeAllAnimations()
-//        pomodoroLabel.backgroundColor = themeColor
-//        pomodoroLabel.textColor = ColorManager.darkPurple
-//        longBreakLabel.backgroundColor = .clear
-//        longBreakLabel.textColor = ColorManager.lightTextColor
-//    }
+    func didUpdateUI(with pomodoroMinutes: Int, with shortBreakMinutes: Int, with longBreakMinutes: Int, font: String, color: UIColor) {
+        
+        self.resetTimer()
+        self.pomodoroSeconds = pomodoroMinutes * 60
+        self.shortBreakSeconds = shortBreakMinutes * 60
+        self.longBreakSeconds = longBreakMinutes * 60
+        self.fontTheme = font
+        self.colorTheme = color
+        
+        DispatchQueue.main.async {
+                self.pomodoroLabel.backgroundColor = color
+                self.shapeLayer.strokeColor = color.cgColor
+            self.titleLabel.font = UIFont(name: font, size: self.titleLabel.font.pointSize)
+                self.pomodoroLabel.font = UIFont(name: self.fontTheme, size: self.pomodoroLabel.font.pointSize)
+                self.shortBreakLabel.font = UIFont(name: self.fontTheme, size: self.shortBreakLabel.font.pointSize)
+                self.longBreakLabel.font = UIFont(name: self.fontTheme, size: self.longBreakLabel.font.pointSize)
+                self.timerLabel.font = UIFont(name: self.fontTheme, size: self.timerLabel.font.pointSize)
+                self.startStopLabel.font = UIFont(name: self.fontTheme, size: self.startStopLabel.font.pointSize)
+                self.resetTimer()
+        }
 
-//
-//    func didUpdateTimer(with pomodoroTime: Int, with shortBreakTime: Int, with longBreakTime: Int) {
 //        resetToBeginning()
 //        timerLabel.text =  "\(pomodoroTime):00"
 //        pomodoroSeconds = pomodoroTime * 60
@@ -501,39 +391,9 @@ class PomodoroViewController: UIViewController {
 //        longBreakSeconds = longBreakTime * 60
 //        timer.invalidate()
 //        startStopLabel.text = start
-//    }
-//
-
-    
-    enum TimeIntervals {
-        case pomodoro
-        case shortBreak
-        case longBreak
     }
-    private let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
-    
-    var totalSeconds: Int = 6
-    var pomodoroSeconds: Int = 6
-    var shortBreakSeconds: Int = 2
-    var longBreakSeconds: Int = 4
-    
-    var timerCounting: Bool = false
-    var startTime: Date?
-    var stopTime: Date?
-    var scheduledTimer: Timer!
-    var currentInterval: Int = 1
-    
-    
-    let userDefaults = UserDefaults.standard
-    let START_TIME_KEY = "startTime"
-    let STOP_TIME_KEY = "stopTime"
-    let COUNTING_KEY = "countingKey"
-    
-    
-    
 
     @objc private func startStopTapped() {
-        
         Haptics.playLightImpact()
         if timerCounting {
             setStopTime(date: Date())
@@ -548,9 +408,10 @@ class PomodoroViewController: UIViewController {
             } else {
                 setStartTime(date: Date())
                 startAnimation()
+                // I don't understand why the animation not always work without resume function here
+                resumeAnimation()
             }
             startTimer()
-            
         }
     }
     
@@ -562,8 +423,7 @@ class PomodoroViewController: UIViewController {
     func startTimer() {
         scheduledTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(refreshValue), userInfo: nil, repeats: true)
         setTimerCounting(true)
-        startStopLabel.text = "STOP"
-        
+        startStopLabel.text = pause
     }
 
     @objc func refreshValue() {
@@ -577,8 +437,6 @@ class PomodoroViewController: UIViewController {
             } else {
             stopTimer()
             switchInterval()
-//
-//            setTimeLabel(0)
             }
         }
     }
@@ -606,9 +464,10 @@ class PomodoroViewController: UIViewController {
     func stopTimer() {
         if scheduledTimer != nil {
             scheduledTimer.invalidate()
+            
         }
         setTimerCounting(false)
-        startStopLabel.text = "START"
+        startStopLabel.text = start
     }
     
     func setStartTime(date: Date?) {
@@ -630,54 +489,57 @@ class PomodoroViewController: UIViewController {
             switch intervals[currentInterval] {
             case .pomodoro:
                 totalSeconds = pomodoroSeconds
-                print("pomodoro")
+                pomodoroLabel.backgroundColor = colorTheme
+                pomodoroLabel.textColor = ColorManager.darkPurple
+                shortBreakLabel.backgroundColor = .clear
+                shortBreakLabel.textColor = ColorManager.lightTextColor
+                longBreakLabel.backgroundColor = .clear
+                longBreakLabel.textColor = ColorManager.lightTextColor
             case .shortBreak:
                 totalSeconds = shortBreakSeconds
-                print("short break")
+                shortBreakLabel.backgroundColor = colorTheme
+                shortBreakLabel.textColor = ColorManager.darkPurple
+                pomodoroLabel.backgroundColor = .clear
+                pomodoroLabel.textColor = ColorManager.lightTextColor
+                longBreakLabel.backgroundColor = .clear
+                longBreakLabel.textColor = ColorManager.lightTextColor
             case .longBreak:
                 totalSeconds = longBreakSeconds
-                print("long break")
-            default:
-                print("Error switchig intervals")
+                longBreakLabel.backgroundColor = colorTheme
+                longBreakLabel.textColor = ColorManager.darkPurple
+                pomodoroLabel.backgroundColor = .clear
+                pomodoroLabel.textColor = ColorManager.lightTextColor
+                shortBreakLabel.backgroundColor = .clear
+                shortBreakLabel.textColor = ColorManager.lightTextColor
             }
             setStartTime(date: Date())
             startTimer()
             currentInterval += 1
             startAnimation()
         } else {
-            print("intervals finished")
-            stopTimer()
-            setTimeLabel(0)
-            currentInterval = 1
-            totalSeconds = pomodoroSeconds
+            resetTimer()
         }
     }
     
-    
-    
-    
-    
-    
-//    private func timeString(time: TimeInterval) -> String {
-////        let hours = Int(time) / 3600
-//        let minutes = Int(time) / 60 % 60
-//        let seconds = Int(time) % 60
-//        return String(format:"%.2d:%.2d", minutes, seconds)
-//    }
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func resetTimer() {
+        shapeLayer.removeAllAnimations()
+        shapeLayer.removeAnimation(forKey: "animation")
+        currentInterval = 1
+        totalSeconds = 0
+        totalSeconds = pomodoroSeconds
+        setStartTime(date: nil)
+        setStopTime(date: nil)
+        stopTimer()
+        setTimeLabel(pomodoroSeconds)
+        // We are back in the pomodoroTheme Colors
+        pomodoroLabel.backgroundColor = colorTheme
+        pomodoroLabel.textColor = ColorManager.darkPurple
+        shortBreakLabel.backgroundColor = .clear
+        shortBreakLabel.textColor = ColorManager.lightTextColor
+        longBreakLabel.backgroundColor = .clear
+        longBreakLabel.textColor = ColorManager.lightTextColor
+        
+    }
 }
 
 
