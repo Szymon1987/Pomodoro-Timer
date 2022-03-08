@@ -52,15 +52,14 @@ class SettingsView: UIView {
         return label
     }()
 
-   private lazy var xmarkView: UIImageView = {
+    private lazy var xmarkButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .systemGray
         let image = UIImage(systemName: "xmark")
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = .systemGray
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        return imageView
+        button.setImage(image, for: .normal)
+        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        return button
     }()
     
    private let topContainerView: UIView = {
@@ -413,12 +412,12 @@ class SettingsView: UIView {
         settingsLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         settingsLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
         
-        addSubview(xmarkView)
+        addSubview(xmarkButton)
         
-        xmarkView.centerYAnchor.constraint(equalTo: settingsLabel.centerYAnchor).isActive = true
-        xmarkView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        xmarkView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        xmarkView.trailingAnchor.constraint(equalTo: settingsLabel.trailingAnchor, constant: -20).isActive = true
+        xmarkButton.centerYAnchor.constraint(equalTo: settingsLabel.centerYAnchor).isActive = true
+        xmarkButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        xmarkButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        xmarkButton.trailingAnchor.constraint(equalTo: settingsLabel.trailingAnchor, constant: -20).isActive = true
         
         
         addSubview(topContainerView)

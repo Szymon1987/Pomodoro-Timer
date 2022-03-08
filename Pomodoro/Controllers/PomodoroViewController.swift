@@ -15,7 +15,6 @@ class PomodoroViewController: UIViewController {
     }
     private let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
     
-    
     var totalSeconds: Int = 6
     var pomodoroSeconds: Int = 6
     var shortBreakSeconds: Int = 2
@@ -34,7 +33,6 @@ class PomodoroViewController: UIViewController {
     let START_TIME_KEY = "startTime"
     let STOP_TIME_KEY = "stopTime"
     let COUNTING_KEY = "countingKey"
-    
     
     
     // MARK: - Constants
@@ -109,15 +107,16 @@ class PomodoroViewController: UIViewController {
         let view = UIView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.shouldRasterize = true
-//        view.layer.rasterizationScale = UIScreen.main.scale
-//        view.layer.shadowRadius = 20
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.shadowOffset = CGSize(width: 30, height: 30)
         return view
     }()
     
-
+    let shadowView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = ColorManager.darkPurple
+        view.layer.masksToBounds = false
+        return view
+    }()
     
     
     // MARK: - UIComponents
@@ -215,16 +214,13 @@ class PomodoroViewController: UIViewController {
         return layer
     }()
     
-    private lazy var settingsIconView: UIImageView = {
-        let image = UIImage(systemName: "gearshape.fill")
-        let imageView = UIImageView(image: image)
-        imageView.image?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .gray
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsIconTapped)))
-        return imageView
+    private lazy var settingsButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "settingsIcon")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsIconTapped)))
+        return button
     }()
         
     // MARK: - SettingUp The Views Methods
@@ -261,7 +257,9 @@ class PomodoroViewController: UIViewController {
         
         view.backgroundColor = ColorManager.backgroundPurple
         
+        view.addSubview(shadowView)
         view.addSubview(timerView)
+        
         timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -272,6 +270,12 @@ class PomodoroViewController: UIViewController {
         lightPurpleCircleView.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
         lightPurpleCircleView.heightAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
         lightPurpleCircleView.widthAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
+        
+        
+        shadowView.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
+        shadowView.centerYAnchor.constraint(equalTo: timerView.centerYAnchor).isActive = true
+        shadowView.heightAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
+        shadowView.widthAnchor.constraint(equalTo: timerView.heightAnchor).isActive = true
         
         timerView.addSubview(darkPurpleCircleView)
         darkPurpleCircleView.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
@@ -293,11 +297,11 @@ class PomodoroViewController: UIViewController {
         startStopLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 17).isActive = true
         startStopLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
         
-        view.addSubview(settingsIconView)
-        settingsIconView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-        settingsIconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        settingsIconView.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        settingsIconView.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        view.addSubview(settingsButton)
+        settingsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        settingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        settingsButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        settingsButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
     
         setupStackView()
     }
@@ -319,6 +323,14 @@ class PomodoroViewController: UIViewController {
         lightPurpleCircleView.layer.shadowOffset = CGSize(width: 60, height: 60)
         lightPurpleCircleView.layer.shadowOpacity = 1
         lightPurpleCircleView.layer.shadowRadius = 10
+        
+        shadowView.layer.cornerRadius = shadowView.frame.height / 2
+        shadowView.layer.shadowColor = ColorManager.backgroundPurpleLight.cgColor
+        
+        shadowView.layer.rasterizationScale = UIScreen.main.scale
+        shadowView.layer.shadowRadius = 40
+        shadowView.layer.shadowOpacity = 0.5
+        shadowView.layer.shadowOffset = CGSize(width: -25, height: -40)
     }
     
     private func setupTimerView() {
