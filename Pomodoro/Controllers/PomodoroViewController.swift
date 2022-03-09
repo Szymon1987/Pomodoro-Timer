@@ -8,6 +8,8 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
+    var shareView = SharePromptView()
+    
     enum TimeIntervals {
         case pomodoro
         case shortBreak
@@ -48,6 +50,10 @@ class PomodoroViewController: UIViewController {
     }()
     
     // MARK: - LifeCycle
+    
+    override func loadView() {
+        view = shareView
+    }
      
     override func viewDidLoad() {
         super.viewDidLoad()
