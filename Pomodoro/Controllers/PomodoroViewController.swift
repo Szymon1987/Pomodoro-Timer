@@ -41,7 +41,6 @@ class PomodoroViewController: UIViewController {
     
     // MARK: - Properties
     
-    // why lazy var and why st.pomodoroVC = self??? check if st.pomodoroVC = self is needed here
     private lazy var settingsView: SettingsView = {
         let st = SettingsView()
         st.pomodoroVC = self
@@ -52,8 +51,6 @@ class PomodoroViewController: UIViewController {
      
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        timerLabel.text = "\(totalSeconds)"
         setupLayout()
 //        startTime = userDefaults.object(forKey: START_TIME_KEY) as? Date
 //        stopTime = userDefaults.object(forKey: STOP_TIME_KEY) as? Date
@@ -395,14 +392,6 @@ class PomodoroViewController: UIViewController {
                 self.startStopLabel.font = UIFont(name: self.fontTheme, size: self.startStopLabel.font.pointSize)
                 self.resetTimer()
         }
-
-//        resetToBeginning()
-//        timerLabel.text =  "\(pomodoroTime):00"
-//        pomodoroSeconds = pomodoroTime * 60
-//        shortBreakSeconds = shortBreakTime * 60
-//        longBreakSeconds = longBreakTime * 60
-//        timer.invalidate()
-//        startStopLabel.text = start
     }
 
     @objc private func startStopTapped() {
@@ -542,7 +531,7 @@ class PomodoroViewController: UIViewController {
         setStopTime(date: nil)
         stopTimer()
         setTimeLabel(pomodoroSeconds)
-        // We are back in the pomodoroTheme Colors
+        /// We are back in the pomodoroTheme Colors
         pomodoroLabel.backgroundColor = colorTheme
         pomodoroLabel.textColor = ColorManager.darkPurple
         shortBreakLabel.backgroundColor = .clear

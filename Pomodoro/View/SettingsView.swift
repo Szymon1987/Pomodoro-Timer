@@ -87,45 +87,26 @@ class SettingsView: UIView {
         return view
     }()
     
-   private lazy var pomodoroLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
+   private lazy var pomodoroLabel: TimeLabelView = {
+        let label = TimeLabelView()
         label.text = "pomodoro"
         label.backgroundColor = ColorManager.backgroundGray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 8
-        label.layer.masksToBounds = true
-        label.textAlignment = .center
-        label.isUserInteractionEnabled = true
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchLabelBackground)))
        label.tag = 1
         return label
     }()
     
-    private lazy var shortBreakLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
+    private lazy var shortBreakLabel: TimeLabelView = {
+        let label = TimeLabelView()
         label.text = "short break"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 8
-        label.textAlignment = .center
-        label.isUserInteractionEnabled = true
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchLabelBackground)))
         label.tag = 2
         return label
     }()
     
-    private lazy var longBreakLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
+    private lazy var longBreakLabel: TimeLabelView = {
+        let label = TimeLabelView()
         label.text = "long break"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 8
-        label.textAlignment = .center
-        label.isHighlighted = true
-        label.isUserInteractionEnabled = true
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchLabelBackground)))
         label.tag = 3
         return label
@@ -184,7 +165,6 @@ class SettingsView: UIView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(fontIconTapped))
         view.addGestureRecognizer(tap)
         tap.view?.tag = 1
-//        view.tap.view?.tag = 1
         return view
     }()
     
@@ -365,60 +345,22 @@ class SettingsView: UIView {
         middleDividerView.anchor(top: nil, bottom: topContainerView.bottomAnchor, leading: topContainerView.leadingAnchor, trailing: topContainerView.trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: -20), size: .init(width: 0, height: 1))
 
         timeMinutesLabel.anchor(top: topDividerView.bottomAnchor, bottom: nil, leading: topContainerView.leadingAnchor, trailing: topContainerView.trailingAnchor, padding: .init(top: 12, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
-        
-        
-//        shortBreakLabel.anchor(top: nil, bottom: nil, leading: topContainerView.leadingAnchor, trailing: nil)
-//        shortBreakLabel.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor, constant: 20).isActive = true
-//        shortBreakLabel.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.5).isActive = true
-//        shortBreakLabel.heightAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.15).isActive = true
-        
+
         shortBreakLabel.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor, constant: 10).isActive = true
         shortBreakLabel.centerYAnchor.constraint(equalTo: topContainerView.centerYAnchor).isActive = true
         shortBreakLabel.heightAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 0.15).isActive = true
         shortBreakLabel.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.35).isActive = true
-    
-
-//        longBreakLabel.anchor(top: shortBreakLabel.bottomAnchor, bottom: nil, leading: topContainerView.leadingAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
-//        longBreakLabel.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.5).isActive = true
-//        longBreakLabel.heightAnchor.constraint(equalTo: shortBreakLabel.heightAnchor).isActive = true
-        
-        
+  
         longBreakLabel.leadingAnchor.constraint(equalTo: shortBreakLabel.leadingAnchor).isActive = true
         longBreakLabel.heightAnchor.constraint(equalTo: shortBreakLabel.heightAnchor).isActive = true
         longBreakLabel.widthAnchor.constraint(equalTo: shortBreakLabel.widthAnchor).isActive = true
         longBreakLabel.topAnchor.constraint(equalTo: shortBreakLabel.bottomAnchor, constant: 10).isActive = true
-        
-        
-//        pomodoroLabel.anchor(top: nil, bottom: shortBreakLabel.topAnchor, leading: topContainerView.leadingAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: -10, right: 0))
-//        pomodoroLabel.widthAnchor.constraint(equalTo: shortBreakLabel.widthAnchor).isActive = true
-//        pomodoroLabel.heightAnchor.constraint(equalTo: shortBreakLabel.heightAnchor).isActive = true
-//
-        
-        
+  
         pomodoroLabel.leadingAnchor.constraint(equalTo: shortBreakLabel.leadingAnchor).isActive = true
         pomodoroLabel.widthAnchor.constraint(equalTo: shortBreakLabel.widthAnchor).isActive = true
         pomodoroLabel.heightAnchor.constraint(equalTo: shortBreakLabel.heightAnchor).isActive = true
         pomodoroLabel.bottomAnchor.constraint(equalTo: shortBreakLabel.topAnchor, constant: -10).isActive = true
-        
-        
-//        topContainerView.addSubview(shortBreakPickerView)
-//
-//        shortBreakPickerView.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.5).isActive = true
-//        shortBreakPickerView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor).isActive = true
-//        shortBreakPickerView.centerYAnchor.constraint(equalTo: shortBreakLabel.centerYAnchor).isActive = true
-//        shortBreakPickerView.heightAnchor.constraint(equalTo: shortBreakLabel.heightAnchor).isActive = true
-//        topContainerView.addSubview(pomodoroPickerView)
-//
-//        pomodoroPickerView.anchor(top: nil, bottom: shortBreakPickerView.topAnchor, leading: nil, trailing: topContainerView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: -10, right: 0))
-//        pomodoroPickerView.widthAnchor.constraint(equalTo: shortBreakPickerView.widthAnchor).isActive = true
-//        pomodoroPickerView.heightAnchor.constraint(equalTo: shortBreakPickerView.heightAnchor).isActive = true
-//
-//        topContainerView.addSubview(longBreakPickerView)
-//        longBreakPickerView.anchor(top: shortBreakPickerView.bottomAnchor, bottom: nil, leading: nil, trailing: topContainerView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
-//        longBreakPickerView.widthAnchor.constraint(equalTo: shortBreakPickerView.widthAnchor).isActive = true
-//        longBreakPickerView.heightAnchor.constraint(equalTo: shortBreakPickerView.heightAnchor).isActive = true
-        
-        
+ 
         topContainerView.addSubview(pomodoroPickerView)
         pomodoroPickerView.widthAnchor.constraint(equalTo: topContainerView.widthAnchor, multiplier: 0.5).isActive = true
         pomodoroPickerView.bottomAnchor.constraint(equalTo: longBreakLabel.bottomAnchor).isActive = true
@@ -436,10 +378,6 @@ class SettingsView: UIView {
         longBreakPickerView.bottomAnchor.constraint(equalTo: longBreakLabel.bottomAnchor).isActive = true
         longBreakPickerView.topAnchor.constraint(equalTo: pomodoroLabel.topAnchor).isActive = true
         longBreakPickerView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor).isActive = true
-        
-        
-        
-        
     }
  
     private func setUpMiddleContainerView() {

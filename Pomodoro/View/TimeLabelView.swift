@@ -1,14 +1,13 @@
 //
-//  CircleView.swift
+//  TimeLabelView.swift
 //  Pomodoro
 //
-//  Created by Szymon Tadrzak on 02/11/2021.
+//  Created by Szymon Tadrzak on 09/03/2022.
 //
 
 import UIKit
 
-class CircleView: UIView {
-    
+class TimeLabelView: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -18,10 +17,14 @@ class CircleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
-        isUserInteractionEnabled = true
+    private func setup() {
+        textColor = .black
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 22
+        layer.cornerRadius = 8
         layer.masksToBounds = true
+        textAlignment = .center
+        isUserInteractionEnabled = true
     }
 }
+
+
