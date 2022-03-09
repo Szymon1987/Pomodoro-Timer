@@ -11,7 +11,8 @@ class SettingsView: UIView {
 
     // MARK: - Properties
     
-    weak var pomodoroVC: PomodoroViewController?
+//    weak var pomodoroVC: PomodoroViewController?
+    weak var pomodoroTimerView: PomodoroTimerView?
 //
     let pomodoroArray = (1...120).map{$0}
     let shortBreakArray = (1...120).map{$0}
@@ -255,8 +256,12 @@ class SettingsView: UIView {
  
     @objc private func applyButtonPressed() {
         Haptics.playLightImpact()
-        if let pomodoroVC = pomodoroVC {
-                pomodoroVC.didUpdateUI(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes, font: fontName, color: colorTheme)
+//        if let pomodoroVC = pomodoroVC {
+//                pomodoroVC.didUpdateUI(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes, font: fontName, color: colorTheme)
+//        }
+        
+        if let pomodoroTimerView = pomodoroTimerView {
+            pomodoroTimerView.didUpdateUI(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes, font: fontName, color: colorTheme)
         }
         removeFromSuperview()
     }
