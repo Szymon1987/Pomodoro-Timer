@@ -406,7 +406,6 @@ class PomodoroViewController: UIViewController {
     }
 
     @objc private func startStopTapped() {
-        Haptics.playLightImpact()
         if timerCounting {
             setStopTime(date: Date())
             stopTimer()

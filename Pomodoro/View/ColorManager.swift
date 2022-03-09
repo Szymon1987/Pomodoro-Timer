@@ -15,10 +15,10 @@ public class ColorManager {
     public static let pomodoroBlue = UIColor.rgb(red: 112, green: 243, blue: 248, alpha: 1)
     public static let pomodoroPurple = UIColor.rgb(red: 216, green: 129, blue: 248, alpha: 1)
     public static let darkPurple = UIColor.rgb(red: 22, green: 25, blue: 50, alpha: 1)
-    public static let fontViewBackgroundColor = #colorLiteral(red: 0.9333208203, green: 0.9437040687, blue: 0.9826990962, alpha: 1)
+    public static let backgroundGray = #colorLiteral(red: 0.9333208203, green: 0.9437040687, blue: 0.9826990962, alpha: 1)
     public static let lightTextColor = #colorLiteral(red: 0.3489980698, green: 0.3658552766, blue: 0.4711428881, alpha: 1)
     
-    // MARK: - BackGround Colors
+    // MARK: - Background Colors
     
     public static let backgroundPurple = UIColor.rgb(red: 30, green: 33, blue: 63, alpha: 1)
     

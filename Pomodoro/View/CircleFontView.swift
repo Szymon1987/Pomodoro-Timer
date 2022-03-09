@@ -15,8 +15,9 @@ class CircleFontView: CircleView {
     
     override func setup() {
         super.setup()
-        backgroundColor = ColorManager.fontViewBackgroundColor
+        backgroundColor = ColorManager.backgroundGray
         label.text = "Aa"
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
         label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
