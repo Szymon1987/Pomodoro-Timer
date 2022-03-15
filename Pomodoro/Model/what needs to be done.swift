@@ -3,9 +3,6 @@
 
  - implement MVC design pattern
  - add few cool animations
- - add more specific comments with "///"
- - improve //MARK: be more specific if it comes to naming
- - counting in background
  - pickerView bugs
  - alert sound
  
