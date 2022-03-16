@@ -8,15 +8,15 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
-    var shareView = PomodoroTimerView()
+    var pomodoroTimerView = PomodoroTimerView()
     
     override func loadView() {
-        view = shareView
+        view = pomodoroTimerView
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 //        setupLayout()
-        shareView.totalSeconds = shareView.pomodoroSeconds
+        pomodoroTimerView.totalSeconds = pomodoroTimerView.pomodoroSeconds
 //        shareView.setupRoundedViews()
 //        shareView.setupTimerView()
         
