@@ -1,4 +1,6 @@
 # Pomodoro-Timer
 Pomodoro timer app. The project is based on one of the projects from Frontend Mentor website https://www.frontendmentor.io/challenges/pomodoro-app-KBFnycJ6G
 
-![Screenshot 2022-03-16 at 17 39 33(1)](https://user-images.githubusercontent.com/77536764/158653720-f81be3b0-ffd2-4514-8849-6c7e8872c2ed.png)
+
+![1](https://user-images.githubusercontent.com/77536764/158658168-998dc184-e3ef-4ffd-be4e-bdd31a95378c.png)
+![2](https://user-images.githubusercontent.com/77536764/158658172-518f2515-b1fc-42f2-a0db-b195cbf782ec.png)
