@@ -268,7 +268,7 @@ class SettingsView: UIView {
     
     @objc private func handleDismiss() {
         Haptics.playLightImpact()
-        // improve the function, find proper animation for dismissing the view
+        /// improve the function, find proper animation for dismissing the view
         let animation = CABasicAnimation()
         animation.keyPath = "transform.scale"
         animation.fromValue = 1

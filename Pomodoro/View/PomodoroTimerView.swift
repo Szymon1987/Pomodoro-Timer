@@ -30,10 +30,12 @@ class PomodoroTimerView: UIView {
     private var fontTheme: String = "MalayalamSangamMN"
     
     
-    let userDefaults = UserDefaults.standard
-    let START_TIME_KEY = "startTime"
-    let STOP_TIME_KEY = "stopTime"
-    let COUNTING_KEY = "countingKey"
+    /// not sure yet if I am gonna use it
+    
+//    let userDefaults = UserDefaults.standard
+//    let START_TIME_KEY = "startTime"
+//    let STOP_TIME_KEY = "stopTime"
+//    let COUNTING_KEY = "countingKey"
     
     
     // MARK: - Constants
@@ -111,19 +113,24 @@ class PomodoroTimerView: UIView {
         label.text = "pomodoro"
         label.textAlignment = .center
         label.textColor = ColorManager.darkPurple
-        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 18)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: UIFont.labelFontSize)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
+        label.numberOfLines = 1
         return label
     }()
     
     private let shortBreakLabel: UILabel = {
         let label = UILabel()
-            label.backgroundColor = .clear
+        label.backgroundColor = .clear
         label.layer.masksToBounds = true
         label.text = "short break"
         label.textAlignment = .center
         label.textColor = ColorManager.lightTextColor
-        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 18)
-//        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: UIFont.labelFontSize)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
+        label.numberOfLines = 1
         return label
     }()
 
@@ -134,8 +141,11 @@ class PomodoroTimerView: UIView {
         label.text = "long break"
         label.textAlignment = .center
         label.textColor = ColorManager.lightTextColor
-        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: 18)
+        label.font = UIFont(name: "MalayalamSangamMN-Bold", size: UIFont.labelFontSize)
 //        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
+        label.numberOfLines = 1
         return label
     }()
     
@@ -148,7 +158,8 @@ class PomodoroTimerView: UIView {
         label.textColor = .white
         return label
     }()
-
+    
+/// need to adjust the font size correctly to fit the smaller screens
     private lazy var startStopLabel: UILabel = {
         let label = UILabel()
         label.text = start
@@ -157,6 +168,11 @@ class PomodoroTimerView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.isUserInteractionEnabled = true
+//        label.font = UIFont.preferredFont(forTextStyle: .body)
+//        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(startStopTapped)))
         return label
     }()
@@ -277,6 +293,8 @@ class PomodoroTimerView: UIView {
                 self.timerLabel.font = UIFont(name: self.fontTheme, size: self.timerLabel.font.pointSize)
                 self.startStopLabel.font = UIFont(name: self.fontTheme, size: self.startStopLabel.font.pointSize)
                 self.resetTimer()
+            print(self.startStopLabel.font.pointSize)
+         
         }
     }
 
@@ -358,16 +376,16 @@ class PomodoroTimerView: UIView {
     
     func setStartTime(date: Date?) {
         startTime = date
-        userDefaults.set(startTime, forKey: START_TIME_KEY)
+//        userDefaults.set(startTime, forKey: START_TIME_KEY)
     }
     
     func setStopTime(date: Date?) {
         stopTime = date
-        userDefaults.set(stopTime, forKey: STOP_TIME_KEY)
+//        userDefaults.set(stopTime, forKey: STOP_TIME_KEY)
     }
     func setTimerCounting(_ val: Bool) {
         timerCounting = val
-        userDefaults.set(timerCounting, forKey: COUNTING_KEY)
+//        userDefaults.set(timerCounting, forKey: COUNTING_KEY)
     }
     
     func switchInterval() {
