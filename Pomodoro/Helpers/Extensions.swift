@@ -42,13 +42,5 @@ extension UIColor {
     }
 }
 
-extension UIView {
-    func blink() {
-        self.alpha = 0.0
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseOut, .autoreverse, .repeat], animations: {[weak self] in self?.alpha = 1.0},
-                       completion: {[weak self] _ in self?.alpha = 0.0})
-    }
-}
-
 
 
