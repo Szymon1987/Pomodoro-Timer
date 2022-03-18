@@ -8,7 +8,6 @@
 import UIKit
 
 class PomodoroTimerView: UIView {
-
     
     private let timerStates: [TimerState] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
     
@@ -96,14 +95,6 @@ class PomodoroTimerView: UIView {
         return label
     }()
     
-    private let intervalsBackgroundView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.darkPurple
-        view.layer.masksToBounds = true
-        return view
-    }()
-    
     private let pomodoroLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.pomodoroOrange
@@ -146,6 +137,14 @@ class PomodoroTimerView: UIView {
         label.minimumScaleFactor = 0.2
         label.numberOfLines = 1
         return label
+    }()
+    
+    private let intervalsBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.darkPurple
+        view.layer.masksToBounds = true
+        return view
     }()
     
     private let timerLabel: UILabel = {
