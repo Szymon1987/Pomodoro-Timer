@@ -10,8 +10,6 @@ import UIKit
 class SettingsView: UIView {
 
     // MARK: - Properties
-    
-//    weak var pomodoroVC: PomodoroViewController?
     weak var pomodoroTimerView: PomodoroTimerView?
 //
     let pomodoroArray = (1...120).map{$0}
@@ -23,7 +21,7 @@ class SettingsView: UIView {
     var longBreakMinutes = 10
     
     private var fontName: String = "MalayalamSangamMN-Bold"
-    private var colorTheme: UIColor = ColorManager.pomodoroOrange
+    private var colorTheme: UIColor = UIColor.pomodoroOrange
     
     //MARK: - LifeCycle
     
@@ -91,7 +89,7 @@ class SettingsView: UIView {
    private lazy var pomodoroLabel: TimeLabelView = {
         let label = TimeLabelView()
         label.text = "pomodoro"
-        label.backgroundColor = ColorManager.backgroundGray
+        label.backgroundColor = UIColor.backgroundGray
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(switchLabelBackground)))
        label.tag = 1
         return label
@@ -214,7 +212,7 @@ class SettingsView: UIView {
     
     private lazy var centerColorView: CircleColorView = {
         let view = CircleColorView()
-        view.backgroundColor = ColorManager.pomodoroBlue
+        view.backgroundColor = UIColor.pomodoroBlue
         let tap = UITapGestureRecognizer(target: self, action: #selector(colorIconTapped))
         view.addGestureRecognizer(tap)
         tap.view?.tag = 1
@@ -224,7 +222,7 @@ class SettingsView: UIView {
    private lazy var leftColorView: CircleColorView = {
         let view = CircleColorView()
         view.checkMarkView.isHidden = false
-        view.backgroundColor = ColorManager.pomodoroOrange
+        view.backgroundColor = UIColor.pomodoroOrange
         let tap = UITapGestureRecognizer(target: self, action: #selector(colorIconTapped))
         view.addGestureRecognizer(tap)
         tap.view?.tag = 0
@@ -233,7 +231,7 @@ class SettingsView: UIView {
     
     private lazy var rightColorView: CircleColorView = {
         let view = CircleColorView()
-        view.backgroundColor = ColorManager.pomodoroPurple
+        view.backgroundColor = UIColor.pomodoroPurple
         let tap = UITapGestureRecognizer(target: self, action: #selector(colorIconTapped))
         view.addGestureRecognizer(tap)
         tap.view?.tag = 2
@@ -244,7 +242,7 @@ class SettingsView: UIView {
         let button = UIButton(type: .system)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Apply", for: .normal)
-        button.backgroundColor = ColorManager.pomodoroOrange
+        button.backgroundColor = UIColor.pomodoroOrange
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.layer.cornerRadius = 26
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -297,7 +295,7 @@ class SettingsView: UIView {
     private func updateFontViewBackgroundColor(selectedTag: Int) {
         let views = [leftFontView, centerFontView, rightFontView]
         for view in views {
-            view.backgroundColor = ColorManager.backgroundGray
+            view.backgroundColor = UIColor.backgroundGray
             view.label.textColor = .black
         }
         views[selectedTag].backgroundColor = .black
@@ -323,7 +321,7 @@ class SettingsView: UIView {
     @objc func switchLabelBackground(sender: UITapGestureRecognizer) {
         let views = [pomodoroLabel, shortBreakLabel, longBreakLabel]
         views.forEach{$0.backgroundColor = .clear}
-        sender.view?.backgroundColor = ColorManager.backgroundGray
+        sender.view?.backgroundColor = UIColor.backgroundGray
         
         let pickerViews = [shortBreakPickerView, longBreakPickerView, pomodoroPickerView]
         pickerViews.forEach{$0.isHidden = true}

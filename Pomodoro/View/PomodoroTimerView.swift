@@ -9,12 +9,8 @@ import UIKit
 
 class PomodoroTimerView: UIView {
 
-    enum TimeIntervals {
-        case pomodoro
-        case shortBreak
-        case longBreak
-    }
-    private let intervals: [TimeIntervals] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
+    
+    private let timerStates: [TimerState] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
     
     var totalSeconds: Int = 6
     var pomodoroSeconds: Int = 6
@@ -25,9 +21,11 @@ class PomodoroTimerView: UIView {
     var startTime: Date?
     var stopTime: Date?
     var scheduledTimer: Timer!
-    var currentInterval: Int = 1
-    private var colorTheme: UIColor = ColorManager.pomodoroOrange
-    private var fontTheme: String = "MalayalamSangamMN"
+    var currentState: Int = 1
+    
+    // change this
+    private var pickedColor: UIColor = UIColor.pomodoroOrange
+    private var pickedFont: String = "MalayalamSangamMN"
     
     
     /// not sure yet if I am gonna use it
@@ -57,14 +55,14 @@ class PomodoroTimerView: UIView {
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 1)
-        gradient.colors = [ColorManager.darkPurple.cgColor, ColorManager.backgroundPurpleLight.cgColor]
+        gradient.colors = [UIColor.darkPurple.cgColor, UIColor.backgroundPurpleLight.cgColor]
         gradient.locations = [0.2, 1]
         return gradient
     }()
     
     let darkPurpleCircleView: UIView = {
         let view = UIView()
-        view.backgroundColor = ColorManager.darkPurple
+        view.backgroundColor = UIColor.darkPurple
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -79,7 +77,7 @@ class PomodoroTimerView: UIView {
     let shadowView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = ColorManager.darkPurple
+        view.backgroundColor = UIColor.darkPurple
         view.layer.masksToBounds = false
         return view
     }()
@@ -101,18 +99,19 @@ class PomodoroTimerView: UIView {
     private let intervalsBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = ColorManager.darkPurple
+        view.backgroundColor = UIColor.darkPurple
         view.layer.masksToBounds = true
         return view
     }()
     
     private let pomodoroLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = ColorManager.pomodoroOrange
+        label.backgroundColor = UIColor.pomodoroOrange
+        
         label.layer.masksToBounds = true
         label.text = "pomodoro"
         label.textAlignment = .center
-        label.textColor = ColorManager.darkPurple
+        label.textColor = UIColor.darkPurple
         label.font = UIFont(name: "MalayalamSangamMN-Bold", size: UIFont.labelFontSize)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.2
@@ -126,7 +125,7 @@ class PomodoroTimerView: UIView {
         label.layer.masksToBounds = true
         label.text = "short break"
         label.textAlignment = .center
-        label.textColor = ColorManager.lightTextColor
+        label.textColor = UIColor.lightTextColor
         label.font = UIFont(name: "MalayalamSangamMN-Bold", size: UIFont.labelFontSize)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.1
@@ -140,7 +139,7 @@ class PomodoroTimerView: UIView {
         label.layer.masksToBounds = true
         label.text = "long break"
         label.textAlignment = .center
-        label.textColor = ColorManager.lightTextColor
+        label.textColor = UIColor.lightTextColor
         label.font = UIFont(name: "MalayalamSangamMN-Bold", size: UIFont.labelFontSize)
 //        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.adjustsFontSizeToFitWidth = true
@@ -186,7 +185,7 @@ class PomodoroTimerView: UIView {
     lazy var shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
-        layer.strokeColor = ColorManager.pomodoroOrange.cgColor
+        layer.strokeColor = UIColor.pomodoroOrange.cgColor
         layer.lineWidth = 10
         layer.fillColor = UIColor.clear.cgColor
         layer.lineCap = .round
@@ -222,7 +221,7 @@ class PomodoroTimerView: UIView {
         lightPurpleCircleView.layer.shadowRadius = 10
         
         shadowView.layer.cornerRadius = shadowView.frame.height / 2
-        shadowView.layer.shadowColor = ColorManager.backgroundPurpleLight.cgColor
+        shadowView.layer.shadowColor = UIColor.backgroundPurpleLight.cgColor
         
         shadowView.layer.rasterizationScale = UIScreen.main.scale
         shadowView.layer.shadowRadius = 40
@@ -280,18 +279,18 @@ class PomodoroTimerView: UIView {
         self.pomodoroSeconds = pomodoroMinutes * 60
         self.shortBreakSeconds = shortBreakMinutes * 60
         self.longBreakSeconds = longBreakMinutes * 60
-        self.fontTheme = font
-        self.colorTheme = color
+        self.pickedFont = font
+        self.pickedColor = color
         
         DispatchQueue.main.async {
                 self.pomodoroLabel.backgroundColor = color
                 self.shapeLayer.strokeColor = color.cgColor
             self.titleLabel.font = UIFont(name: font, size: self.titleLabel.font.pointSize)
-                self.pomodoroLabel.font = UIFont(name: self.fontTheme, size: self.pomodoroLabel.font.pointSize)
-                self.shortBreakLabel.font = UIFont(name: self.fontTheme, size: self.shortBreakLabel.font.pointSize)
-                self.longBreakLabel.font = UIFont(name: self.fontTheme, size: self.longBreakLabel.font.pointSize)
-                self.timerLabel.font = UIFont(name: self.fontTheme, size: self.timerLabel.font.pointSize)
-                self.startStopLabel.font = UIFont(name: self.fontTheme, size: self.startStopLabel.font.pointSize)
+                self.pomodoroLabel.font = UIFont(name: self.pickedFont, size: self.pomodoroLabel.font.pointSize)
+                self.shortBreakLabel.font = UIFont(name: self.pickedFont, size: self.shortBreakLabel.font.pointSize)
+                self.longBreakLabel.font = UIFont(name: self.pickedFont, size: self.longBreakLabel.font.pointSize)
+                self.timerLabel.font = UIFont(name: self.pickedFont, size: self.timerLabel.font.pointSize)
+                self.startStopLabel.font = UIFont(name: self.pickedFont, size: self.startStopLabel.font.pointSize)
                 self.resetTimer()
             print(self.startStopLabel.font.pointSize)
          
@@ -389,36 +388,36 @@ class PomodoroTimerView: UIView {
     }
     
     func switchInterval() {
-        if currentInterval < intervals.count {
-            switch intervals[currentInterval] {
+        if currentState < timerStates.count {
+            switch timerStates[currentState] {
             case .pomodoro:
                 totalSeconds = pomodoroSeconds
-                pomodoroLabel.backgroundColor = colorTheme
-                pomodoroLabel.textColor = ColorManager.darkPurple
+                pomodoroLabel.backgroundColor = pickedColor
+                pomodoroLabel.textColor = UIColor.darkPurple
                 shortBreakLabel.backgroundColor = .clear
-                shortBreakLabel.textColor = ColorManager.lightTextColor
+                shortBreakLabel.textColor = UIColor.lightTextColor
                 longBreakLabel.backgroundColor = .clear
-                longBreakLabel.textColor = ColorManager.lightTextColor
+                longBreakLabel.textColor = UIColor.lightTextColor
             case .shortBreak:
                 totalSeconds = shortBreakSeconds
-                shortBreakLabel.backgroundColor = colorTheme
-                shortBreakLabel.textColor = ColorManager.darkPurple
+                shortBreakLabel.backgroundColor = pickedColor
+                shortBreakLabel.textColor = UIColor.darkPurple
                 pomodoroLabel.backgroundColor = .clear
-                pomodoroLabel.textColor = ColorManager.lightTextColor
+                pomodoroLabel.textColor = UIColor.lightTextColor
                 longBreakLabel.backgroundColor = .clear
-                longBreakLabel.textColor = ColorManager.lightTextColor
+                longBreakLabel.textColor = UIColor.lightTextColor
             case .longBreak:
                 totalSeconds = longBreakSeconds
-                longBreakLabel.backgroundColor = colorTheme
-                longBreakLabel.textColor = ColorManager.darkPurple
+                longBreakLabel.backgroundColor = pickedColor
+                longBreakLabel.textColor = UIColor.darkPurple
                 pomodoroLabel.backgroundColor = .clear
-                pomodoroLabel.textColor = ColorManager.lightTextColor
+                pomodoroLabel.textColor = UIColor.lightTextColor
                 shortBreakLabel.backgroundColor = .clear
-                shortBreakLabel.textColor = ColorManager.lightTextColor
+                shortBreakLabel.textColor = UIColor.lightTextColor
             }
             setStartTime(date: Date())
             startTimer()
-            currentInterval += 1
+            currentState += 1
             startAnimation()
         } else {
             resetTimer()
@@ -428,7 +427,7 @@ class PomodoroTimerView: UIView {
     func resetTimer() {
         shapeLayer.removeAllAnimations()
         shapeLayer.removeAnimation(forKey: "animation")
-        currentInterval = 1
+        currentState = 1
         totalSeconds = 0
         totalSeconds = pomodoroSeconds
         setStartTime(date: nil)
@@ -436,12 +435,12 @@ class PomodoroTimerView: UIView {
         stopTimer()
         setTimeLabel(pomodoroSeconds)
         /// We are back in the pomodoroTheme Colors
-        pomodoroLabel.backgroundColor = colorTheme
-        pomodoroLabel.textColor = ColorManager.darkPurple
+        pomodoroLabel.backgroundColor = pickedColor
+        pomodoroLabel.textColor = UIColor.darkPurple
         shortBreakLabel.backgroundColor = .clear
-        shortBreakLabel.textColor = ColorManager.lightTextColor
+        shortBreakLabel.textColor = UIColor.lightTextColor
         longBreakLabel.backgroundColor = .clear
-        longBreakLabel.textColor = ColorManager.lightTextColor
+        longBreakLabel.textColor = UIColor.lightTextColor
         
     }
     
@@ -488,7 +487,7 @@ class PomodoroTimerView: UIView {
     }
     
     func createSubviews() {
-        backgroundColor = ColorManager.backgroundPurple
+        backgroundColor = UIColor.backgroundPurple
         
         addSubview(shadowView)
         addSubview(timerView)

@@ -13,7 +13,7 @@ class CircleFontView: CircleView {
     
     override func setup() {
         super.setup()
-        backgroundColor = ColorManager.backgroundGray
+        backgroundColor = UIColor.backgroundGray
         label.text = "Aa"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
