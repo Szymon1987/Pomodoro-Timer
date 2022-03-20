@@ -14,10 +14,11 @@ enum FontStyle {
     case italic
 }
 
-class ReausableLabel: UILabel {
+class ReusableLabel: UILabel {
     
-    init(text: String = "", fontSize: CGFloat, fontStyle: FontStyle = .normal, textColor: UIColor = .white, textAlignment: NSTextAlignment = .center, isMultiLine: Bool = true) {
+    init(text: String = "", fontSize: CGFloat, fontStyle: FontStyle = .normal, textColor: UIColor = .white, textAlignment: NSTextAlignment = .center, isMultipleLine: Bool = true) {
         super.init(frame: .zero)
+        setupLabel(text: text, fontSize: fontSize, fontStyle: fontStyle, textColor: textColor, textAlignment: textAlignment, isMultipleLine: isMultipleLine)
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +43,7 @@ class ReausableLabel: UILabel {
         numberOfLines = isMultipleLine ? 0 : 1
         self.textAlignment = textAlignment
         translatesAutoresizingMaskIntoConstraints = false
+        layer.masksToBounds = true
         
     }
     

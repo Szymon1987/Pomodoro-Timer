@@ -258,9 +258,9 @@ class SettingsView: UIView {
 //                pomodoroVC.didUpdateUI(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes, font: fontName, color: colorTheme)
 //        }
         
-        if let pomodoroTimerView = pomodoroTimerView {
-            pomodoroTimerView.didUpdateUI(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes, font: fontName, color: colorTheme)
-        }
+//        if let pomodoroTimerView = pomodoroTimerView {
+//            pomodoroTimerView.didUpdateUI(with: pomodoroMinutes, with: shortBreakMinutes, with: longBreakMinutes, font: fontName, color: colorTheme)
+//        }
         removeFromSuperview()
     }
     

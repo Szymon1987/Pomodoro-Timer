@@ -12,6 +12,7 @@ class PomodoroViewController: UIViewController {
     
     override func loadView() {
         view = pomodoroTimerView
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
