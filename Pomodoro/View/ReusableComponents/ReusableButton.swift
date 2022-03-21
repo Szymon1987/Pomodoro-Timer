@@ -23,11 +23,13 @@ class ReusableButton: UIButton {
         titleLabel?.textColor = .white
         titleLabel?.font = UIFontMetrics(forTextStyle: UIFont.TextStyle.body).scaledFont(for: UIFont(name: "Helvetica-Bold", size: fontSize)!)
         translatesAutoresizingMaskIntoConstraints = false
+        
         if let imageName = imageName {
             let image = UIImage(named: imageName)!.withTintColor(.gray, renderingMode: .alwaysOriginal)
             imageView?.image = image
             setImage(image, for: .normal)
         }
+            
     }
     
 }

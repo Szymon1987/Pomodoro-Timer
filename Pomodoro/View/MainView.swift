@@ -23,11 +23,19 @@ class MainView: UIView {
         return button
     }()
     
-    private lazy var settingsView: SettingsView = {
-        let st = SettingsView()
+//    private lazy var settingsView: SettingsView = {
+//        let st = SettingsView()
+//        st.mainView = self
+//        return st
+//    }()
+    
+    
+    private lazy var newSettingsView: NewSettingsView = {
+        let st = NewSettingsView()
         st.mainView = self
         return st
     }()
+    
     
     // MARK: - Initialization
     
@@ -461,11 +469,9 @@ class MainView: UIView {
     
     private func setupSettingsView() {
 
-        addSubview(settingsView)
-        settingsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        settingsView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
-        settingsView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        settingsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
+        addSubview(newSettingsView)
+        newSettingsView.anchor(top: safeAreaLayoutGuide.topAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15, left: 15, bottom: -40, right: -15))
+        
     }
     
 }
