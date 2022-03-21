@@ -10,7 +10,7 @@ import UIKit
 class SettingsView: UIView {
 
     // MARK: - Properties
-    weak var pomodoroTimerView: PomodoroTimerView?
+    weak var mainView: MainView?
 //
     let pomodoroArray = (1...120).map{$0}
     let shortBreakArray = (1...120).map{$0}

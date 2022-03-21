@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PomodoroTimerView: UIView {
+class MainView: UIView {
     
     let titleLabel: ReusableLabel
     
@@ -15,18 +15,17 @@ class PomodoroTimerView: UIView {
     
     let timerView = TimerView()
     
-    private lazy var settingsButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "settingsIcon")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
-        button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+//    let settingsButton: ReusableButton
+    
+    private lazy var settingsButton: ReusableButton = {
+        let button = ReusableButton(imageName: "settingsIcon")
         button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsIconTapped)))
         return button
     }()
     
     private lazy var settingsView: SettingsView = {
         let st = SettingsView()
-        st.pomodoroTimerView = self
+        st.mainView = self
         return st
     }()
     
@@ -34,8 +33,9 @@ class PomodoroTimerView: UIView {
     
     override init(frame: CGRect) {
         titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24)
+//        settingsButton = ReusableButton(imageName: "settingsIcon")
         super.init(frame: frame)
-        backgroundColor = UIColor.backgroundPurple
+        backgroundColor = .backgroundPurple
         createSubviews()
     }
     
@@ -406,10 +406,12 @@ class PomodoroTimerView: UIView {
         timerStateStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08).isActive = true
       
         addSubview(timerView)
-        timerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        timerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        timerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
+        timerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
         timerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        timerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.40).isActive = true
+//        timerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.35).isActive = true
+        timerView.heightAnchor.constraint(equalTo: timerView.widthAnchor).isActive = true
+        
 
 
 
@@ -449,12 +451,12 @@ class PomodoroTimerView: UIView {
 //        startStopLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 17).isActive = true
 //        startStopLabel.centerXAnchor.constraint(equalTo: timerView.centerXAnchor).isActive = true
 //
-//        addSubview(settingsButton)
-//        settingsButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
-//        settingsButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//        settingsButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
-//        settingsButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
-//
+        addSubview(settingsButton)
+        settingsButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        settingsButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        settingsButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        settingsButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
+
     }
     
     private func setupSettingsView() {

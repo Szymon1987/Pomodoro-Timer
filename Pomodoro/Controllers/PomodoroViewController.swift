@@ -8,7 +8,7 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
-    var pomodoroTimerView = PomodoroTimerView()
+    var pomodoroTimerView = MainView()
     
     override func loadView() {
         view = pomodoroTimerView
