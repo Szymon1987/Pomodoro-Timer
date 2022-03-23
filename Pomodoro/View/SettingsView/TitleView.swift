@@ -10,25 +10,18 @@ import UIKit
 class TitleView: UIView {
     
     private let settingsLabel: ReusableLabel
+    private let xmarkButton: ReusableButton
     private let dividerView = DividerView()
-    
-    /// improve button initialization
-    private lazy var xmarkButton: ReusableButton = {
-        let button = ReusableButton(imageName: nil)
-        tintColor = .systemGray
-        let image = UIImage(systemName: "xmark")
-        button.setImage(image, for: .normal)
-        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        return button
-    }()
-    
+
     override init(frame: CGRect) {
         settingsLabel = ReusableLabel(text: "Settings", fontSize: 26, fontStyle: .bold, textColor: .black, textAlignment: .left, isMultipleLine: false)
+        xmarkButton = ReusableButton(systemImageName: "xmark")
         super.init(frame: frame)
+        configureXmarkButton()
         setupView()
     }
     
-    required init?(coder: NSCoder) {te
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -51,6 +44,10 @@ class TitleView: UIView {
         dividerView.anchor(top: nil, bottom: bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, size: .init(width: 0, height: 1))
     }
     
+    private func configureXmarkButton() {
+        xmarkButton.tintColor = .systemGray
+        xmarkButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+    }
     
     @objc func handleDismiss() {
         Haptics.playLightImpact()

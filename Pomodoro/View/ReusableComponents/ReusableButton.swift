@@ -8,28 +8,39 @@
 import UIKit
 
 class ReusableButton: UIButton {
-    
-    init(title: String = "", fontSize: CGFloat = 22, imageName: String?) {
+
+    init() {
         super.init(frame: .zero)
-        setupButton(title: title, fontSize: fontSize, imageName: imageName)
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupButton(title: String, fontSize: CGFloat, imageName: String?) {
-        setTitle(title, for: .normal)
-        titleLabel?.textColor = .white
-        titleLabel?.font = UIFontMetrics(forTextStyle: UIFont.TextStyle.body).scaledFont(for: UIFont(name: "Helvetica-Bold", size: fontSize)!)
-        translatesAutoresizingMaskIntoConstraints = false
-        
-        if let imageName = imageName {
-            let image = UIImage(named: imageName)!.withTintColor(.gray, renderingMode: .alwaysOriginal)
-            imageView?.image = image
-            setImage(image, for: .normal)
-        }
-            
+    convenience init(imageName: String) {
+        self.init()
+        let image = UIImage(named: imageName)?.withTintColor(.gray, renderingMode: .alwaysOriginal)
+        imageView?.image = image
+        setImage(image, for: .normal)
     }
+    
+    convenience init(systemImageName: String) {
+        self.init()
+        let image = UIImage(systemName: systemImageName)
+        setImage(image, for: .normal)
+    }
+ 
+    convenience init(title: String, fontSize: CGFloat = 20, textColor: UIColor = .black, backgroundColor: UIColor = .clear) {
+        self.init()
+        setTitle(title, for: .normal)
+        titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont(name: "Helvetica-Bold", size: fontSize)!)
+        setTitleColor(textColor, for: .normal)
+        self.backgroundColor = backgroundColor
+    }
+    
+//    convenience init(type buttonType: UIButton.ButtonType) {
+//        self.init()
+//    }
     
 }

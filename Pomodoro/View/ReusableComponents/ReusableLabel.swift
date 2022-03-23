@@ -16,7 +16,7 @@ enum FontStyle {
 
 class ReusableLabel: UILabel {
     
-    init(text: String = "", fontSize: CGFloat = 18, fontStyle: FontStyle = .normal, textColor: UIColor = .white, textAlignment: NSTextAlignment = .center, isMultipleLine: Bool = true) {
+    init(text: String = "", fontSize: CGFloat = 18, fontStyle: FontStyle = .normal, textColor: UIColor = .black, textAlignment: NSTextAlignment = .center, isMultipleLine: Bool = true) {
         super.init(frame: .zero)
         setupLabel(text: text, fontSize: fontSize, fontStyle: fontStyle, textColor: textColor, textAlignment: textAlignment, isMultipleLine: isMultipleLine)
     }

@@ -28,10 +28,11 @@
 		ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A627E8A86100F6DA42 /* ClockView.swift */; };
 		ADAAB3A927E8E24200F6DA42 /* NewSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A827E8E24200F6DA42 /* NewSettingsView.swift */; };
 		ADAAB3AB27E8E44E00F6DA42 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */; };
-		ADAAB3AD27E8FB1500F6DA42 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AC27E8FB1500F6DA42 /* PickerView.swift */; };
-		ADAAB3AF27E8FC8B00F6DA42 /* FontColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AE27E8FC8B00F6DA42 /* FontColorView.swift */; };
+		ADAAB3AD27E8FB1500F6DA42 /* MiddleTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */; };
+		ADAAB3AF27E8FC8B00F6DA42 /* FontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */; };
 		ADAAB3B127E9034F00F6DA42 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3B027E9034E00F6DA42 /* DividerView.swift */; };
 		ADBC64F9275E5FD2001B8599 /* what needs to be done.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC64F8275E5FD1001B8599 /* what needs to be done.swift */; };
+		ADD0676727EB5173008734B0 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD0676627EB5173008734B0 /* ColorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,10 +59,11 @@
 		ADAAB3A627E8A86100F6DA42 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		ADAAB3A827E8E24200F6DA42 /* NewSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsView.swift; sourceTree = "<group>"; };
 		ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
-		ADAAB3AC27E8FB1500F6DA42 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
-		ADAAB3AE27E8FC8B00F6DA42 /* FontColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorView.swift; sourceTree = "<group>"; };
+		ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleTopView.swift; sourceTree = "<group>"; };
+		ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontView.swift; sourceTree = "<group>"; };
 		ADAAB3B027E9034E00F6DA42 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		ADBC64F8275E5FD1001B8599 /* what needs to be done.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "what needs to be done.swift"; sourceTree = "<group>"; };
+		ADD0676627EB5173008734B0 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,12 +172,13 @@
 			children = (
 				ADAAB3A827E8E24200F6DA42 /* NewSettingsView.swift */,
 				ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */,
-				ADAAB3AC27E8FB1500F6DA42 /* PickerView.swift */,
-				8C7842A727248DB300BC0337 /* CircleFontView.swift */,
-				ADAAB3AE27E8FC8B00F6DA42 /* FontColorView.swift */,
+				ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */,
+				ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */,
+				ADD0676627EB5173008734B0 /* ColorView.swift */,
 				8CFAFF502720B73400D58107 /* SettingsView.swift */,
 				AD7E9FD42730932000F891BF /* CircleColorView.swift */,
 				AD89B8532731C389000F8AEB /* CircleView.swift */,
+				8C7842A727248DB300BC0337 /* CircleFontView.swift */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";
@@ -251,17 +254,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CFAFF512720B73400D58107 /* SettingsView.swift in Sources */,
-				ADAAB3AF27E8FC8B00F6DA42 /* FontColorView.swift in Sources */,
+				ADAAB3AF27E8FC8B00F6DA42 /* FontView.swift in Sources */,
 				ADAAB3A127E51D4E00F6DA42 /* ReusableButton.swift in Sources */,
 				AD7E9FD52730932000F891BF /* CircleColorView.swift in Sources */,
 				ADA292E327D8EC9E00211876 /* MainView.swift in Sources */,
 				ADAAB39B27E4B35400F6DA42 /* ReusableLabel.swift in Sources */,
-				ADAAB3AD27E8FB1500F6DA42 /* PickerView.swift in Sources */,
+				ADAAB3AD27E8FB1500F6DA42 /* MiddleTopView.swift in Sources */,
 				8C7842A827248DB300BC0337 /* CircleFontView.swift in Sources */,
 				ADAAB3B127E9034F00F6DA42 /* DividerView.swift in Sources */,
 				ADAAB3A927E8E24200F6DA42 /* NewSettingsView.swift in Sources */,
 				8CC805152719F82B00AF4D99 /* PomodoroViewController.swift in Sources */,
 				ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */,
+				ADD0676727EB5173008734B0 /* ColorView.swift in Sources */,
 				ADAAB39F27E517AF00F6DA42 /* TimerView.swift in Sources */,
 				ADAAB3AB27E8E44E00F6DA42 /* TitleView.swift in Sources */,
 				ADBC64F9275E5FD2001B8599 /* what needs to be done.swift in Sources */,

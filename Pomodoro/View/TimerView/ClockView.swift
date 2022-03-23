@@ -12,9 +12,10 @@ class ClockView: UIView {
     let clockLabel: ReusableLabel
     let startStopLabel: ReusableLabel
     
+    
     init() {
-        clockLabel = ReusableLabel(text: "00:06", fontSize: 54)
-        startStopLabel = ReusableLabel(text: "start", fontSize: 22)
+        clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
+        startStopLabel = ReusableLabel(text: "START", fontSize: 22, textColor: .white)
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = UIColor.darkPurple
@@ -33,6 +34,9 @@ class ClockView: UIView {
         addSubview(startStopLabel)
         startStopLabel.topAnchor.constraint(equalTo: clockLabel.bottomAnchor, constant: 17).isActive = true
         startStopLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        // sets the spacing between the chatacters in the label
+        startStopLabel.setTextSpacingBy(value: 10)
     }
     
     override func layoutSubviews() {

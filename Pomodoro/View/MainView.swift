@@ -15,13 +15,13 @@ class MainView: UIView {
     
     let timerView = TimerView()
     
-//    let settingsButton: ReusableButton
+    let settingsButton: ReusableButton
     
-    private lazy var settingsButton: ReusableButton = {
-        let button = ReusableButton(imageName: "settingsIcon")
-        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsIconTapped)))
-        return button
-    }()
+//    private lazy var settingsButton: ReusableButton = {
+//        let button = ReusableButton(imageName: "settingsIcon")
+//        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsIconTapped)))
+//        return button
+//    }()
     
 //    private lazy var settingsView: SettingsView = {
 //        let st = SettingsView()
@@ -40,17 +40,24 @@ class MainView: UIView {
     // MARK: - Initialization
     
     override init(frame: CGRect) {
-        titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24)
-//        settingsButton = ReusableButton(imageName: "settingsIcon")
+        titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
+        settingsButton = ReusableButton(imageName: "settingsIcon")
         super.init(frame: frame)
         backgroundColor = .backgroundPurple
         createSubviews()
+        configureSettingsButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    
+    // MARK: - Helpers
+    
+    private func configureSettingsButton() {
+        settingsButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(settingsIconTapped)))
+    }
     
     // MARK: - UIActions
 
@@ -81,40 +88,40 @@ class MainView: UIView {
     private let pause: String = "P A U S E"
     
     
-    // MARK: - GradientLayer Views
-
-    lazy var roundedGradient: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-        gradient.colors = [UIColor.darkPurple.cgColor, UIColor.backgroundPurpleLight.cgColor]
-        gradient.locations = [0.2, 1]
-        return gradient
-    }()
-    
-    let darkPurpleCircleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.darkPurple
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let lightPurpleCircleView: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let shadowView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.darkPurple
-        view.layer.masksToBounds = false
-        return view
-    }()
-    
-    
+//    // MARK: - GradientLayer Views
+//
+//    lazy var roundedGradient: CAGradientLayer = {
+//        let gradient = CAGradientLayer()
+//        gradient.startPoint = CGPoint(x: 0, y: 0)
+//        gradient.endPoint = CGPoint(x: 1, y: 1)
+//        gradient.colors = [UIColor.darkPurple.cgColor, UIColor.backgroundPurpleLight.cgColor]
+//        gradient.locations = [0.2, 1]
+//        return gradient
+//    }()
+//
+//    let darkPurpleCircleView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = UIColor.darkPurple
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+//
+//    let lightPurpleCircleView: UIView = {
+//        let view = UIView()
+//        view.clipsToBounds = true
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+//
+//    let shadowView: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = UIColor.darkPurple
+//        view.layer.masksToBounds = false
+//        return view
+//    }()
+//
+//
     // MARK: - UIComponents
 //
 //    private let timerLabel: UILabel = {
@@ -471,7 +478,6 @@ class MainView: UIView {
 
         addSubview(newSettingsView)
         newSettingsView.anchor(top: safeAreaLayoutGuide.topAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15, left: 15, bottom: -40, right: -15))
-        
     }
     
 }

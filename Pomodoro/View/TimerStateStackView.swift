@@ -15,9 +15,9 @@ class TimerStateStackView: UIStackView {
     
     
     init() {
-        pomodoroLabel = ReusableLabel(text: "pomodoro", fontSize: 18)
-        shortBreakLabel = ReusableLabel(text: "short break", fontSize: 18)
-        longBreakLabel = ReusableLabel(text: "long break", fontSize: 18)
+        pomodoroLabel = ReusableLabel(text: "pomodoro", fontSize: 18, textColor: .darkPurple)
+        shortBreakLabel = ReusableLabel(text: "short break", fontSize: 18, textColor: .lightTextColor)
+        longBreakLabel = ReusableLabel(text: "long break", fontSize: 18, textColor: .lightTextColor)
         super.init(frame: .zero)
         setupTimerStateStackView()
     }
