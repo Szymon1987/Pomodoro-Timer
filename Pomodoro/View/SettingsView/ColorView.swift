@@ -8,16 +8,16 @@
 import UIKit
 
 class ColorView: FontView {
-    
-    lazy var checkMarkView: UIImageView = {
-        let image = UIImage(systemName: "checkmark")
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .black
-//        imageView.isHidden = true
-        return imageView
-    }()
+//
+//    lazy var checkMarkView: UIImageView = {
+//        let image = UIImage(systemName: "checkmark")
+//        let imageView = UIImageView(image: image)
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.tintColor = .black
+////        imageView.isHidden = true
+//        return imageView
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,10 +32,6 @@ class ColorView: FontView {
     override func setupViews() {
         super.setupViews()
 //        middleRoundedButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
-        addSubview(checkMarkView)
-        checkMarkView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        checkMarkView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
     // not sure if this is the right approach, overriding existing properties from superclass
@@ -48,7 +44,8 @@ class ColorView: FontView {
         middleRoundedButton.backgroundColor = .pomodoroBlue
         rightRoundedButton.setTitle("", for: .normal)
         rightRoundedButton.backgroundColor = .pomodoroPurple
-        
+        let image = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        leftRoundedButton.setImage(image, for: .normal)
     }
 }
 

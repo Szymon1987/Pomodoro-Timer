@@ -12,5 +12,3 @@
  - don't add manual spaces to LabelTitles like S T A R T
  */
 
-    
-    

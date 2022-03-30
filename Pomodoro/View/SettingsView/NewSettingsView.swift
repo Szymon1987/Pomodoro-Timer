@@ -11,6 +11,7 @@ class NewSettingsView: UIView {
     
     weak var mainView: MainView?
     let titleView = TitleView()
+    let xmarkButton: ReusableButton
     let middleTopView = MiddleTopView()
     let fontView = FontView()
     let colorView = ColorView()
@@ -20,13 +21,31 @@ class NewSettingsView: UIView {
     override init(frame: CGRect) {
 //        applyButton = ReusableButton(title: "Apply", fontSize: 20, textColor: .white, backgroundColor: .pomodoroOrange)
         applyButton = ReusableButton(title: "Apply", fontSize: 20, textColor: .white, backgroundColor: .pomodoroOrange)
+        xmarkButton = ReusableButton(systemImageName: "xmark")
         super.init(frame: frame)
         setupViews()
+        configureXmarkButton()
         configureApplyButton()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    private func configureXmarkButton() {
+        xmarkButton.tintColor = .systemGray
+        xmarkButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+    }
+    
+    @objc func handleDismiss() {
+        Haptics.playLightImpact()
+        /// improve the function, find proper animation for dismissing the view
+        let animation = CABasicAnimation()
+        animation.keyPath = "transform.scale"
+        animation.fromValue = 1
+        animation.toValue = 0.00001
+        animation.duration = 0.2
+        self.layer.add(animation, forKey: "basic")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: self.removeFromSuperview)
     }
 
     private func configureApplyButton() {
@@ -48,6 +67,12 @@ class NewSettingsView: UIView {
         titleView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         titleView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         titleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.12).isActive = true
+        
+        addSubview(xmarkButton)
+        xmarkButton.topAnchor.constraint(equalTo: topAnchor, constant: 25).isActive = true
+        xmarkButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25).isActive = true
+        xmarkButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        xmarkButton.widthAnchor.constraint(equalTo: xmarkButton.heightAnchor).isActive = true
         
         addSubview(middleTopView)
         middleTopView.topAnchor.constraint(equalTo: titleView.bottomAnchor).isActive = true

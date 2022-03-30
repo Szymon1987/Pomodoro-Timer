@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class TimerView: UIView {
 
     var roundedGradientView = UIView()
