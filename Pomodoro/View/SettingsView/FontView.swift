@@ -60,9 +60,15 @@ class FontView: UIView {
             button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         }
     }
-    
+    /// what's the more efficient way to do it?
     @objc private func tapped(_ sender: ReusableButton) {
-        print("tapped")
+        let buttons = [leftRoundedFontButton, middleRoundedFontButton, rightRoundedFontButton]
+        for button in buttons {
+            button.backgroundColor = .backgroundGray
+            button.setTitleColor(.black, for: .normal)
+        }
+        sender.backgroundColor = .black
+        sender.setTitleColor(.white, for: .normal)
     }
 }
 

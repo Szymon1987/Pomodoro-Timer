@@ -38,6 +38,7 @@ class ReusableButton: UIButton {
         setTitle(title, for: .normal)
         titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont(name: "Helvetica-Bold", size: fontSize)!)
         setTitleColor(textColor, for: .normal)
+//        titleLabel?.textColor = textColor
         self.backgroundColor = backgroundColor
     }  
 }

@@ -7,7 +7,6 @@
  - don't change the view property in the switchIntervals func
  - work on code indentation and cleanliness
  - same with the UIFont - loook the note above
- - TimeInterval change name
  - focus on SOLID principle in overall
  */
 

@@ -16,11 +16,11 @@
 		8CC805202719F83100AF4D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */; };
 		8CFAFF512720B73400D58107 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAFF502720B73400D58107 /* SettingsView.swift */; };
 		AD00B95C27CFB1CA00A83D73 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD00B95B27CFB1CA00A83D73 /* Haptics.swift */; };
+		AD44A67E2805BC77007C0463 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A67D2805BC77007C0463 /* Model.swift */; };
 		AD7E9FD52730932000F891BF /* CircleColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7E9FD42730932000F891BF /* CircleColorView.swift */; };
 		AD89B8542731C389000F8AEB /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD89B8532731C389000F8AEB /* CircleView.swift */; };
 		ADA292E127D8D6BD00211876 /* TimeLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA292E027D8D6BD00211876 /* TimeLabelView.swift */; };
 		ADA292E327D8EC9E00211876 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA292E227D8EC9D00211876 /* MainView.swift */; };
-		ADAAB39927E4B1BD00F6DA42 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39827E4B1BD00F6DA42 /* TimerModel.swift */; };
 		ADAAB39B27E4B35400F6DA42 /* ReusableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39A27E4B35400F6DA42 /* ReusableLabel.swift */; };
 		ADAAB39D27E4C02D00F6DA42 /* TimerStateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39C27E4C02D00F6DA42 /* TimerStateStackView.swift */; };
 		ADAAB39F27E517AF00F6DA42 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39E27E517AF00F6DA42 /* TimerView.swift */; };
@@ -47,11 +47,11 @@
 		8CC805212719F83100AF4D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CFAFF502720B73400D58107 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AD00B95B27CFB1CA00A83D73 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		AD44A67D2805BC77007C0463 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		AD7E9FD42730932000F891BF /* CircleColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleColorView.swift; sourceTree = "<group>"; };
 		AD89B8532731C389000F8AEB /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		ADA292E027D8D6BD00211876 /* TimeLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLabelView.swift; sourceTree = "<group>"; };
 		ADA292E227D8EC9D00211876 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		ADAAB39827E4B1BD00F6DA42 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		ADAAB39A27E4B35400F6DA42 /* ReusableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableLabel.swift; sourceTree = "<group>"; };
 		ADAAB39C27E4C02D00F6DA42 /* TimerStateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStateStackView.swift; sourceTree = "<group>"; };
 		ADAAB39E27E517AF00F6DA42 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				ADBC64F8275E5FD1001B8599 /* what needs to be done.swift */,
-				ADAAB39827E4B1BD00F6DA42 /* TimerModel.swift */,
+				AD44A67D2805BC77007C0463 /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -263,13 +263,13 @@
 				8C7842A827248DB300BC0337 /* CircleFontView.swift in Sources */,
 				ADAAB3B127E9034F00F6DA42 /* DividerView.swift in Sources */,
 				ADAAB3A927E8E24200F6DA42 /* NewSettingsView.swift in Sources */,
+				AD44A67E2805BC77007C0463 /* Model.swift in Sources */,
 				8CC805152719F82B00AF4D99 /* PomodoroViewController.swift in Sources */,
 				ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */,
 				ADD0676727EB5173008734B0 /* ColorView.swift in Sources */,
 				ADAAB39F27E517AF00F6DA42 /* TimerView.swift in Sources */,
 				ADAAB3AB27E8E44E00F6DA42 /* TitleView.swift in Sources */,
 				ADBC64F9275E5FD2001B8599 /* what needs to be done.swift in Sources */,
-				ADAAB39927E4B1BD00F6DA42 /* TimerModel.swift in Sources */,
 				ADA292E127D8D6BD00211876 /* TimeLabelView.swift in Sources */,
 				AD89B8542731C389000F8AEB /* CircleView.swift in Sources */,
 				ADAAB39D27E4C02D00F6DA42 /* TimerStateStackView.swift in Sources */,
