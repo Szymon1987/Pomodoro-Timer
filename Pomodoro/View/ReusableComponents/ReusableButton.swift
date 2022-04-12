@@ -33,12 +33,14 @@ class ReusableButton: UIButton {
         setImage(image, for: .normal)
     }
  
-    convenience init(title: String, fontSize: CGFloat = 20, textColor: UIColor = .black, backgroundColor: UIColor = .clear) {
+    convenience init(title: String, fontType: UIFont = .normalFont(size: 16), textColor: UIColor = .black, backgroundColor: UIColor = .clear) {
         self.init()
         setTitle(title, for: .normal)
-        titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont(name: "Helvetica-Bold", size: fontSize)!)
+//        titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont(name: "Helvetica-Bold", size: fontSize)!)
+        titleLabel?.font = fontType
         setTitleColor(textColor, for: .normal)
 //        titleLabel?.textColor = textColor
         self.backgroundColor = backgroundColor
     }  
 }
+

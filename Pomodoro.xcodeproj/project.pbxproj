@@ -94,6 +94,7 @@
 				AD7E9FD42730932000F891BF /* CircleColorView.swift */,
 				AD89B8532731C389000F8AEB /* CircleView.swift */,
 				8C7842A727248DB300BC0337 /* CircleFontView.swift */,
+				ADA292E027D8D6BD00211876 /* TimeLabelView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -156,7 +157,6 @@
 			children = (
 				ADAAB39E27E517AF00F6DA42 /* TimerView.swift */,
 				ADAAB3A627E8A86100F6DA42 /* ClockView.swift */,
-				ADA292E027D8D6BD00211876 /* TimeLabelView.swift */,
 			);
 			path = TimerView;
 			sourceTree = "<group>";

@@ -20,7 +20,7 @@ class NewSettingsView: UIView {
 
     override init(frame: CGRect) {
 //        applyButton = ReusableButton(title: "Apply", fontSize: 20, textColor: .white, backgroundColor: .pomodoroOrange)
-        applyButton = ReusableButton(title: "Apply", fontSize: 20, textColor: .white, backgroundColor: .pomodoroOrange)
+        applyButton = ReusableButton(title: "Apply", fontType: .boldFont(size: 22), textColor: .white, backgroundColor: .pomodoroOrange)
         xmarkButton = ReusableButton(systemImageName: "xmark")
         super.init(frame: frame)
         setupViews()
@@ -71,7 +71,7 @@ class NewSettingsView: UIView {
     }
     
     @objc func applyButtonPressed() {
-        print("Pressed")
+        self.removeFromSuperview()
     }
     
     private func setupViews() {

@@ -18,11 +18,11 @@ class FontView: UIView {
     override init(frame: CGRect) {
         titleLabel = ReusableLabel(text: "FONT")
         leftRoundedFontButton = ReusableButton(title: roundedButtonTitle, textColor: .white, backgroundColor: .black)
-        middleRoundedFontButton = ReusableButton(title: roundedButtonTitle, backgroundColor: .backgroundGray)
-        rightRoundedFontButton = ReusableButton(title: roundedButtonTitle, backgroundColor: .backgroundGray)
+        middleRoundedFontButton = ReusableButton(title: roundedButtonTitle, fontType: .italicFont(size: 16), backgroundColor: .backgroundGray)
+        rightRoundedFontButton = ReusableButton(title: roundedButtonTitle, fontType: .boldFont(size: 16), backgroundColor: .backgroundGray)
         super.init(frame: frame)
         setupViews()
-        addGestureRecognizers()
+        addTargetForButtons()
     }
     
     required init?(coder: NSCoder) {
@@ -53,7 +53,7 @@ class FontView: UIView {
         [titleLabel, middleRoundedFontButton, rightRoundedFontButton, leftRoundedFontButton].forEach{$0.layer.cornerRadius = 24}
     }
     
-    private func addGestureRecognizers() {
+    private func addTargetForButtons() {
         let buttons = [leftRoundedFontButton, middleRoundedFontButton, rightRoundedFontButton]
 
         for button in buttons {

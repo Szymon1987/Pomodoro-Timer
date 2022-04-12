@@ -34,7 +34,6 @@ class ClockView: UIView {
         startStopLabel.topAnchor.constraint(equalTo: clockLabel.bottomAnchor, constant: 17).isActive = true
         startStopLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        // sets the spacing between the chatacters in the label
         startStopLabel.setTextSpacingBy(value: 10)
     }
     
@@ -42,5 +41,4 @@ class ClockView: UIView {
         super.layoutSubviews()
         layer.cornerRadius = self.frame.height / 2
     }
-    
 }

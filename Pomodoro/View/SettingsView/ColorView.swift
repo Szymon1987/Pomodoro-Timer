@@ -26,7 +26,7 @@ class ColorView: UIView {
         purpleRoundedButton = ReusableButton(backgroundColor: .pomodoroPurple)
         super.init(frame: frame)
         setupViews()
-        addGestureRecognizers()
+        addTargetForButtons()
     }
     
     
@@ -34,8 +34,7 @@ class ColorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     ///  what is the better way to add gesture recognizers?
-    private func addGestureRecognizers() {
-        
+    private func addTargetForButtons() {
         let buttons = [redRoundedButton, blueRoundedButton, purpleRoundedButton]
         for button in buttons {
             button.addTarget(self, action: #selector(tapped), for: .touchUpInside)

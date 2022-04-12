@@ -477,7 +477,10 @@ class MainView: UIView {
     private func setupSettingsView() {
 
         addSubview(newSettingsView)
-        newSettingsView.anchor(top: safeAreaLayoutGuide.topAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15, left: 15, bottom: -40, right: -15))
+        newSettingsView.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
+        newSettingsView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60).isActive = true
+        newSettingsView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
+        newSettingsView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
     }
     
 }

@@ -47,7 +47,6 @@ class TimerStateStackView: UIStackView {
     override func layoutSubviews() {
         super.layoutSubviews()
         [pomodoroLabel, shortBreakLabel, longBreakLabel].forEach{$0.layer.cornerRadius = pomodoroLabel.frame.height / 2}
-        print(pomodoroLabel.frame.height)
         self.layer.cornerRadius = self.frame.height / 2
     }
 }

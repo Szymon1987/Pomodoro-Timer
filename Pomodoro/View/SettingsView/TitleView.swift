@@ -13,7 +13,7 @@ class TitleView: UIView {
     private let dividerView = DividerView()
 
     override init(frame: CGRect) {
-        settingsLabel = ReusableLabel(text: "Settings", fontSize: 26, fontStyle: .bold, textColor: .black, textAlignment: .left, isMultipleLine: false)
+        settingsLabel = ReusableLabel(text: "Settings", fontSize: 26, textColor: .black, textAlignment: .left, isMultipleLine: false)
         super.init(frame: frame)
         setupView()
     }

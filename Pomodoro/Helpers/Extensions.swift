@@ -52,9 +52,37 @@ extension UIColor {
     
     // MARK: - Background Layer Color
     public static let backgroundPurpleLight = UIColor(red: 57/255, green: 64/255, blue: 112/255, alpha: 1)
+}
+
+extension UIFont {
+//    let normal = "Helvetica"
+//    let bold = "ChalkboardSE-Bold"
+//    let italic = "Helvetica-Oblique"
     
- 
-    
+}
+
+
+/// How to improve the below extension to avoid repetition?
+
+extension UIFont {
+    static func normalFont(size: CGFloat) -> UIFont {
+        guard let customFont = UIFont(name: "Helvetica", size: size) else {
+            return UIFont.systemFont(ofSize: size)
+        }
+        return customFont
+    }
+    static func boldFont(size: CGFloat) -> UIFont {
+        guard let customFont = UIFont(name: "ChalkboardSE-Bold", size: size) else {
+            return UIFont.systemFont(ofSize: size)
+        }
+        return customFont
+    }
+    static func italicFont(size: CGFloat) -> UIFont {
+        guard let customFont = UIFont(name: "Helvetica-Oblique", size: size) else {
+            return UIFont.systemFont(ofSize: size)
+        }
+        return customFont
+    }
 }
 
 extension UILabel {
