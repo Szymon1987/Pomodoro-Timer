@@ -25,9 +25,11 @@ class ReusableButton: UIButton {
         setImage(image, for: .normal)
     }
     
-    convenience init(systemImageName: String) {
+    convenience init(systemImageName: String? = nil, backgroundColor: UIColor = .clear) {
         self.init()
-        let image = UIImage(systemName: systemImageName)
+        self.backgroundColor = backgroundColor
+        guard let systemImageName = systemImageName else { return }
+        let image = UIImage(systemName: systemImageName)?.withTintColor(.black, renderingMode: .alwaysOriginal)
         setImage(image, for: .normal)
     }
  
@@ -37,10 +39,5 @@ class ReusableButton: UIButton {
         titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont(name: "Helvetica-Bold", size: fontSize)!)
         setTitleColor(textColor, for: .normal)
         self.backgroundColor = backgroundColor
-    }
-    
-//    convenience init(type buttonType: UIButton.ButtonType) {
-//        self.init()
-//    }
-    
+    }  
 }

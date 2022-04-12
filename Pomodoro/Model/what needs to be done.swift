@@ -9,6 +9,5 @@
  - same with the UIFont - loook the note above
  - TimeInterval change name
  - focus on SOLID principle in overall
- - don't add manual spaces to LabelTitles like S T A R T
  */
 

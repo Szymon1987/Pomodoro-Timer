@@ -39,13 +39,30 @@ class NewSettingsView: UIView {
     @objc func handleDismiss() {
         Haptics.playLightImpact()
         /// improve the function, find proper animation for dismissing the view
-        let animation = CABasicAnimation()
-        animation.keyPath = "transform.scale"
-        animation.fromValue = 1
-        animation.toValue = 0.00001
-        animation.duration = 0.2
-        self.layer.add(animation, forKey: "basic")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: self.removeFromSuperview)
+        
+//        UIView.animate(withDuration: 3,
+//            delay: 0.0,
+//            options: .transitionCrossDissolve,
+//                       animations: { self.frame.size.height = 0 },
+//            completion: { complete in
+//                self.removeFromSuperview()
+//            })
+        UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseInOut, animations: {
+//                self.alpha = 0
+            self.topAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            }) { _ in
+                self.removeFromSuperview()
+                self.alpha = 1
+            }
+        
+        
+//        let animation = CABasicAnimation()
+//        animation.keyPath = "transform.scale"
+//        animation.fromValue = 1
+//        animation.toValue = 0.00001
+//        animation.duration = 0.2
+//        self.layer.add(animation, forKey: "basic")
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: self.removeFromSuperview)
     }
 
     private func configureApplyButton() {

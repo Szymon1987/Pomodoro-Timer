@@ -89,7 +89,11 @@
 		8C7319FF2721CABA0030ABFE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8CFAFF502720B73400D58107 /* SettingsView.swift */,
 				8CC805142719F82B00AF4D99 /* PomodoroViewController.swift */,
+				AD7E9FD42730932000F891BF /* CircleColorView.swift */,
+				AD89B8532731C389000F8AEB /* CircleView.swift */,
+				8C7842A727248DB300BC0337 /* CircleFontView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -175,10 +179,6 @@
 				ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */,
 				ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */,
 				ADD0676627EB5173008734B0 /* ColorView.swift */,
-				8CFAFF502720B73400D58107 /* SettingsView.swift */,
-				AD7E9FD42730932000F891BF /* CircleColorView.swift */,
-				AD89B8532731C389000F8AEB /* CircleView.swift */,
-				8C7842A727248DB300BC0337 /* CircleFontView.swift */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";

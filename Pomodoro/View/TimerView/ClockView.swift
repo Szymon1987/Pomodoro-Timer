@@ -12,7 +12,6 @@ class ClockView: UIView {
     let clockLabel: ReusableLabel
     let startStopLabel: ReusableLabel
     
-    
     init() {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         startStopLabel = ReusableLabel(text: "START", fontSize: 22, textColor: .white)

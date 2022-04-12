@@ -12,3 +12,11 @@ enum TimerState {
     case shortBreak
     case longBreak
 }
+
+
+
+struct Model {
+    var color: UIColor
+    var font: UIFont
+    var seconds: Int
+}
