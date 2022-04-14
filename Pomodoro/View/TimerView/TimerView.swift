@@ -24,7 +24,6 @@ class TimerView: UIView {
     var CircleShapeLayer = CAShapeLayer()
    
 
-    
     init() {
         super.init(frame: .zero)
         setupTimerView()
@@ -37,6 +36,8 @@ class TimerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - View Setup
     
     private func setupTimerView() {
         

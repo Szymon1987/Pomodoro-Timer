@@ -13,4 +13,8 @@ struct Model {
     let seconds: Int = 5
 }
 
-
+struct PomodoroModel {
+    let pomodoroSeconds: Int
+    let shortBreakSeconds: Int
+    let longBreakSeconds: Int
+}

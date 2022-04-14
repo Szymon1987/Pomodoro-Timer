@@ -11,13 +11,15 @@ class ClockView: UIView {
     
     let clockLabel: ReusableLabel
     let startStopButton: ReusableButton
-    let timer = CountdownTimer()
+//    var timer: PomodoroTimer
+    var timer = CountdownTimer()
     
     init() {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         
         // is it ok to use "Constants.start" during initialization below?
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
+//        timer = PomodoroTimer()
         super.init(frame: .zero)
         timer.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +39,31 @@ class ClockView: UIView {
     @objc private func startStopButtonTapped() {
         timer.startStopTimer()
     }
+    
+    // MARK: - Helpers
+    
+    private func setTimeLabel(_ val: Int) {
+        let time = SecondsToHoursMinutesSeconds(val)
+        let timeString = makeTimeString(min: time.1, sec: time.2)
+            clockLabel.text = timeString
+    }
+
+    private func SecondsToHoursMinutesSeconds(_ ms: Int) -> (Int, Int, Int) {
+        let hour = ms / 3600
+        let min = (ms % 3600) / 60
+        let sec = (ms % 3600) % 60
+        return (hour, min, sec)
+    }
+
+    private func makeTimeString(min: Int, sec: Int) -> String {
+        var timeString = ""
+        timeString += String(format: "%02d", min)
+        timeString += ":"
+        timeString += String(format: "%02d", sec)
+        return timeString
+    }
+    
+    //MARK: - View Setup
     
     private func setupViews() {
         addSubview(clockLabel)
@@ -58,13 +85,37 @@ class ClockView: UIView {
     }
 }
 
+//extension ClockView: PomodoroTimerDelegate {
+//
+//    func timerTick(_ countdownTimerDelegate: PomodoroTimer, currentTime: Int) {
+//        DispatchQueue.main.async {
+//            self.setTimeLabel(currentTime)
+//        }
+//    }
+//
+//
+//}
+
 extension ClockView: CountdownTimerDelegate {
     
-    func updateTime(_ countdownTimerDelegate: CountdownTimer, time: String) {
+    func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int) {
         DispatchQueue.main.async {
-            self.clockLabel.text = time
+            self.setTimeLabel(currentTime)
         }
     }
     
-    
+    func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool) {
+        DispatchQueue.main.async {
+            if state {
+                self.startStopButton.setTitle(Constants.start, for: .normal)
+            } else {
+                self.startStopButton.setTitle(Constants.stop, for: .normal)
+            }
+        }
+    }
+    func resetLabel(_ countdownTimerDelegate: CountdownTimer) {
+        DispatchQueue.main.async {
+            self.clockLabel.text = "00:00"
+        }
+    }
 }

@@ -164,8 +164,8 @@
 		ADAAB3A227E7C2A600F6DA42 /* TimerView */ = {
 			isa = PBXGroup;
 			children = (
-				ADAAB39E27E517AF00F6DA42 /* TimerView.swift */,
 				ADAAB3A627E8A86100F6DA42 /* ClockView.swift */,
+				ADAAB39E27E517AF00F6DA42 /* TimerView.swift */,
 			);
 			path = TimerView;
 			sourceTree = "<group>";
