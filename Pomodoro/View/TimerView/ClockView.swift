@@ -12,6 +12,7 @@ class ClockView: UIView {
     let clockLabel: ReusableLabel
     let startStopButton: ReusableButton
 //    var timer: PomodoroTimer
+    var circleShapeLayer = CAShapeLayer()
     var timer = CountdownTimer()
     
     init() {
@@ -25,6 +26,7 @@ class ClockView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = UIColor.darkPurple
         setupViews()
+        setupShapeLayer()
         configureStartStopButton()
     }
     
@@ -82,6 +84,24 @@ class ClockView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = self.frame.height / 2
+        
+        let center = CGPoint(x: layer.bounds.midX, y: layer.bounds.midY)
+        circleShapeLayer.position = center
+        
+        let radius = (self.frame.height - 35) / 2
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        circleShapeLayer.path = circularPath.cgPath
+    }
+    
+    private func setupShapeLayer() {
+        
+        circleShapeLayer.strokeColor = UIColor.pomodoroOrange.cgColor
+        circleShapeLayer.lineWidth = 10
+        circleShapeLayer.lineCap = .round
+        circleShapeLayer.fillColor = UIColor.clear.cgColor
+//        shapeLayer.strokeEnd = 0
+         layer.addSublayer(circleShapeLayer)
+
     }
 }
 
@@ -95,6 +115,8 @@ class ClockView: UIView {
 //
 //
 //}
+
+    //MARK: - CountdownTimerDelegate
 
 extension ClockView: CountdownTimerDelegate {
     
@@ -117,5 +139,29 @@ extension ClockView: CountdownTimerDelegate {
         DispatchQueue.main.async {
             self.clockLabel.text = "00:00"
         }
+    }
+    
+    
+    func startAnimation(_ countdownTimerDelegate: CountdownTimer, _ duration: Int) {
+        let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        circleAnimation.fromValue = 1
+        circleAnimation.toValue = 0
+        circleAnimation.duration = CFTimeInterval(duration)
+        circleAnimation.isRemovedOnCompletion = false
+        circleShapeLayer.add(circleAnimation, forKey: "animation")
+    }
+    func pauseAnimation(_ countdownTimerDelegate: CountdownTimer) {
+        let pausedTime: CFTimeInterval = circleShapeLayer.convertTime(CACurrentMediaTime(), from: nil)
+        circleShapeLayer.speed = 0.0
+        circleShapeLayer.timeOffset = pausedTime
+    }
+    func resumeAnimation(_ countdownTimerDelegate: CountdownTimer) {
+        let pausedTime = circleShapeLayer.timeOffset
+        circleShapeLayer.speed = 1.0
+        circleShapeLayer.timeOffset = 0.0
+        circleShapeLayer.beginTime = 0.0
+        circleShapeLayer.strokeEnd = 1.0
+        let timeSincePause = circleShapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        circleShapeLayer.beginTime = timeSincePause
     }
 }

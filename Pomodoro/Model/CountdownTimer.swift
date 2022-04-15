@@ -11,6 +11,9 @@ protocol CountdownTimerDelegate {
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int)
     func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool)
     func resetLabel(_ countdownTimerDelegate: CountdownTimer)
+    func startAnimation(_ countdownTimerDelegate: CountdownTimer, _ duration: Int)
+    func pauseAnimation(_ countdownTimerDelegate: CountdownTimer)
+    func resumeAnimation(_ countdownTimerDelegate: CountdownTimer)
 }
 
 class CountdownTimer {
@@ -28,18 +31,17 @@ class CountdownTimer {
         if timerCounting {
             setStopTime(date: Date())
             stopTimer()
-            //            pauseAnimation()
+            delegate?.pauseAnimation(self)
         } else {
             if let stop = stopTime {
                 let restartTime = calculateRestartTime(start: startTime!, stop: stop)
                 setStopTime(date: nil)
                 setStartTime(date: restartTime)
-                //                resumeAnimation()
+                delegate?.resumeAnimation(self)
+
             } else {
+                delegate?.startAnimation(self, totalSeconds)
                 setStartTime(date: Date())
-                //                startAnimation()
-                // I don't understand why the animation not always work without resume function here
-                //                resumeAnimation()
             }
             startTimer()
         }
@@ -69,6 +71,7 @@ class CountdownTimer {
                     totalSeconds = timerState
                     setStartTime(date: Date())
                     startTimer()
+                    delegate?.startAnimation(self, totalSeconds)
                 } else {
                     resetTimer()
                 }
@@ -79,13 +82,15 @@ class CountdownTimer {
     
     private func resetTimer() {
         
-        totalSeconds = pomodoroTimer.pomodoroSeconds
+        delegate?.resetLabel(self)
+        
+//        totalSeconds = pomodoroTimer.pomodoroSeconds
+        totalSeconds = pomodoroTimer.timeDurations.pomodoroSeconds
+        pomodoroTimer.currentState = 0
+        
         setStartTime(date: nil)
         setStopTime(date: nil)
         stopTimer()
-        pomodoroTimer.currentState = 0
-        delegate?.resetLabel(self)
-        
     }
     
     private func stopTimer() {

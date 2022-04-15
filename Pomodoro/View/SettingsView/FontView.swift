@@ -9,7 +9,7 @@ import UIKit
 
 class FontView: UIView {
     
-    let titleLabel: ReusableLabel
+    private let titleLabel: ReusableLabel
     let leftRoundedFontButton: ReusableButton
     let middleRoundedFontButton: ReusableButton
     let rightRoundedFontButton: ReusableButton
@@ -18,7 +18,7 @@ class FontView: UIView {
     override init(frame: CGRect) {
         titleLabel = ReusableLabel(text: "FONT")
         leftRoundedFontButton = ReusableButton(title: roundedButtonTitle, textColor: .white, backgroundColor: .black)
-        middleRoundedFontButton = ReusableButton(title: roundedButtonTitle, fontType: .italicFont(size: 16), backgroundColor: .backgroundGray)
+        middleRoundedFontButton = ReusableButton(title: roundedButtonTitle, fontType: .italicFont(size: 16) , backgroundColor: .backgroundGray)
         rightRoundedFontButton = ReusableButton(title: roundedButtonTitle, fontType: .boldFont(size: 16), backgroundColor: .backgroundGray)
         super.init(frame: frame)
         setupViews()

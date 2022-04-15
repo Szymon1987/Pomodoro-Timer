@@ -21,13 +21,13 @@ class TimerView: UIView {
     }()
     
     var clockBackgroundView = ClockView()
-    var CircleShapeLayer = CAShapeLayer()
+//    var CircleShapeLayer = CAShapeLayer()
    
 
     init() {
         super.init(frame: .zero)
         setupTimerView()
-        setupShapeLayer()
+//        setupShapeLayer()
 //        setupClockBackgroundView()
         setupRoundedGradientView()
         backgroundColor = UIColor.darkPurple
@@ -65,16 +65,16 @@ class TimerView: UIView {
         
     }
     
-    private func setupShapeLayer() {
-        
-        CircleShapeLayer.strokeColor = UIColor.pomodoroOrange.cgColor
-        CircleShapeLayer.lineWidth = 10
-        CircleShapeLayer.lineCap = .round
-        CircleShapeLayer.fillColor = UIColor.clear.cgColor
-//        shapeLayer.strokeEnd = 0
-         layer.addSublayer(CircleShapeLayer)
-
-    }
+//    private func setupShapeLayer() {
+//        
+//        CircleShapeLayer.strokeColor = UIColor.pomodoroOrange.cgColor
+//        CircleShapeLayer.lineWidth = 10
+//        CircleShapeLayer.lineCap = .round
+//        CircleShapeLayer.fillColor = UIColor.clear.cgColor
+////        shapeLayer.strokeEnd = 0
+//         layer.addSublayer(CircleShapeLayer)
+//
+//    }
     
     private func setupRoundedGradientView() {
         roundedGradientView.backgroundColor = UIColor.green
@@ -90,14 +90,14 @@ class TimerView: UIView {
         roundedGradientView.layer.cornerRadius = self.frame.height / 2
         
         
-        let center = CGPoint(x: layer.bounds.midX, y: layer.bounds.midY)
-        CircleShapeLayer.position = center
+//        let center = CGPoint(x: layer.bounds.midX, y: layer.bounds.midY)
+//        CircleShapeLayer.position = center
         
         roundedGradient.frame = bounds
         
-        let radius = (clockBackgroundView.frame.height - 35) / 2
-        let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-        CircleShapeLayer.path = circularPath.cgPath
+//        let radius = (clockBackgroundView.frame.height - 35) / 2
+//        let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+//        CircleShapeLayer.path = circularPath.cgPath
         
 
         

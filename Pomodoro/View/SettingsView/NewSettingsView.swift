@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TimeStatesSettingsDelegate {
+    func updateTimesForPomodoroAndBreaks()
+}
+
 class NewSettingsView: UIView {
     
     weak var mainView: MainView?
@@ -17,6 +21,8 @@ class NewSettingsView: UIView {
     let colorView = ColorView()
     let dividerView = DividerView()
     let applyButton: ReusableButton
+    
+    var delegate: TimeStatesSettingsDelegate?
 
     override init(frame: CGRect) {
 //        applyButton = ReusableButton(title: "Apply", fontSize: 20, textColor: .white, backgroundColor: .pomodoroOrange)
@@ -72,6 +78,11 @@ class NewSettingsView: UIView {
     
     @objc func applyButtonPressed() {
         self.removeFromSuperview()
+        Haptics.playLightImpact()
+        
+        print(colorView.selectedColor)
+        
+        
     }
     
     private func setupViews() {

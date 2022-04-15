@@ -17,6 +17,8 @@ class ColorView: UIView {
     let blueRoundedButton: ReusableButton
     let purpleRoundedButton: ReusableButton
     
+    var selectedColor: UIColor?
+    
     private let checkmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
 
     override init(frame: CGRect) {
@@ -45,6 +47,7 @@ class ColorView: UIView {
         let buttons = [redRoundedButton, blueRoundedButton, purpleRoundedButton]
         buttons.forEach{$0.setImage(nil, for: .normal)}
         sender.setImage(checkmarkImage, for: .normal)
+        selectedColor = sender.backgroundColor
     }
     
     /// the setupView function is identical with FontView setupView function, how to fix it?
