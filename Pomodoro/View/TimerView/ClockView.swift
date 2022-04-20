@@ -14,11 +14,10 @@ class ClockView: UIView {
 //    var timer: PomodoroTimer
     var circleShapeLayer = CAShapeLayer()
     var timer = CountdownTimer()
+
     
     init() {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
-        
-        // is it ok to use "Constants.start" during initialization below?
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
 //        timer = PomodoroTimer()
         super.init(frame: .zero)
@@ -33,9 +32,10 @@ class ClockView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // this code is duplicated as well
+
     private func configureStartStopButton() {
         startStopButton.addTarget(self, action: #selector(startStopButtonTapped), for: .touchUpInside)
+        startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
     
     @objc private func startStopButtonTapped() {
@@ -77,8 +77,6 @@ class ClockView: UIView {
         startStopButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         startStopButton.leadingAnchor.constraint(equalTo: clockLabel.leadingAnchor).isActive = true
         startStopButton.trailingAnchor.constraint(equalTo: clockLabel.trailingAnchor).isActive = true
-        
-        startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
     
     override func layoutSubviews() {
@@ -121,24 +119,22 @@ class ClockView: UIView {
 extension ClockView: CountdownTimerDelegate {
     
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int) {
-        DispatchQueue.main.async {
             self.setTimeLabel(currentTime)
-        }
     }
     
     func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool) {
-        DispatchQueue.main.async {
             if state {
                 self.startStopButton.setTitle(Constants.start, for: .normal)
             } else {
                 self.startStopButton.setTitle(Constants.stop, for: .normal)
             }
-        }
+        
+        // set the spacing between the titleLabell characters when button is pressed. Should we do it every time when button is pressed or is can we do it more efficiently only once?
+        startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
+    
     func resetLabel(_ countdownTimerDelegate: CountdownTimer) {
-        DispatchQueue.main.async {
             self.clockLabel.text = "00:00"
-        }
     }
     
     

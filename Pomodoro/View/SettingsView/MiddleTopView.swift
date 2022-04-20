@@ -14,6 +14,8 @@ class MiddleTopView: UIView {
     let longBreakMinutes = [1, 2, 3, 4]
     var tempArray = [1, 2, 3, 4, 5, 6, 7]
     
+    var selectedTimes: [Int]?
+    
     private let titleLabel: ReusableLabel
     private let pomodoroButton: ReusableButton
     private let shortBreakButton: ReusableButton
@@ -54,8 +56,10 @@ class MiddleTopView: UIView {
         let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
         for button in buttons {
             button.backgroundColor = .clear
+            sender.isSelected = false
         }
         sender.backgroundColor = .backgroundGray
+        sender.isSelected = true
         switch sender.currentTitle {
         case "pomodoro":
             tempArray = pomodoroMinutes
@@ -114,6 +118,22 @@ extension MiddleTopView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        
+        
         "\(tempArray[row]) min"
     }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
+        
+                
+    }
 }
+
+
+
+
+
+
+

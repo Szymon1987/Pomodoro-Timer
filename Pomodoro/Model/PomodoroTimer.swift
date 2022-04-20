@@ -15,15 +15,11 @@ enum TimerState {
 
 struct PomodoroTimer {
     
-    var timeDurations = TimesDurationModel()
-    
     private let timerStates: [TimerState] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
   
-    
-    
-//    var pomodoroSeconds: Int = 6
-//    var shortBreakSeconds: Int = 2
-//    var longBreakSeconds: Int = 4
+    var pomodoroSeconds: Int = 6
+    var shortBreakSeconds: Int = 2
+    var longBreakSeconds: Int = 4
     
     var currentState: Int = 0
 
@@ -32,14 +28,14 @@ struct PomodoroTimer {
         if currentState < timerStates.count {
             switch timerStates[currentState] {
             case .pomodoro:
-//                return pomodoroSeconds
-                return timeDurations.pomodoroSeconds
+                return pomodoroSeconds
+//                return timeDurations.pomodoroSeconds
             case .shortBreak:
-//                return shortBreakSeconds
-                return timeDurations.shortBreakSeconds
+                return shortBreakSeconds
+//                return timeDurations.shortBreakSeconds
             case .longBreak:
-//                return longBreakSeconds
-                return timeDurations.longBreakSecons
+                return longBreakSeconds
+//                return timeDurations.longBreakSecons
             }
         } else {
             return nil

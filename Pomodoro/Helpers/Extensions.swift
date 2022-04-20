@@ -62,7 +62,7 @@ extension UIFont {
 }
 
 
-/// How to improve the below extension to avoid repetition?
+// How to improve the below extension to avoid repetition?
 
 extension UIFont {
     static func normalFont(size: CGFloat) -> UIFont {

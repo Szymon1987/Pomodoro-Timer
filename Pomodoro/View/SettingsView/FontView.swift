@@ -15,6 +15,8 @@ class FontView: UIView {
     let rightRoundedFontButton: ReusableButton
     private let roundedButtonTitle = "Aa"
     
+    var selectedFont: UIFont?
+    
     override init(frame: CGRect) {
         titleLabel = ReusableLabel(text: "FONT")
         leftRoundedFontButton = ReusableButton(title: roundedButtonTitle, textColor: .white, backgroundColor: .black)
@@ -69,6 +71,7 @@ class FontView: UIView {
         }
         sender.backgroundColor = .black
         sender.setTitleColor(.white, for: .normal)
+        selectedFont = sender.titleLabel?.font
     }
 }
 

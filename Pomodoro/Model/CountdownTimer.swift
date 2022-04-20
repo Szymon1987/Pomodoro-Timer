@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CountdownTimerDelegate {
+protocol CountdownTimerDelegate: AnyObject {
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int)
     func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool)
     func resetLabel(_ countdownTimerDelegate: CountdownTimer)
@@ -19,12 +19,16 @@ protocol CountdownTimerDelegate {
 class CountdownTimer {
     
     var pomodoroTimer = PomodoroTimer()
-    var delegate: CountdownTimerDelegate?
+    weak var delegate: CountdownTimerDelegate?
     var timerCounting: Bool = false
     var startTime: Date?
     var stopTime: Date?
     var scheduledTimer: Timer!
-    var totalSeconds: Int = 6
+    var totalSeconds: Int
+    
+    init() {
+        totalSeconds = pomodoroTimer.pomodoroSeconds
+    }
     
     
     func startStopTimer() {
@@ -83,9 +87,7 @@ class CountdownTimer {
     private func resetTimer() {
         
         delegate?.resetLabel(self)
-        
-//        totalSeconds = pomodoroTimer.pomodoroSeconds
-        totalSeconds = pomodoroTimer.timeDurations.pomodoroSeconds
+        totalSeconds = pomodoroTimer.pomodoroSeconds
         pomodoroTimer.currentState = 0
         
         setStartTime(date: nil)
