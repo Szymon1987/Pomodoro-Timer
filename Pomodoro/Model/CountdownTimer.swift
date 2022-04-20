@@ -8,9 +8,16 @@
 import Foundation
 
 protocol CountdownTimerDelegate: AnyObject {
+    
+    // updates the delegate's view property every second
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int)
+    
+    //switches between pomodoro, shortBreak and longBreak states
     func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool)
     func resetLabel(_ countdownTimerDelegate: CountdownTimer)
+    
+    
+    // animation delegates, should I create seperate delegate protocol for animation?
     func startAnimation(_ countdownTimerDelegate: CountdownTimer, _ duration: Int)
     func pauseAnimation(_ countdownTimerDelegate: CountdownTimer)
     func resumeAnimation(_ countdownTimerDelegate: CountdownTimer)
@@ -20,6 +27,7 @@ class CountdownTimer {
     
     var pomodoroTimer = PomodoroTimer()
     weak var delegate: CountdownTimerDelegate?
+    
     var timerCounting: Bool = false
     var startTime: Date?
     var stopTime: Date?

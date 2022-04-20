@@ -44,14 +44,15 @@ class MiddleTopView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    /// this needs to be changed
+    // this needs to be changed
     private func addTargetForButtons() {
         let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
         for button in buttons {
             button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         }
     }
-    ///  the code below needs to be changed
+    //  the code below needs to be changed
+    
     @objc private func tapped(_ sender: ReusableButton) {
         let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
         for button in buttons {
@@ -125,7 +126,7 @@ extension MiddleTopView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
+//        let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
         
                 
     }

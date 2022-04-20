@@ -7,9 +7,12 @@
 
 import UIKit
 
+// this view class is basically the background view for the ClockView class with
+
 class TimerView: UIView {
 
-    var roundedGradientView = UIView()
+    private let clockView = ClockView()
+    private let roundedGradientView = UIView()
 
     lazy var roundedGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
@@ -20,15 +23,9 @@ class TimerView: UIView {
         return gradient
     }()
     
-    var clockBackgroundView = ClockView()
-//    var CircleShapeLayer = CAShapeLayer()
-   
-
     init() {
         super.init(frame: .zero)
         setupTimerView()
-//        setupShapeLayer()
-//        setupClockBackgroundView()
         setupRoundedGradientView()
         backgroundColor = UIColor.darkPurple
     }
@@ -40,7 +37,7 @@ class TimerView: UIView {
     // MARK: - View Setup
     
     private func setupTimerView() {
-        
+
         backgroundColor = UIColor.backgroundPurple
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -50,37 +47,21 @@ class TimerView: UIView {
         layer.shadowOpacity = 0.5
         layer.shadowOffset = CGSize(width: -25, height: -40)
         
-        
         addSubview(roundedGradientView)
         roundedGradientView.anchorSize(to: self)
-        
         roundedGradientView.layer.addSublayer(roundedGradient)
 
-        addSubview(clockBackgroundView)
-        clockBackgroundView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        clockBackgroundView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        clockBackgroundView.heightAnchor.constraint(equalTo: heightAnchor, constant: -35).isActive = true
-        clockBackgroundView.widthAnchor.constraint(equalTo: heightAnchor, constant: -35).isActive = true
-        
-        
+        addSubview(clockView)
+        clockView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        clockView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        clockView.heightAnchor.constraint(equalTo: heightAnchor, constant: -35).isActive = true
+        clockView.widthAnchor.constraint(equalTo: heightAnchor, constant: -35).isActive = true
     }
-    
-//    private func setupShapeLayer() {
-//        
-//        CircleShapeLayer.strokeColor = UIColor.pomodoroOrange.cgColor
-//        CircleShapeLayer.lineWidth = 10
-//        CircleShapeLayer.lineCap = .round
-//        CircleShapeLayer.fillColor = UIColor.clear.cgColor
-////        shapeLayer.strokeEnd = 0
-//         layer.addSublayer(CircleShapeLayer)
-//
-//    }
     
     private func setupRoundedGradientView() {
         roundedGradientView.backgroundColor = UIColor.green
         roundedGradientView.translatesAutoresizingMaskIntoConstraints = false
         roundedGradientView.clipsToBounds = true
-    
         }
 
     override func layoutSubviews() {
@@ -88,19 +69,6 @@ class TimerView: UIView {
         
         layer.cornerRadius = self.frame.height / 2
         roundedGradientView.layer.cornerRadius = self.frame.height / 2
-        
-        
-//        let center = CGPoint(x: layer.bounds.midX, y: layer.bounds.midY)
-//        CircleShapeLayer.position = center
-        
         roundedGradient.frame = bounds
-        
-//        let radius = (clockBackgroundView.frame.height - 35) / 2
-//        let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-//        CircleShapeLayer.path = circularPath.cgPath
-        
-
-        
     }
-    
 }

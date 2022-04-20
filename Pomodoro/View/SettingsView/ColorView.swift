@@ -8,8 +8,6 @@
 import UIKit
 
 
-/// At the beginning the ColorView was inheriting from FontView as the layout in the both views are almost identical. How do I overrife init() for the Reusable buttons as I would have to initialize the buttons differently in that view?
-
 class ColorView: UIView {
     
     private let titleLabel: ReusableLabel
@@ -17,6 +15,7 @@ class ColorView: UIView {
     let blueRoundedButton: ReusableButton
     let purpleRoundedButton: ReusableButton
     
+    // same as "selectedFont" in the FontView class
     var selectedColor: UIColor?
     
     private let checkmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
@@ -35,14 +34,14 @@ class ColorView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    ///  what is the better way to add gesture recognizers?
+    //  what is the better way to add gesture recognizers to avoid repetition?
     private func addTargetForButtons() {
         let buttons = [redRoundedButton, blueRoundedButton, purpleRoundedButton]
         for button in buttons {
             button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         }
     }
-    /// is there a better way to moving the checkmark position when button is pressed?
+    // is there a better way to moving the checkmark position when button is pressed?
      @objc private func tapped(_ sender: ReusableButton) {
         let buttons = [redRoundedButton, blueRoundedButton, purpleRoundedButton]
         buttons.forEach{$0.setImage(nil, for: .normal)}
@@ -50,7 +49,8 @@ class ColorView: UIView {
         selectedColor = sender.backgroundColor
     }
     
-    /// the setupView function is identical with FontView setupView function, how to fix it?
+    // the setupView function is identical with FontView setupView function, how to fix it?
+    
     private func setupViews() {
         translatesAutoresizingMaskIntoConstraints = false
         

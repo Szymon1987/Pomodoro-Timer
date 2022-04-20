@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewSettingsView: UIView {
+class SettingsView: UIView {
     
     weak var mainView: MainView?
     let titleView = TitleView()
@@ -17,11 +17,6 @@ class NewSettingsView: UIView {
     let colorView = ColorView()
     let dividerView = DividerView()
     let applyButton: ReusableButton
-    
-    
-    let clockView = ClockView()
-    
-    var recievedColorHandler: ((UIColor) -> Void)?
     
     override init(frame: CGRect) {
 //        applyButton = ReusableButton(title: "Apply", fontSize: 20, textColor: .white, backgroundColor: .pomodoroOrange)
@@ -78,10 +73,6 @@ class NewSettingsView: UIView {
     @objc func applyButtonPressed() {
         self.removeFromSuperview()
         Haptics.playLightImpact()
-        
-        if let color = colorView.selectedColor {
-            
-        }
     }
     
     private func setupViews() {

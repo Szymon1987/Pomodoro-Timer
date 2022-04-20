@@ -13,7 +13,7 @@
 		8CC805152719F82B00AF4D99 /* PomodoroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC805142719F82B00AF4D99 /* PomodoroViewController.swift */; };
 		8CC8051D2719F83100AF4D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051C2719F83100AF4D99 /* Assets.xcassets */; };
 		8CC805202719F83100AF4D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */; };
-		8CFAFF512720B73400D58107 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAFF502720B73400D58107 /* SettingsView.swift */; };
+		8CFAFF512720B73400D58107 /* OldSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAFF502720B73400D58107 /* OldSettingsView.swift */; };
 		AD00B95C27CFB1CA00A83D73 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD00B95B27CFB1CA00A83D73 /* Haptics.swift */; };
 		AD44A67E2805BC77007C0463 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A67D2805BC77007C0463 /* SettingsModel.swift */; };
 		AD44A68428072392007C0463 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A68328072392007C0463 /* CountdownTimer.swift */; };
@@ -25,7 +25,7 @@
 		ADAAB39F27E517AF00F6DA42 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39E27E517AF00F6DA42 /* TimerView.swift */; };
 		ADAAB3A127E51D4E00F6DA42 /* ReusableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A027E51D4E00F6DA42 /* ReusableButton.swift */; };
 		ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A627E8A86100F6DA42 /* ClockView.swift */; };
-		ADAAB3A927E8E24200F6DA42 /* NewSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A827E8E24200F6DA42 /* NewSettingsView.swift */; };
+		ADAAB3A927E8E24200F6DA42 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A827E8E24200F6DA42 /* SettingsView.swift */; };
 		ADAAB3AB27E8E44E00F6DA42 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */; };
 		ADAAB3AD27E8FB1500F6DA42 /* MiddleTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */; };
 		ADAAB3AF27E8FC8B00F6DA42 /* FontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */; };
@@ -42,7 +42,7 @@
 		8CC8051C2719F83100AF4D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CC8051F2719F83100AF4D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CC805212719F83100AF4D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8CFAFF502720B73400D58107 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8CFAFF502720B73400D58107 /* OldSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldSettingsView.swift; sourceTree = "<group>"; };
 		AD00B95B27CFB1CA00A83D73 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		AD44A67D2805BC77007C0463 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		AD44A68328072392007C0463 /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		ADAAB39E27E517AF00F6DA42 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		ADAAB3A027E51D4E00F6DA42 /* ReusableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableButton.swift; sourceTree = "<group>"; };
 		ADAAB3A627E8A86100F6DA42 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
-		ADAAB3A827E8E24200F6DA42 /* NewSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsView.swift; sourceTree = "<group>"; };
+		ADAAB3A827E8E24200F6DA42 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleTopView.swift; sourceTree = "<group>"; };
 		ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontView.swift; sourceTree = "<group>"; };
@@ -87,8 +87,8 @@
 		8C7319FF2721CABA0030ABFE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8CFAFF502720B73400D58107 /* SettingsView.swift */,
 				8CC805142719F82B00AF4D99 /* PomodoroViewController.swift */,
+				8CFAFF502720B73400D58107 /* OldSettingsView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -168,7 +168,7 @@
 		ADAAB3A427E7C32200F6DA42 /* SettingsView */ = {
 			isa = PBXGroup;
 			children = (
-				ADAAB3A827E8E24200F6DA42 /* NewSettingsView.swift */,
+				ADAAB3A827E8E24200F6DA42 /* SettingsView.swift */,
 				ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */,
 				ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */,
 				ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */,
@@ -247,7 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CFAFF512720B73400D58107 /* SettingsView.swift in Sources */,
+				8CFAFF512720B73400D58107 /* OldSettingsView.swift in Sources */,
 				ADAAB3AF27E8FC8B00F6DA42 /* FontView.swift in Sources */,
 				ADAAB3A127E51D4E00F6DA42 /* ReusableButton.swift in Sources */,
 				AD44A688280739FD007C0463 /* PomodoroTimer.swift in Sources */,
@@ -255,7 +255,7 @@
 				ADAAB39B27E4B35400F6DA42 /* ReusableLabel.swift in Sources */,
 				ADAAB3AD27E8FB1500F6DA42 /* MiddleTopView.swift in Sources */,
 				ADAAB3B127E9034F00F6DA42 /* DividerView.swift in Sources */,
-				ADAAB3A927E8E24200F6DA42 /* NewSettingsView.swift in Sources */,
+				ADAAB3A927E8E24200F6DA42 /* SettingsView.swift in Sources */,
 				AD44A67E2805BC77007C0463 /* SettingsModel.swift in Sources */,
 				8CC805152719F82B00AF4D99 /* PomodoroViewController.swift in Sources */,
 				ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */,

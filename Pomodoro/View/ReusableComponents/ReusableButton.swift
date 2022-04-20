@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+// is it the proper way to build this kind of class? are different kind of initializers here necessary?
+
 class ReusableButton: UIButton {
 
     init() {

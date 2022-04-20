@@ -9,17 +9,15 @@ import UIKit
 
 class ClockView: UIView {
     
-    let clockLabel: ReusableLabel
-    let startStopButton: ReusableButton
-//    var timer: PomodoroTimer
-    var circleShapeLayer = CAShapeLayer()
-    var timer = CountdownTimer()
+    private let clockLabel: ReusableLabel
+    private let startStopButton: ReusableButton
+    private let timer = CountdownTimer()
+    private let circleShapeLayer = CAShapeLayer()
 
     
     init() {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
-//        timer = PomodoroTimer()
         super.init(frame: .zero)
         timer.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +66,7 @@ class ClockView: UIView {
     //MARK: - View Setup
     
     private func setupViews() {
+        
         addSubview(clockLabel)
         clockLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10).isActive = true
         clockLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -102,17 +101,6 @@ class ClockView: UIView {
 
     }
 }
-
-//extension ClockView: PomodoroTimerDelegate {
-//
-//    func timerTick(_ countdownTimerDelegate: PomodoroTimer, currentTime: Int) {
-//        DispatchQueue.main.async {
-//            self.setTimeLabel(currentTime)
-//        }
-//    }
-//
-//
-//}
 
     //MARK: - CountdownTimerDelegate
 

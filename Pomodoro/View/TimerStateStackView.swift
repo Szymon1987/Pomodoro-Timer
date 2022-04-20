@@ -40,10 +40,8 @@ class TimerStateStackView: UIStackView {
         isLayoutMarginsRelativeArrangement = true
         layoutMargins = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 10)
         pomodoroLabel.backgroundColor = .pomodoroOrange
-//        shortBreakLabel.backgroundColor = .green
-//        longBreakLabel.backgroundColor = .green
-        
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         [pomodoroLabel, shortBreakLabel, longBreakLabel].forEach{$0.layer.cornerRadius = pomodoroLabel.frame.height / 2}

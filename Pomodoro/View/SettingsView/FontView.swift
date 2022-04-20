@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+// what's the best way to create the ColorView class which is almost identicall with FontView? Should they both have common superclass?
+
 class FontView: UIView {
     
     private let titleLabel: ReusableLabel
@@ -15,6 +18,8 @@ class FontView: UIView {
     let rightRoundedFontButton: ReusableButton
     private let roundedButtonTitle = "Aa"
     
+    
+    // is this approach good? Should we store the font here and then access it from somwhere else?
     var selectedFont: UIFont?
     
     override init(frame: CGRect) {
@@ -62,7 +67,7 @@ class FontView: UIView {
             button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         }
     }
-    /// what's the more efficient way to do it?
+    // what's the better way to do it?
     @objc private func tapped(_ sender: ReusableButton) {
         let buttons = [leftRoundedFontButton, middleRoundedFontButton, rightRoundedFontButton]
         for button in buttons {
