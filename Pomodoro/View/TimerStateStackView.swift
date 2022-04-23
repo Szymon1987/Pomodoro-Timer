@@ -13,11 +13,10 @@ class TimerStateStackView: UIStackView {
     let shortBreakLabel: ReusableLabel
     let longBreakLabel: ReusableLabel
     
-    
     init() {
-        pomodoroLabel = ReusableLabel(text: "pomodoro", fontSize: 18, textColor: .darkPurple)
-        shortBreakLabel = ReusableLabel(text: "short break", fontSize: 18, textColor: .lightTextColor)
-        longBreakLabel = ReusableLabel(text: "long break", fontSize: 18, textColor: .lightTextColor)
+        pomodoroLabel = ReusableLabel(text: "pomodoro", textColor: .darkPurple)
+        shortBreakLabel = ReusableLabel(text: "short break", textColor: .lightTextColor)
+        longBreakLabel = ReusableLabel(text: "long break", textColor: .lightTextColor)
         super.init(frame: .zero)
         setupTimerStateStackView()
     }

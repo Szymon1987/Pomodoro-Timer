@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class ColorView: UIView {
     
     private let titleLabel: ReusableLabel

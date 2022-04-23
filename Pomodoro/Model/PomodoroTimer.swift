@@ -16,18 +16,12 @@ enum TimerState {
 struct PomodoroTimer {
     
     private let timerStates: [TimerState] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
-  
-    
-    // should the variable below be initialized from out model?
-    // have a look to SettingsModel for the variations
-    
-    var pomodoroSeconds: Int = 6
-    var shortBreakSeconds: Int = 2
-    var longBreakSeconds: Int = 4
-    
-    
-    // currentState tracks if we currently counting down pomodoro focus time or maybe break time short or long. These are saved in the timerStates array above
-    
+
+    var timerModel = TimerModel() {
+        didSet {
+            print("set")
+        }
+    }
     var currentState: Int = 0
 
     mutating func switchState() -> Int? {
@@ -35,11 +29,11 @@ struct PomodoroTimer {
         if currentState < timerStates.count {
             switch timerStates[currentState] {
             case .pomodoro:
-                return pomodoroSeconds
+                return timerModel.pomodoroSeconds
             case .shortBreak:
-                return shortBreakSeconds
+                return timerModel.shortBreakSeconds
             case .longBreak:
-                return longBreakSeconds
+                return timerModel.longBreakSeconds
             }
         } else {
             return nil

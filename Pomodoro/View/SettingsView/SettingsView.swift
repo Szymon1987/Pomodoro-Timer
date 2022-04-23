@@ -17,12 +17,16 @@ class SettingsView: UIView {
     let colorView = ColorView()
     let dividerView = DividerView()
     let applyButton: ReusableButton
-    
-    override init(frame: CGRect) {
-//        applyButton = ReusableButton(title: "Apply", fontSize: 20, textColor: .white, backgroundColor: .pomodoroOrange)
-        applyButton = ReusableButton(title: "Apply", fontType: .boldFont(size: 22), textColor: .white, backgroundColor: .pomodoroOrange)
-        xmarkButton = ReusableButton(systemImageName: "xmark")
-        super.init(frame: frame)
+    var configurableTimerModel: TimerModel
+    var configurableAppearanceModel: AppearanceModel
+
+    init(mainView: MainView? = nil, configurableTimerModel: TimerModel, configurableAppearanceModel: AppearanceModel) {
+        self.mainView = mainView
+        self.xmarkButton = ReusableButton(systemImageName: "xmark")
+        self.applyButton = ReusableButton(title: "Apply", fontType: .boldFont(size: 22), textColor: .white, backgroundColor: .pomodoroOrange)
+        self.configurableTimerModel = configurableTimerModel
+        self.configurableAppearanceModel = configurableAppearanceModel
+        super.init(frame: .zero)
         setupViews()
         configureXmarkButton()
         configureApplyButton()
@@ -31,13 +35,14 @@ class SettingsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     private func configureXmarkButton() {
         xmarkButton.tintColor = .systemGray
         xmarkButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
     }
     
     @objc func handleDismiss() {
-        Haptics.playLightImpact()
+        Haptics.light()
         /// improve the function, find proper animation for dismissing the view
         
 //        UIView.animate(withDuration: 3,
@@ -47,22 +52,16 @@ class SettingsView: UIView {
 //            completion: { complete in
 //                self.removeFromSuperview()
 //            })
-        UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseInOut, animations: {
-//                self.alpha = 0
-            self.topAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            }) { _ in
-                self.removeFromSuperview()
-                self.alpha = 1
-            }
         
         
-//        let animation = CABasicAnimation()
-//        animation.keyPath = "transform.scale"
-//        animation.fromValue = 1
-//        animation.toValue = 0.00001
-//        animation.duration = 0.2
-//        self.layer.add(animation, forKey: "basic")
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: self.removeFromSuperview)
+//        UIView.animate(withDuration: 2, delay: 0.2, options: .curveEaseInOut, animations: {
+////                self.alpha = 0
+//            self.topAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+//            }) { _ in
+//                self.removeFromSuperview()
+//                self.alpha = 1
+//            }
+        self.removeFromSuperview()
     }
 
     private func configureApplyButton() {
@@ -71,8 +70,9 @@ class SettingsView: UIView {
     }
     
     @objc func applyButtonPressed() {
+        mainView?.timerEngine.timerModel = configurableTimerModel
         self.removeFromSuperview()
-        Haptics.playLightImpact()
+        Haptics.light()
     }
     
     private func setupViews() {
@@ -117,6 +117,7 @@ class SettingsView: UIView {
         colorView.addSubview(applyButton)
         applyButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.40).isActive = true
         applyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        applyButton.heightAnchor.constraint(equalTo: colorView.heightAnchor, multiplier: 0.25).isActive = true
         applyButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         applyButton.centerYAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }

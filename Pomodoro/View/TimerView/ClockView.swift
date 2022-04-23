@@ -11,15 +11,15 @@ class ClockView: UIView {
     
     private let clockLabel: ReusableLabel
     private let startStopButton: ReusableButton
-    private let timer = CountdownTimer()
-    private let circleShapeLayer = CAShapeLayer()
+//    private let timer = CountdownTimer()
+    private let timerEngine = TimerEngine()
+    public let circleShapeLayer = CAShapeLayer()
 
-    
     init() {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
         super.init(frame: .zero)
-        timer.delegate = self
+        timerEngine.timer.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = UIColor.darkPurple
         setupViews()
@@ -37,10 +37,10 @@ class ClockView: UIView {
     }
     
     @objc private func startStopButtonTapped() {
-        timer.startStopTimer()
+        timerEngine.timer.startStopTimer()
     }
     
-    // MARK: - Helpers
+     //MARK: - Helpers
     
     private func setTimeLabel(_ val: Int) {
         let time = SecondsToHoursMinutesSeconds(val)
@@ -83,11 +83,15 @@ class ClockView: UIView {
         layer.cornerRadius = self.frame.height / 2
         
         let center = CGPoint(x: layer.bounds.midX, y: layer.bounds.midY)
-        circleShapeLayer.position = center
+       
         
         let radius = (self.frame.height - 35) / 2
-        let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        circleShapeLayer.position = center
         circleShapeLayer.path = circularPath.cgPath
+        
+        // if startAngle isn't set to 0 there is a bug in animation. Below code rotates the cicrcleShapeLayer 90 degree
+        circleShapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
     }
     
     private func setupShapeLayer() {
@@ -96,8 +100,7 @@ class ClockView: UIView {
         circleShapeLayer.lineWidth = 10
         circleShapeLayer.lineCap = .round
         circleShapeLayer.fillColor = UIColor.clear.cgColor
-//        shapeLayer.strokeEnd = 0
-         layer.addSublayer(circleShapeLayer)
+        layer.addSublayer(circleShapeLayer)
 
     }
 }

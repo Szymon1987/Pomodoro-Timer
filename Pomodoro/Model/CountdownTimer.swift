@@ -24,7 +24,7 @@ protocol CountdownTimerDelegate: AnyObject {
 }
 
 class CountdownTimer {
-    
+
     var pomodoroTimer = PomodoroTimer()
     weak var delegate: CountdownTimerDelegate?
     
@@ -35,9 +35,8 @@ class CountdownTimer {
     var totalSeconds: Int
     
     init() {
-        totalSeconds = pomodoroTimer.pomodoroSeconds
+        totalSeconds = pomodoroTimer.timerModel.pomodoroSeconds
     }
-    
     
     func startStopTimer() {
         if timerCounting {
@@ -91,11 +90,10 @@ class CountdownTimer {
         }
     }
     
-    
     private func resetTimer() {
         
         delegate?.resetLabel(self)
-        totalSeconds = pomodoroTimer.pomodoroSeconds
+        totalSeconds = pomodoroTimer.timerModel.pomodoroSeconds
         pomodoroTimer.currentState = 0
         
         setStartTime(date: nil)

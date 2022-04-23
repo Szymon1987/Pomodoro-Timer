@@ -8,8 +8,15 @@
 import UIKit
 
 struct Haptics {
-    static func playLightImpact() {
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
+    static func light() {
+        triggerHapticMethodWith(style: .light)
+    }
+    
+    static func heavy() {
+        triggerHapticMethodWith(style: .heavy)
+    }
+    
+    static func triggerHapticMethodWith(style: UIImpactFeedbackGenerator.FeedbackStyle) {
+        UIImpactFeedbackGenerator(style: style).impactOccurred()
     }
 }

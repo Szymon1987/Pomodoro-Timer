@@ -8,30 +8,25 @@
 import UIKit
 
 class MainView: UIView {
-    
-    // whats the difference between initializing the object in the init() and initializig it here?
-    
+ 
     let titleLabel: ReusableLabel
-    
     let timerStateStackView = TimerStateStackView()
-    
     let timerView = TimerView()
-    
     let settingsButton: ReusableButton
+    let timerEngine = TimerEngine()
 
     private lazy var settingsView: SettingsView = {
-        let st = SettingsView()
+        let st = SettingsView(mainView: self, configurableTimerModel: timerEngine.timerModel, configurableAppearanceModel: timerEngine.appearanceModel)
         st.mainView = self
         return st
     }()
     
-    
     // MARK: - Initialization
     
-    override init(frame: CGRect) {
+    init() {
         titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
         settingsButton = ReusableButton(imageName: "settingsIcon")
-        super.init(frame: frame)
+        super.init(frame: .zero)
         backgroundColor = .backgroundPurple
         createSubviews()
         configureSettingsButton()
@@ -51,7 +46,7 @@ class MainView: UIView {
     // MARK: - UIActions
 
     @objc private func settingsIconTapped() {
-        Haptics.playLightImpact()
+        Haptics.light()
         setupSettingsView()
     }
 
@@ -99,7 +94,7 @@ class MainView: UIView {
     private func setupSettingsView() {
 
         addSubview(settingsView)
-        settingsView.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
+        settingsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         settingsView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60).isActive = true
         settingsView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
         settingsView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true

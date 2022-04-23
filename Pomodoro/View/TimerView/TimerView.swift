@@ -11,7 +11,7 @@ import UIKit
 
 class TimerView: UIView {
 
-    private let clockView = ClockView()
+    public let clockView = ClockView()
     private let roundedGradientView = UIView()
 
     lazy var roundedGradient: CAGradientLayer = {

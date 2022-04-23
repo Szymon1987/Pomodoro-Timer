@@ -56,26 +56,22 @@ extension UIColor {
 
 
 
-// How to improve the below extension to avoid repetition?
 
 // How do I make the fonts dynamic? On the smallest device the font on the mainView is too big
 
 extension UIFont {
-    
     static func normalFont(size: CGFloat) -> UIFont {
-        guard let customFont = UIFont(name: "Helvetica", size: size) else {
-            return UIFont.systemFont(ofSize: size)
-        }
-        return customFont
+        return customFontWith(familyName: "Helvetica", size: size)
     }
     static func boldFont(size: CGFloat) -> UIFont {
-        guard let customFont = UIFont(name: "ChalkboardSE-Bold", size: size) else {
-            return UIFont.systemFont(ofSize: size)
-        }
-        return customFont
+        return customFontWith(familyName: "ChalkboardSE-Bold", size: size)
     }
     static func italicFont(size: CGFloat) -> UIFont {
-        guard let customFont = UIFont(name: "Helvetica-Oblique", size: size) else {
+        return customFontWith(familyName: "Helvetica-Oblique", size: size)
+    }
+    
+    static func customFontWith(familyName: String, size: CGFloat) -> UIFont {
+        guard let customFont = UIFont(name: familyName, size: size) else {
             return UIFont.systemFont(ofSize: size)
         }
         return customFont
