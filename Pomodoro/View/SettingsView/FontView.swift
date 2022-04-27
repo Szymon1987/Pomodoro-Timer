@@ -19,15 +19,15 @@ class FontView: UIView {
     private let roundedButtonTitle = "Aa"
     
     
-    // is this approach good? Should we store the font here and then access it from somwhere else?
+    // is this approach good? Should we store the font here and then access it from somewhere else?
     var selectedFont: UIFont?
     
-    override init(frame: CGRect) {
+    init() {
         titleLabel = ReusableLabel(text: "FONT")
         leftRoundedFontButton = ReusableButton(title: roundedButtonTitle, textColor: .white, backgroundColor: .black)
         middleRoundedFontButton = ReusableButton(title: roundedButtonTitle, fontType: .italicFont(size: 16) , backgroundColor: .backgroundGray)
         rightRoundedFontButton = ReusableButton(title: roundedButtonTitle, fontType: .boldFont(size: 16), backgroundColor: .backgroundGray)
-        super.init(frame: frame)
+        super.init(frame: .zero)
         setupViews()
         addTargetForButtons()
     }

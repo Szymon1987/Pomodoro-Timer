@@ -9,25 +9,28 @@ import UIKit
 
 class TimerEngine {
     
-    weak var mainView: MainView?
+    weak var mainViewController: MainViewViewController?
     weak var clockView: ClockView?
     
     var timerModel = TimerModel() {
         didSet {
             print("timer model set")
             clockView?.circleShapeLayer.backgroundColor = UIColor.pomodoroBlue.cgColor
-            mainView?.titleLabel.backgroundColor = .red
+            mainViewController?.titleLabel.backgroundColor = .red
         }
     }
     
-    var timer = CountdownTimer() {
+    private var timer = CountdownTimer() {
         didSet {
             
         }
     }
     
-    var appearanceModel = AppearanceModel()
+    var appearanceModel = AppearanceModel() 
     
+    func startStopButtonTapped() {
+        timer.startStopTimer()
+    }
 //
 //    // MARK: - Helpers
 //

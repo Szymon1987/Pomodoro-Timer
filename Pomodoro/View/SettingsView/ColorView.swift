@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ColorViewDataSource: AnyObject {
+    func selectedColorUpdated(with color: UIColor)
+}
+
 class ColorView: UIView {
     
     private let titleLabel: ReusableLabel
@@ -14,8 +18,10 @@ class ColorView: UIView {
     let blueRoundedButton: ReusableButton
     let purpleRoundedButton: ReusableButton
     
+    weak var delegate: ColorViewDataSource?
+    
     // same as "selectedFont" in the FontView class
-    var selectedColor: UIColor?
+//    var selectedColor: UIColor?
     
     private let checkmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
 
@@ -24,7 +30,7 @@ class ColorView: UIView {
         redRoundedButton = ReusableButton(systemImageName: "checkmark", backgroundColor: .pomodoroOrange)
         blueRoundedButton = ReusableButton(backgroundColor: .pomodoroBlue)
         purpleRoundedButton = ReusableButton(backgroundColor: .pomodoroPurple)
-        super.init(frame: frame)
+        super.init()
         setupViews()
         addTargetForButtons()
     }
@@ -41,11 +47,12 @@ class ColorView: UIView {
         }
     }
     // is there a better way to moving the checkmark position when button is pressed?
-     @objc private func tapped(_ sender: ReusableButton) {
+    @objc private func tapped(_ sender: ReusableButton) {
         let buttons = [redRoundedButton, blueRoundedButton, purpleRoundedButton]
         buttons.forEach{$0.setImage(nil, for: .normal)}
         sender.setImage(checkmarkImage, for: .normal)
-        selectedColor = sender.backgroundColor
+        let selectedColor = sender.backgroundColor!
+        delegate?.selectedColorUpdated(with: selectedColor)
     }
     
     // the setupView function is identical with FontView setupView function, how to fix it?

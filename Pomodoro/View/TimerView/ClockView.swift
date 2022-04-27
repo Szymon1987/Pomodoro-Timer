@@ -11,15 +11,20 @@ class ClockView: UIView {
     
     private let clockLabel: ReusableLabel
     private let startStopButton: ReusableButton
-//    private let timer = CountdownTimer()
-    private let timerEngine = TimerEngine()
+    
+    private let engine: TimerEngine
+//    private let timerEngine = TimerEngine()
+    
+    
     public let circleShapeLayer = CAShapeLayer()
 
-    init() {
+    init(timerEngine: TimerEngine) {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
+        engine = timerEngine
         super.init(frame: .zero)
-        timerEngine.timer.delegate = self
+//        timerEngine.timer.delegate = self
+//        timer.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = UIColor.darkPurple
         setupViews()
@@ -37,7 +42,7 @@ class ClockView: UIView {
     }
     
     @objc private func startStopButtonTapped() {
-        timerEngine.timer.startStopTimer()
+        engine.startStopButtonTapped()
     }
     
      //MARK: - Helpers

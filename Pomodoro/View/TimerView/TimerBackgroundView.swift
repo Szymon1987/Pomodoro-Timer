@@ -9,11 +9,13 @@ import UIKit
 
 // this view class is basically the background view for the ClockView class with
 
-class TimerView: UIView {
+class TimerBackgroundView: UIView {
 
-    public let clockView = ClockView()
+    public let clockView: ClockView
     private let roundedGradientView = UIView()
 
+    private var engine: TimerEngine
+    
     lazy var roundedGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0, y: 0)
@@ -23,7 +25,9 @@ class TimerView: UIView {
         return gradient
     }()
     
-    init() {
+    init(timerEngine: TimerEngine) {
+        engine = timerEngine
+        clockView = ClockView(timerEngine: engine)
         super.init(frame: .zero)
         setupTimerView()
         setupRoundedGradientView()

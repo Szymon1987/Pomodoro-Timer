@@ -56,9 +56,6 @@ extension UIColor {
 
 
 
-
-// How do I make the fonts dynamic? On the smallest device the font on the mainView is too big
-
 extension UIFont {
     static func normalFont(size: CGFloat) -> UIFont {
         return customFontWith(familyName: "Helvetica", size: size)
@@ -88,3 +85,10 @@ extension UILabel {
   }
 }
 
+extension UIView {
+    func setRoundedCorner(withRadius radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.layer.masksToBounds = true
+        self.layer.isOpaque = false
+    }
+}
