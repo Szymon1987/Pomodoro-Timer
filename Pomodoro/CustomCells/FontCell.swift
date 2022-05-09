@@ -1,27 +1,27 @@
 //
-//  BaseAppearanceCell.swift
+//  FontCell.swift
 //  Pomodoro
 //
-//  Created by Szymon Tadrzak on 27/04/2022.
+//  Created by Szymon Tadrzak on 09/05/2022.
 //
 
 import UIKit
 
-class AppearanceCell: UITableViewCell {
+class FontCell: UITableViewCell {
     
     var titleLabel: ReusableLabel
     var middleButton: ReusableButton
     var leftButton: ReusableButton
     var rightButton: ReusableButton
+    private let roundedButtonTitle = "Aa"
     
-    static let appearanceCellId = "AppearanceCellId"
-    var selectedColor: UIColor?
+    var selectedFont: UIFont?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        titleLabel = ReusableLabel(text: "COLOR")
-        leftButton = ReusableButton(systemImageName: "checkmark", backgroundColor: .pomodoroOrange)
-        middleButton = ReusableButton(backgroundColor: .pomodoroBlue)
-        rightButton = ReusableButton(backgroundColor: .pomodoroPurple)
+        titleLabel = ReusableLabel(text: "FONT")
+        leftButton = ReusableButton(title: roundedButtonTitle, textColor: .white, backgroundColor: .black)
+        middleButton = ReusableButton(title: roundedButtonTitle, fontType: .italicFont(size: 16) , backgroundColor: .backgroundGray)
+        rightButton = ReusableButton(title: roundedButtonTitle, fontType: .boldFont(size: 16), backgroundColor: .backgroundGray)
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         addTargetForButtons()
@@ -36,15 +36,18 @@ class AppearanceCell: UITableViewCell {
             button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         }
     }
-    
-    private let checkmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-    // is there a better way to moving the checkmark position when button is pressed?
+
     @objc private func tapped(_ sender: ReusableButton) {
         let buttons = [middleButton, leftButton, rightButton]
-        buttons.forEach{$0.setImage(nil, for: .normal)}
-        sender.setImage(checkmarkImage, for: .normal)
-        selectedColor = sender.backgroundColor!
+        for button in buttons {
+            button.backgroundColor = .backgroundGray
+            button.setTitleColor(.black, for: .normal)
+        }
+        sender.backgroundColor = .black
+        sender.setTitleColor(.white, for: .normal)
+        selectedFont = sender.titleLabel?.font
     }
+    
     private func setupViews() {
         
         let views = [titleLabel, middleButton, leftButton, rightButton]
@@ -66,6 +69,5 @@ class AppearanceCell: UITableViewCell {
         rightButton.leadingAnchor.constraint(equalTo: middleButton.trailingAnchor, constant: 20).isActive = true
         
         views.forEach{$0.layer.cornerRadius = 24}
-        
     }
 }

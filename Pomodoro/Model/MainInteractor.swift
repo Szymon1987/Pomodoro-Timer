@@ -7,11 +7,18 @@
 
 import UIKit
 
-struct TimerEngine {
+struct MainInteractor {
 
     var timeDurationModel = TimeDurationModel() {
         didSet {
             print("timer model set")
+        }
+    }
+    
+    var appearanceModel = AppearanceModel() {
+        didSet {
+            print("Appearance model set")
+            
         }
     }
     private let pomodoroTimer: PomodoroTimer
@@ -26,18 +33,7 @@ struct TimerEngine {
         timer.startStopTimer()
     }
     
-    //    private var timer = CountdownTimer() {
-    //        didSet {
-    //
-    //        }
-    //    }
-        
-    //    private let pomodoroTimer = PomodoroTimer(timeDurationModel: timeDurationModel)
     
-    
-    
-    
-
     // MARK: - Helpers
 
     public func setTimeLabel(_ val: Int) -> String {

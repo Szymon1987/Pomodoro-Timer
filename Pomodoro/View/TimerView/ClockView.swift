@@ -11,15 +11,14 @@ class ClockView: UIView {
     
     private let clockLabel: ReusableLabel
     private let startStopButton: ReusableButton
-    
-    private let engine: TimerEngine
+    private let engine: MainInteractor
 
     public let circleShapeLayer = CAShapeLayer()
 
-    init(timerEngine: TimerEngine) {
+    init(mainInteractor: MainInteractor) {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
-        self.engine = timerEngine
+        self.engine = mainInteractor
         super.init(frame: .zero)
         engine.timer.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
@@ -63,13 +62,12 @@ class ClockView: UIView {
         
         let center = CGPoint(x: layer.bounds.midX, y: layer.bounds.midY)
        
-        
         let radius = (self.frame.height - 35) / 2
         let circularPath = UIBezierPath(arcCenter: .zero, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
         circleShapeLayer.position = center
         circleShapeLayer.path = circularPath.cgPath
         
-        // if startAngle isn't set to 0 there is a bug in animation. Below code rotates the cicrcleShapeLayer 90 degree
+        // if startAngle isn't set to 0 there is a bug in animation. CircleShapeLayer is rotated 90 degree
         circleShapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
     }
     
@@ -89,7 +87,6 @@ class ClockView: UIView {
 extension ClockView: CountdownTimerDelegate {
     
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int) {
-//            self.setTimeLabel(currentTime)
         clockLabel.text = engine.setTimeLabel(currentTime)
     }
     

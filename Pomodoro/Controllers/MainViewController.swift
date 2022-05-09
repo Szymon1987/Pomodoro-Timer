@@ -14,47 +14,16 @@ class MainViewViewController: UIViewController {
     let timerBackgroundView: TimerBackgroundView
     let settingsButton : ReusableButton
     let clockView: ClockView
-    let timerEngine: TimerEngine
-    
-    //    private lazy var settingsView: SettingsView = {
-    //        let st = SettingsView(mainView: self, configurableTimerModel: timerEngine.timerModel, configurableAppearanceModel: timerEngine.appearanceModel)
-    //        st.mainView = self
-    //        return st
-    //    }()
+    var mainInteractor = MainInteractor()
     
     // MARK: - Initialization
-    
-    //    init() {
-    //        titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
-    //        settingsButton = ReusableButton(imageName: "settingsIcon")
-    //        timerView = TimerBackgroundView(timerEngine: timerEngine)
-    //        super.init(frame: .zero)
-    //        backgroundColor = .backgroundPurple
-    //        createSubviews()
-    //        configureSettingsButton()
-    //    }
-    //
-    
-    //    required init?(coder: NSCoder) {
-    //        self.titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
-    //        self.settingsButton = ReusableButton(imageName: "settingsIcon")
-    //        self.timerView = TimerBackgroundView(timerEngine: timerEngine)
-    //        super.init(coder: coder)
-    //        view.backgroundColor = .backgroundPurple
-    //        createSubviews()
-    //        configureSettingsButton()
-    //        fatalError("init(coder:) has not been implemented")
-    //    }
-    
-    
-    
-    init(timerEngine: TimerEngine) {
-        self.timerEngine = timerEngine
+
+    init() {
         self.titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
         self.settingsButton = ReusableButton(imageName: "settingsIcon")
         self.timerStateStackView = TimerStateStackView()
         self.timerBackgroundView = TimerBackgroundView()
-        self.clockView = ClockView(timerEngine: timerEngine)
+        self.clockView = ClockView(mainInteractor: mainInteractor)
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = .backgroundPurple
         createSubviews()
@@ -69,7 +38,6 @@ class MainViewViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    
     // MARK: - Helpers
     
     private func configureSettingsButton() {
@@ -80,15 +48,8 @@ class MainViewViewController: UIViewController {
     
     @objc private func settingsIconTapped() {
         Haptics.light()
-        //        setupSettingsView()
-        
         let settingsVC = SettingsViewController()
-        //        settingsVC.providesPresentationContextTransitionStyle = true
-        //        settingsVC.definesPresentationContext = true
-        //        settingsVC.modalPresentationStyle = .overCurrentContext
-        //        settingsVC.modalTransitionStyle = .crossDissolve
         self.present(settingsVC, animated: true)
-        //        settingsVC.view.backgroundColor = .clear
     }
     
     // MARK: - Adding Subviews
@@ -126,16 +87,6 @@ class MainViewViewController: UIViewController {
         settingsButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
         settingsButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
     }
-    
-    private func setupSettingsView() {
-        //
-        //        view.addSubview(settingsView)
-        //        settingsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        //        settingsView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive = true
-        //        settingsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
-        //        settingsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
-    }
-    
 }
 
 

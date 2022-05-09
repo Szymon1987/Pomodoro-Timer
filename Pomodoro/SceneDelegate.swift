@@ -10,14 +10,14 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private let timerEngine = TimerEngine()
+//    private let mainInteractor = MainInteractor()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
-        window?.rootViewController = MainViewViewController(timerEngine: timerEngine)
+        window?.rootViewController = MainViewViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

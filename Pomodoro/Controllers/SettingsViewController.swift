@@ -9,11 +9,9 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    var appearanceModel: AppearanceModel?
+    weak var mainVC: MainViewViewController?
     
-    
-//    var timeDurationModel: TimeDurationModel
-    
+    let settingsInteractor = SettingsInteractor()
     
     // DUMMY DATA READY TO BE SEND
     
@@ -27,8 +25,7 @@ class SettingsViewController: UIViewController {
     /// AppearanceModel
     let color: UIColor = .purple
     let font: UIFont = .normalFont(size: 16)
-    
-    
+
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -68,7 +65,8 @@ class SettingsViewController: UIViewController {
     private func registerCells() {
         // UITableView extension methods
         tableView.register(UITableViewCell.self)
-        tableView.register(AppearanceCell.self)
+        tableView.register(ColorCell.self)
+        tableView.register(FontCell.self)
     }
     
     @objc private func handleDismiss() {
@@ -77,8 +75,9 @@ class SettingsViewController: UIViewController {
     }
     
     @objc private func applyButtonTapped() {
-        
-//        let appearanceModel = AppearanceModel(color: <#T##UIColor#>, font: <#T##UIFont#>)
+        mainVC = MainViewViewController()
+        mainVC?.mainInteractor.appearanceModel = settingsInteractor.appearanceModel
+        mainVC?.mainInteractor.timeDurationModel = settingsInteractor.timeDurationModel
         Haptics.light()
         self.dismiss(animated: true)
     }
@@ -159,10 +158,10 @@ extension SettingsViewController {
             let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
+            let cell = tableView.dequeueReusableCell(FontCell.self)!
             return cell
         case 3:
-            let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
+            let cell = tableView.dequeueReusableCell(ColorCell.self)!
             return cell
         default:
             let cell = tableView.dequeueReusableCell(UITableViewCell.self)!

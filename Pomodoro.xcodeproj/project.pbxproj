@@ -14,10 +14,12 @@
 		8CC805202719F83100AF4D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */; };
 		8CFAFF512720B73400D58107 /* OldSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAFF502720B73400D58107 /* OldSettingsView.swift */; };
 		AD00B95C27CFB1CA00A83D73 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD00B95B27CFB1CA00A83D73 /* Haptics.swift */; };
-		AD0784C7281994B80049BE75 /* AppearanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0784C6281994B80049BE75 /* AppearanceCell.swift */; };
+		AD0784C7281994B80049BE75 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0784C6281994B80049BE75 /* ColorCell.swift */; };
 		AD0856DB2819B8C100AE442F /* TimeStateslCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */; };
 		AD0856DD2819C6A000AE442F /* TimeDurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */; };
 		AD0856E4281B285000AE442F /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856E3281B285000AE442F /* SettingsInteractor.swift */; };
+		AD1DB03E28298B2E00B23D96 /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DB03D28298B2E00B23D96 /* FontCell.swift */; };
+		AD1DB0422829A96D00B23D96 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DB0412829A96D00B23D96 /* BaseCell.swift */; };
 		AD44A68428072392007C0463 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A68328072392007C0463 /* CountdownTimer.swift */; };
 		AD44A686280729DC007C0463 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A685280729DC007C0463 /* Constants.swift */; };
 		AD44A688280739FD007C0463 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A687280739FD007C0463 /* PomodoroTimer.swift */; };
@@ -33,7 +35,7 @@
 		ADAAB3AF27E8FC8B00F6DA42 /* FontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */; };
 		ADAAB3B127E9034F00F6DA42 /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3B027E9034E00F6DA42 /* DividerView.swift */; };
 		ADAE94642818329D00B3DA92 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE94632818329D00B3DA92 /* SettingsViewController.swift */; };
-		ADC59CDC2810941F006CF194 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC59CDB2810941F006CF194 /* TimerEngine.swift */; };
+		ADC59CDC2810941F006CF194 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC59CDB2810941F006CF194 /* MainInteractor.swift */; };
 		ADC59CDE2810A48B006CF194 /* AppearanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */; };
 		ADD0676727EB5173008734B0 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD0676627EB5173008734B0 /* ColorView.swift */; };
 /* End PBXBuildFile section */
@@ -48,10 +50,12 @@
 		8CC805212719F83100AF4D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CFAFF502720B73400D58107 /* OldSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldSettingsView.swift; sourceTree = "<group>"; };
 		AD00B95B27CFB1CA00A83D73 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
-		AD0784C6281994B80049BE75 /* AppearanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceCell.swift; sourceTree = "<group>"; };
+		AD0784C6281994B80049BE75 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStateslCell.swift; sourceTree = "<group>"; };
 		AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDurationModel.swift; sourceTree = "<group>"; };
 		AD0856E3281B285000AE442F /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		AD1DB03D28298B2E00B23D96 /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
+		AD1DB0412829A96D00B23D96 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		AD44A68328072392007C0463 /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		AD44A685280729DC007C0463 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AD44A687280739FD007C0463 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
@@ -67,7 +71,7 @@
 		ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontView.swift; sourceTree = "<group>"; };
 		ADAAB3B027E9034E00F6DA42 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		ADAE94632818329D00B3DA92 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		ADC59CDB2810941F006CF194 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
+		ADC59CDB2810941F006CF194 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
 		ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceModel.swift; sourceTree = "<group>"; };
 		ADD0676627EB5173008734B0 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,7 +90,8 @@
 		8C71F9CB2729BFF700BA62EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				ADC59CDB2810941F006CF194 /* TimerEngine.swift */,
+				ADC59CDB2810941F006CF194 /* MainInteractor.swift */,
+				AD0856E3281B285000AE442F /* SettingsInteractor.swift */,
 				AD44A68328072392007C0463 /* CountdownTimer.swift */,
 				AD44A687280739FD007C0463 /* PomodoroTimer.swift */,
 				AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */,
@@ -101,7 +106,6 @@
 			children = (
 				ADA292E227D8EC9D00211876 /* MainViewController.swift */,
 				ADAE94632818329D00B3DA92 /* SettingsViewController.swift */,
-				AD0856E3281B285000AE442F /* SettingsInteractor.swift */,
 				8CFAFF502720B73400D58107 /* OldSettingsView.swift */,
 			);
 			path = Controllers;
@@ -163,8 +167,10 @@
 		AD0784C52819948D0049BE75 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				AD0784C6281994B80049BE75 /* AppearanceCell.swift */,
+				AD0784C6281994B80049BE75 /* ColorCell.swift */,
+				AD1DB03D28298B2E00B23D96 /* FontCell.swift */,
 				AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */,
+				AD1DB0412829A96D00B23D96 /* BaseCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -279,9 +285,11 @@
 				ADAAB3AD27E8FB1500F6DA42 /* MiddleTopView.swift in Sources */,
 				ADAAB3B127E9034F00F6DA42 /* DividerView.swift in Sources */,
 				ADAE94642818329D00B3DA92 /* SettingsViewController.swift in Sources */,
-				ADC59CDC2810941F006CF194 /* TimerEngine.swift in Sources */,
+				ADC59CDC2810941F006CF194 /* MainInteractor.swift in Sources */,
 				ADAAB3A927E8E24200F6DA42 /* SettingsView.swift in Sources */,
 				AD0856DB2819B8C100AE442F /* TimeStateslCell.swift in Sources */,
+				AD1DB03E28298B2E00B23D96 /* FontCell.swift in Sources */,
+				AD1DB0422829A96D00B23D96 /* BaseCell.swift in Sources */,
 				ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */,
 				AD44A68428072392007C0463 /* CountdownTimer.swift in Sources */,
 				ADD0676727EB5173008734B0 /* ColorView.swift in Sources */,
@@ -293,7 +301,7 @@
 				8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */,
 				8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */,
 				AD44A686280729DC007C0463 /* Constants.swift in Sources */,
-				AD0784C7281994B80049BE75 /* AppearanceCell.swift in Sources */,
+				AD0784C7281994B80049BE75 /* ColorCell.swift in Sources */,
 				AD0856DD2819C6A000AE442F /* TimeDurationModel.swift in Sources */,
 				ADC59CDE2810A48B006CF194 /* AppearanceModel.swift in Sources */,
 				AD0856E4281B285000AE442F /* SettingsInteractor.swift in Sources */,
