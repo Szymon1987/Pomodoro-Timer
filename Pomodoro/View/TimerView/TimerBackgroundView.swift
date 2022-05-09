@@ -11,11 +11,7 @@ import UIKit
 
 class TimerBackgroundView: UIView {
 
-    public let clockView: ClockView
-    private var engine: TimerEngine
     private let roundedGradientView = UIView()
-
-    
     lazy var roundedGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0, y: 0)
@@ -25,9 +21,10 @@ class TimerBackgroundView: UIView {
         return gradient
     }()
     
-    init(timerEngine: TimerEngine) {
-        engine = timerEngine
-        clockView = ClockView(timerEngine: engine)
+//    init(timerEngine: TimerEngine) {
+        init() {
+//        engine = timerEngine
+//        clockView = ClockView(timerEngine: engine)
         super.init(frame: .zero)
         setupTimerView()
         setupRoundedGradientView()
@@ -54,12 +51,6 @@ class TimerBackgroundView: UIView {
         addSubview(roundedGradientView)
         roundedGradientView.anchorSize(to: self)
         roundedGradientView.layer.addSublayer(roundedGradient)
-
-        addSubview(clockView)
-        clockView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        clockView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        clockView.heightAnchor.constraint(equalTo: heightAnchor, constant: -35).isActive = true
-        clockView.widthAnchor.constraint(equalTo: heightAnchor, constant: -35).isActive = true
     }
     
     private func setupRoundedGradientView() {
@@ -70,7 +61,6 @@ class TimerBackgroundView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         layer.cornerRadius = self.frame.height / 2
         roundedGradientView.layer.cornerRadius = self.frame.height / 2
         roundedGradient.frame = bounds

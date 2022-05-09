@@ -13,18 +13,15 @@ class ClockView: UIView {
     private let startStopButton: ReusableButton
     
     private let engine: TimerEngine
-//    private let timerEngine = TimerEngine()
-    
-    
+
     public let circleShapeLayer = CAShapeLayer()
 
     init(timerEngine: TimerEngine) {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
-        engine = timerEngine
+        self.engine = timerEngine
         super.init(frame: .zero)
-//        timerEngine.timer.delegate = self
-//        timer.delegate = self
+        engine.timer.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = UIColor.darkPurple
         setupViews()
@@ -44,30 +41,7 @@ class ClockView: UIView {
     @objc private func startStopButtonTapped() {
         engine.startStopButtonTapped()
     }
-    
-     //MARK: - Helpers
-    
-    private func setTimeLabel(_ val: Int) {
-        let time = SecondsToHoursMinutesSeconds(val)
-        let timeString = makeTimeString(min: time.1, sec: time.2)
-            clockLabel.text = timeString
-    }
 
-    private func SecondsToHoursMinutesSeconds(_ ms: Int) -> (Int, Int, Int) {
-        let hour = ms / 3600
-        let min = (ms % 3600) / 60
-        let sec = (ms % 3600) % 60
-        return (hour, min, sec)
-    }
-
-    private func makeTimeString(min: Int, sec: Int) -> String {
-        var timeString = ""
-        timeString += String(format: "%02d", min)
-        timeString += ":"
-        timeString += String(format: "%02d", sec)
-        return timeString
-    }
-    
     //MARK: - View Setup
     
     private func setupViews() {
@@ -115,7 +89,8 @@ class ClockView: UIView {
 extension ClockView: CountdownTimerDelegate {
     
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int) {
-            self.setTimeLabel(currentTime)
+//            self.setTimeLabel(currentTime)
+        clockLabel.text = engine.setTimeLabel(currentTime)
     }
     
     func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool) {

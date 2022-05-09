@@ -25,7 +25,9 @@ protocol CountdownTimerDelegate: AnyObject {
 
 class CountdownTimer {
 
-    var pomodoroTimer = PomodoroTimer()
+//    var pomodoroTimer = PomodoroTimer()
+    var pomodoroTimer: PomodoroTimer
+   
     weak var delegate: CountdownTimerDelegate?
     
     var timerCounting: Bool = false
@@ -34,7 +36,8 @@ class CountdownTimer {
     var scheduledTimer: Timer!
     var totalSeconds: Int
     
-    init() {
+    init(pomodoroTimer: PomodoroTimer) {
+        self.pomodoroTimer = pomodoroTimer
         totalSeconds = pomodoroTimer.timeDurationModel.pomodoroSeconds
     }
     

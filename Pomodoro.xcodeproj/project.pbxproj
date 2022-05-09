@@ -87,11 +87,11 @@
 			isa = PBXGroup;
 			children = (
 				ADC59CDB2810941F006CF194 /* TimerEngine.swift */,
-				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
-				AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */,
-				AD44A685280729DC007C0463 /* Constants.swift */,
-				AD44A687280739FD007C0463 /* PomodoroTimer.swift */,
 				AD44A68328072392007C0463 /* CountdownTimer.swift */,
+				AD44A687280739FD007C0463 /* PomodoroTimer.swift */,
+				AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */,
+				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
+				AD44A685280729DC007C0463 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

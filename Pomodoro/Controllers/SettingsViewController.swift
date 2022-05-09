@@ -15,7 +15,7 @@ class SettingsViewController: UIViewController {
 //    var timeDurationModel: TimeDurationModel
     
     
-    // DUMMY DATA READY TO SEND
+    // DUMMY DATA READY TO BE SEND
     
     /// TimeDurationModel
     let pom: Int = 9

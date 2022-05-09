@@ -7,22 +7,27 @@
 
 import Foundation
 
-enum TimerState {
-    case pomodoro
-    case shortBreak
-    case longBreak
-}
-
 struct PomodoroTimer {
+    
+    enum TimerState {
+        case pomodoro
+        case shortBreak
+        case longBreak
+    }
     
     private let timerStates: [TimerState] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
    
     var currentState: Int = 0
 
-    var timeDurationModel = TimeDurationModel() {
-        didSet {
-            print("set")
-        }
+//    var timeDurationModel = TimeDurationModel() {
+//        didSet {
+//            print("set")
+//        }
+//    }
+    
+    var timeDurationModel: TimeDurationModel
+    init(timeDurationModel: TimeDurationModel) {
+        self.timeDurationModel = timeDurationModel
     }
     
     mutating func switchState() -> Int? {
