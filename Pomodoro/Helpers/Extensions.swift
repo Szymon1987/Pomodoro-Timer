@@ -35,6 +35,12 @@ extension UIView {
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
+    
+    func setRoundedCorner(withRadius radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.layer.masksToBounds = true
+        self.layer.isOpaque = false
+    }
 }
 
 extension UIColor {
@@ -55,6 +61,21 @@ extension UIColor {
 }
 
 
+// MARK: - UITableView
+
+extension UITableView {
+    func register(_ type: UITableViewCell.Type) {
+        let className = String(describing: type)
+        register(type, forCellReuseIdentifier: className)
+    }
+    
+    func dequeueReusableCell<T>(_ type: T.Type) -> T? {
+        let className = String(describing: type)
+        return dequeueReusableCell(withIdentifier: className) as? T
+    }
+}
+
+// MARK: - UIFont
 
 extension UIFont {
     static func normalFont(size: CGFloat) -> UIFont {
@@ -75,6 +96,8 @@ extension UIFont {
     }
 }
 
+// MARK: - UILabel
+
 extension UILabel {
   func setTextSpacingBy(value: Double) {
     if let textString = self.text {
@@ -83,12 +106,4 @@ extension UILabel {
       attributedText = attributedString
     }
   }
-}
-
-extension UIView {
-    func setRoundedCorner(withRadius radius: CGFloat) {
-        self.layer.cornerRadius = radius
-        self.layer.masksToBounds = true
-        self.layer.isOpaque = false
-    }
 }

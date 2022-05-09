@@ -15,7 +15,7 @@ class AppearanceCell: UITableViewCell {
     var rightButton: ReusableButton
     
     static let appearanceCellId = "AppearanceCellId"
-    
+    var selectedColor: UIColor?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         titleLabel = ReusableLabel(text: "COLOR")
@@ -24,16 +24,31 @@ class AppearanceCell: UITableViewCell {
         rightButton = ReusableButton(backgroundColor: .pomodoroPurple)
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        addTargetForButtons()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    private func addTargetForButtons() {
+        let buttons = [middleButton, leftButton, rightButton]
+        for button in buttons {
+            button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        }
+    }
     
+    private let checkmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+    // is there a better way to moving the checkmark position when button is pressed?
+    @objc private func tapped(_ sender: ReusableButton) {
+        let buttons = [middleButton, leftButton, rightButton]
+        buttons.forEach{$0.setImage(nil, for: .normal)}
+        sender.setImage(checkmarkImage, for: .normal)
+        selectedColor = sender.backgroundColor!
+    }
     private func setupViews() {
         
         let views = [titleLabel, middleButton, leftButton, rightButton]
-        views.forEach{addSubview($0)}
+        views.forEach{contentView.addSubview($0)}
         titleLabel.anchor(top: topAnchor, bottom: nil, leading: leadingAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0))
         middleButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         middleButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10).isActive = true

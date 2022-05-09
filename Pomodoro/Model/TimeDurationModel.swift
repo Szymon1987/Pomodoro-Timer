@@ -1,13 +1,13 @@
 //
-//  Model.swift
+//  TimeDurationModel.swift
 //  Pomodoro
 //
-//  Created by Szymon Tadrzak on 12/04/2022.
+//  Created by Szymon Tadrzak on 27/04/2022.
 //
 
-import UIKit
+import Foundation
 
-struct TimerModel {
+struct TimeDurationModel {
     static let defaultPomodoroDuration:   Int = 6
     static let defaultShortBreakDuration: Int = 2
     static let defaultLongBreakDuration:  Int = 3
@@ -24,4 +24,3 @@ struct TimerModel {
         self.longBreakSeconds = longBreakSeconds
     }
 }
-

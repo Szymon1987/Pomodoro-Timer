@@ -12,9 +12,9 @@ import UIKit
 class TimerBackgroundView: UIView {
 
     public let clockView: ClockView
+    private var engine: TimerEngine
     private let roundedGradientView = UIView()
 
-    private var engine: TimerEngine
     
     lazy var roundedGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()

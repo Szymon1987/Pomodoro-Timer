@@ -12,7 +12,7 @@ class TimerEngine {
     weak var mainViewController: MainViewViewController?
     weak var clockView: ClockView?
     
-    var timerModel = TimerModel() {
+    var timeDurationModel = TimeDurationModel() {
         didSet {
             print("timer model set")
             clockView?.circleShapeLayer.backgroundColor = UIColor.pomodoroBlue.cgColor
@@ -24,10 +24,7 @@ class TimerEngine {
         didSet {
             
         }
-    }
-    
-    var appearanceModel = AppearanceModel() 
-    
+    }    
     func startStopButtonTapped() {
         timer.startStopTimer()
     }

@@ -15,7 +15,9 @@
 		8CFAFF512720B73400D58107 /* OldSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAFF502720B73400D58107 /* OldSettingsView.swift */; };
 		AD00B95C27CFB1CA00A83D73 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD00B95B27CFB1CA00A83D73 /* Haptics.swift */; };
 		AD0784C7281994B80049BE75 /* AppearanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0784C6281994B80049BE75 /* AppearanceCell.swift */; };
-		AD44A67E2805BC77007C0463 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A67D2805BC77007C0463 /* TimerModel.swift */; };
+		AD0856DB2819B8C100AE442F /* TimeStateslCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */; };
+		AD0856DD2819C6A000AE442F /* TimeDurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */; };
+		AD0856E4281B285000AE442F /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856E3281B285000AE442F /* SettingsInteractor.swift */; };
 		AD44A68428072392007C0463 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A68328072392007C0463 /* CountdownTimer.swift */; };
 		AD44A686280729DC007C0463 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A685280729DC007C0463 /* Constants.swift */; };
 		AD44A688280739FD007C0463 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A687280739FD007C0463 /* PomodoroTimer.swift */; };
@@ -47,7 +49,9 @@
 		8CFAFF502720B73400D58107 /* OldSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldSettingsView.swift; sourceTree = "<group>"; };
 		AD00B95B27CFB1CA00A83D73 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		AD0784C6281994B80049BE75 /* AppearanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceCell.swift; sourceTree = "<group>"; };
-		AD44A67D2805BC77007C0463 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStateslCell.swift; sourceTree = "<group>"; };
+		AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDurationModel.swift; sourceTree = "<group>"; };
+		AD0856E3281B285000AE442F /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		AD44A68328072392007C0463 /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		AD44A685280729DC007C0463 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AD44A687280739FD007C0463 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
@@ -82,10 +86,10 @@
 		8C71F9CB2729BFF700BA62EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AD44A685280729DC007C0463 /* Constants.swift */,
-				AD44A67D2805BC77007C0463 /* TimerModel.swift */,
-				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
 				ADC59CDB2810941F006CF194 /* TimerEngine.swift */,
+				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
+				AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */,
+				AD44A685280729DC007C0463 /* Constants.swift */,
 				AD44A687280739FD007C0463 /* PomodoroTimer.swift */,
 				AD44A68328072392007C0463 /* CountdownTimer.swift */,
 			);
@@ -97,6 +101,7 @@
 			children = (
 				ADA292E227D8EC9D00211876 /* MainViewController.swift */,
 				ADAE94632818329D00B3DA92 /* SettingsViewController.swift */,
+				AD0856E3281B285000AE442F /* SettingsInteractor.swift */,
 				8CFAFF502720B73400D58107 /* OldSettingsView.swift */,
 			);
 			path = Controllers;
@@ -159,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				AD0784C6281994B80049BE75 /* AppearanceCell.swift */,
+				AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -275,7 +281,7 @@
 				ADAE94642818329D00B3DA92 /* SettingsViewController.swift in Sources */,
 				ADC59CDC2810941F006CF194 /* TimerEngine.swift in Sources */,
 				ADAAB3A927E8E24200F6DA42 /* SettingsView.swift in Sources */,
-				AD44A67E2805BC77007C0463 /* TimerModel.swift in Sources */,
+				AD0856DB2819B8C100AE442F /* TimeStateslCell.swift in Sources */,
 				ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */,
 				AD44A68428072392007C0463 /* CountdownTimer.swift in Sources */,
 				ADD0676727EB5173008734B0 /* ColorView.swift in Sources */,
@@ -288,7 +294,9 @@
 				8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */,
 				AD44A686280729DC007C0463 /* Constants.swift in Sources */,
 				AD0784C7281994B80049BE75 /* AppearanceCell.swift in Sources */,
+				AD0856DD2819C6A000AE442F /* TimeDurationModel.swift in Sources */,
 				ADC59CDE2810A48B006CF194 /* AppearanceModel.swift in Sources */,
+				AD0856E4281B285000AE442F /* SettingsInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,7 +35,7 @@ class CountdownTimer {
     var totalSeconds: Int
     
     init() {
-        totalSeconds = pomodoroTimer.timerModel.pomodoroSeconds
+        totalSeconds = pomodoroTimer.timeDurationModel.pomodoroSeconds
     }
     
     func startStopTimer() {
@@ -93,7 +93,7 @@ class CountdownTimer {
     private func resetTimer() {
         
         delegate?.resetLabel(self)
-        totalSeconds = pomodoroTimer.timerModel.pomodoroSeconds
+        totalSeconds = pomodoroTimer.timeDurationModel.pomodoroSeconds
         pomodoroTimer.currentState = 0
         
         setStartTime(date: nil)

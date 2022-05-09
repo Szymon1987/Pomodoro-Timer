@@ -45,6 +45,8 @@ class MainViewViewController: UIViewController {
 //        fatalError("init(coder:) has not been implemented")
 //    }
     
+
+
     init() {
         self.titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
         self.settingsButton = ReusableButton(imageName: "settingsIcon")
@@ -54,7 +56,7 @@ class MainViewViewController: UIViewController {
         createSubviews()
         configureSettingsButton()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

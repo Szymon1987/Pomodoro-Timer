@@ -9,6 +9,34 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    var appearanceModel: AppearanceModel?
+    
+    
+//    var timeDurationModel: TimeDurationModel
+    
+    
+    // DUMMY DATA READY TO SEND
+    
+    /// TimeDurationModel
+    let pom: Int = 9
+    let short : Int = 3
+    let long: Int = 6
+    
+    
+    
+    /// AppearanceModel
+    let color: UIColor = .purple
+    let font: UIFont = .normalFont(size: 16)
+    
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     lazy var tableView: UITableView = {
         let tb = UITableView()
         tb.dataSource = self
@@ -18,15 +46,16 @@ class SettingsViewController: UIViewController {
         return tb
     }()
     
-    let xmarkButton: ReusableButton = {
+    lazy var xmarkButton: ReusableButton = {
         let button = ReusableButton(systemImageName: "xmark")
         button.tintColor = .systemGray
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
     
-    let applyButton: ReusableButton = {
+    lazy var applyButton: ReusableButton = {
         let button = ReusableButton(title: "Apply", fontType: .boldFont(size: 22), textColor: .white, backgroundColor: .pomodoroOrange)
+        button.addTarget(self, action: #selector(applyButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -37,11 +66,19 @@ class SettingsViewController: UIViewController {
     }
 
     private func registerCells() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellId")
-        tableView.register(AppearanceCell.self, forCellReuseIdentifier: AppearanceCell.appearanceCellId)
+        // UITableView extension methods
+        tableView.register(UITableViewCell.self)
+        tableView.register(AppearanceCell.self)
     }
     
     @objc private func handleDismiss() {
+        Haptics.light()
+        self.dismiss(animated: true)
+    }
+    
+    @objc private func applyButtonTapped() {
+        
+//        let appearanceModel = AppearanceModel(color: <#T##UIColor#>, font: <#T##UIFont#>)
         Haptics.light()
         self.dismiss(animated: true)
     }
@@ -70,7 +107,6 @@ class SettingsViewController: UIViewController {
     }
 }
 
-
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Table view data source
@@ -80,7 +116,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = switchCells(for: indexPath.row, indexPath: indexPath)
+        let cell = switchCells(for: indexPath)
         cell.selectionStyle = .none
         return cell
     }
@@ -111,27 +147,28 @@ extension SettingsViewController {
         }
     }
     
-    func switchCells(for raw: Int, indexPath: IndexPath) -> UITableViewCell {
+    func switchCells(for indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 //        cell.selectionStyle = .none
-        switch raw {
+        switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
+            let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
             cell.textLabel?.text = "Settings"
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
+            let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceCell.appearanceCellId, for: indexPath) as! AppearanceCell
+            let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
             return cell
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceCell.appearanceCellId, for: indexPath) as! AppearanceCell
+            let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
+            let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
             cell.textLabel?.text = "Settings"
             return cell
         }
     }
 }
+
