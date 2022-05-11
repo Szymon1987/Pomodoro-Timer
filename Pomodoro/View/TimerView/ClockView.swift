@@ -90,8 +90,8 @@ extension ClockView: CountdownTimerDelegate {
         clockLabel.text = mainInteractor.setTimeLabel(currentTime)
     }
     
-    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, iaRunning: Bool) {
-            if iaRunning {
+    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, isRunning: Bool) {
+            if isRunning {
                 self.startStopButton.setTitle(Constants.start, for: .normal)
             } else {
                 self.startStopButton.setTitle(Constants.stop, for: .normal)

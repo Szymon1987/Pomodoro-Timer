@@ -13,7 +13,7 @@ protocol CountdownTimerDelegate: AnyObject {
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int)
     
     
-    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, iaRunning: Bool)
+    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, isRunning: Bool)
     func reset(_ countdownTimerDelegate: CountdownTimer)
     
     
@@ -68,7 +68,7 @@ class CountdownTimer {
     private func startTimer() {
         scheduledTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(refreshValue), userInfo: nil, repeats: true)
         setTimerCounting(true)
-        delegate?.toggleIsRunning(self, iaRunning: false)
+        delegate?.toggleIsRunning(self, isRunning: false)
     }
     
     @objc private func refreshValue() {
@@ -108,7 +108,7 @@ class CountdownTimer {
             scheduledTimer.invalidate()
         }
         setTimerCounting(false)
-        delegate?.toggleIsRunning(self, iaRunning: true)
+        delegate?.toggleIsRunning(self, isRunning: true)
     }
     
     private func setStartTime(date: Date?) {
