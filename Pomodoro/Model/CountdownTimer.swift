@@ -11,9 +11,6 @@ protocol CountdownTimerDelegate: AnyObject {
     
     // updates the delegate's view property every second
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int)
-    
-    
-    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, isRunning: Bool)
     func reset(_ countdownTimerDelegate: CountdownTimer)
     
     
@@ -29,7 +26,13 @@ class CountdownTimer {
    
     weak var delegate: CountdownTimerDelegate?
     
-    private var isCounting: Bool = false
+    var isCountingChanged: ((Bool) -> Void)?
+    
+    private var isCounting: Bool = false {
+        didSet {
+            isCountingChanged?(isCounting)
+        }
+    }
     private var startTime: Date?
     private var stopTime: Date?
     private var scheduledTimer: Timer!
@@ -68,7 +71,6 @@ class CountdownTimer {
     private func startTimer() {
         scheduledTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(refreshValue), userInfo: nil, repeats: true)
         setTimerCounting(true)
-        delegate?.toggleIsRunning(self, isRunning: false)
     }
     
     @objc private func refreshValue() {
@@ -108,7 +110,6 @@ class CountdownTimer {
             scheduledTimer.invalidate()
         }
         setTimerCounting(false)
-        delegate?.toggleIsRunning(self, isRunning: true)
     }
     
     private func setStartTime(date: Date?) {

@@ -26,6 +26,7 @@ class ClockView: UIView {
         setupViews()
         setupShapeLayer()
         configureStartStopButton()
+        setupBindings()
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +40,13 @@ class ClockView: UIView {
     
     @objc private func startStopButtonTapped() {
         mainInteractor.startStopButtonTapped()
+    }
+    // double check if it is ok to do it this way
+    
+    private func setupBindings() {
+        mainInteractor.timer.isCountingChanged = { $0 ? self.startStopButton.setTitle(Constants.stop, for: .normal) : self.startStopButton.setTitle(Constants.start, for: .normal)
+            self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
+        }
     }
 
     //MARK: - View Setup
@@ -88,17 +96,6 @@ extension ClockView: CountdownTimerDelegate {
     
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int) {
         clockLabel.text = mainInteractor.setTimeLabel(currentTime)
-    }
-    
-    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, isRunning: Bool) {
-            if isRunning {
-                self.startStopButton.setTitle(Constants.start, for: .normal)
-            } else {
-                self.startStopButton.setTitle(Constants.stop, for: .normal)
-            }
-        
-        // set the spacing between the titleLabell characters when button is pressed. Should we do it every time when button is pressed or is can we do it more efficiently only once?
-        startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
     
     func reset(_ countdownTimerDelegate: CountdownTimer) {
