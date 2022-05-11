@@ -11,16 +11,16 @@ class ClockView: UIView {
     
     private let clockLabel: ReusableLabel
     private let startStopButton: ReusableButton
-    private let engine: MainInteractor
+    private let mainInteractor: MainInteractor
 
     public let circleShapeLayer = CAShapeLayer()
 
     init(mainInteractor: MainInteractor) {
         clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
-        self.engine = mainInteractor
+        self.mainInteractor = mainInteractor
         super.init(frame: .zero)
-        engine.timer.delegate = self
+        mainInteractor.timer.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = UIColor.darkPurple
         setupViews()
@@ -38,7 +38,7 @@ class ClockView: UIView {
     }
     
     @objc private func startStopButtonTapped() {
-        engine.startStopButtonTapped()
+        mainInteractor.startStopButtonTapped()
     }
 
     //MARK: - View Setup
@@ -87,11 +87,11 @@ class ClockView: UIView {
 extension ClockView: CountdownTimerDelegate {
     
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int) {
-        clockLabel.text = engine.setTimeLabel(currentTime)
+        clockLabel.text = mainInteractor.setTimeLabel(currentTime)
     }
     
-    func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool) {
-            if state {
+    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, iaRunning: Bool) {
+            if iaRunning {
                 self.startStopButton.setTitle(Constants.start, for: .normal)
             } else {
                 self.startStopButton.setTitle(Constants.stop, for: .normal)
@@ -101,7 +101,7 @@ extension ClockView: CountdownTimerDelegate {
         startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
     
-    func resetLabel(_ countdownTimerDelegate: CountdownTimer) {
+    func reset(_ countdownTimerDelegate: CountdownTimer) {
             self.clockLabel.text = "00:00"
     }
     

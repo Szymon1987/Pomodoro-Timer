@@ -9,7 +9,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    weak var mainVC: MainViewViewController?
+    var mainVC: MainViewViewController?
     
     let settingsInteractor = SettingsInteractor()
     
@@ -19,8 +19,6 @@ class SettingsViewController: UIViewController {
     let pom: Int = 9
     let short : Int = 3
     let long: Int = 6
-    
-    
     
     /// AppearanceModel
     let color: UIColor = .purple
@@ -75,9 +73,12 @@ class SettingsViewController: UIViewController {
     }
     
     @objc private func applyButtonTapped() {
-        mainVC = MainViewViewController()
+        
+        // avoid .   .   .it should be only mainVC?.mainInteractor = ...
         mainVC?.mainInteractor.appearanceModel = settingsInteractor.appearanceModel
         mainVC?.mainInteractor.timeDurationModel = settingsInteractor.timeDurationModel
+        
+    
         Haptics.light()
         self.dismiss(animated: true)
     }

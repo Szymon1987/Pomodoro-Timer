@@ -1,6 +1,4 @@
-//
-//  TimerView.swift
-//  Pomodoro
+
 //
 //  Created by Szymon Tadrzak on 18/03/2022.
 //
@@ -12,6 +10,7 @@ import UIKit
 class TimerBackgroundView: UIView {
 
     private let roundedGradientView = UIView()
+    
     lazy var roundedGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.startPoint = CGPoint(x: 0, y: 0)
@@ -21,10 +20,7 @@ class TimerBackgroundView: UIView {
         return gradient
     }()
     
-//    init(timerEngine: TimerEngine) {
         init() {
-//        engine = timerEngine
-//        clockView = ClockView(timerEngine: engine)
         super.init(frame: .zero)
         setupTimerView()
         setupRoundedGradientView()

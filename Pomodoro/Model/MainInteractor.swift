@@ -9,18 +9,9 @@ import UIKit
 
 struct MainInteractor {
 
-    var timeDurationModel = TimeDurationModel() {
-        didSet {
-            print("timer model set")
-        }
-    }
+    var timeDurationModel = TimeDurationModel()
     
-    var appearanceModel = AppearanceModel() {
-        didSet {
-            print("Appearance model set")
-            
-        }
-    }
+    var appearanceModel = AppearanceModel()
     private let pomodoroTimer: PomodoroTimer
     public var timer: CountdownTimer
     

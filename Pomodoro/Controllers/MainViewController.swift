@@ -1,6 +1,4 @@
-//
-//  SharePromptView.swift
-//  Pomodoro
+
 //
 //  Created by Szymon Tadrzak on 09/03/2022.
 //
@@ -14,11 +12,12 @@ class MainViewViewController: UIViewController {
     let timerBackgroundView: TimerBackgroundView
     let settingsButton : ReusableButton
     let clockView: ClockView
-    var mainInteractor = MainInteractor()
+    var mainInteractor: MainInteractor
     
     // MARK: - Initialization
 
-    init() {
+    init(mainInteractor: MainInteractor) {
+        self.mainInteractor = mainInteractor
         self.titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
         self.settingsButton = ReusableButton(imageName: "settingsIcon")
         self.timerStateStackView = TimerStateStackView()
@@ -36,6 +35,7 @@ class MainViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        timerStateStackView.pomodoroLabel.backgroundColor = AppearanceModel.defaultColor
     }
     
     // MARK: - Helpers
@@ -49,6 +49,7 @@ class MainViewViewController: UIViewController {
     @objc private func settingsIconTapped() {
         Haptics.light()
         let settingsVC = SettingsViewController()
+        settingsVC.mainVC = self
         self.present(settingsVC, animated: true)
     }
     

@@ -12,9 +12,9 @@ protocol CountdownTimerDelegate: AnyObject {
     // updates the delegate's view property every second
     func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int)
     
-    //switches between pomodoro, shortBreak and longBreak states
-    func changeState(_ countdownTimerDelegate: CountdownTimer, state: Bool)
-    func resetLabel(_ countdownTimerDelegate: CountdownTimer)
+    
+    func toggleIsRunning(_ countdownTimerDelegate: CountdownTimer, iaRunning: Bool)
+    func reset(_ countdownTimerDelegate: CountdownTimer)
     
     
     // animation delegates, should I create seperate delegate protocol for animation?
@@ -25,16 +25,15 @@ protocol CountdownTimerDelegate: AnyObject {
 
 class CountdownTimer {
 
-//    var pomodoroTimer = PomodoroTimer()
     var pomodoroTimer: PomodoroTimer
    
     weak var delegate: CountdownTimerDelegate?
     
-    var timerCounting: Bool = false
-    var startTime: Date?
-    var stopTime: Date?
-    var scheduledTimer: Timer!
-    var totalSeconds: Int
+    private var isCounting: Bool = false
+    private var startTime: Date?
+    private var stopTime: Date?
+    private var scheduledTimer: Timer!
+    private var totalSeconds: Int
     
     init(pomodoroTimer: PomodoroTimer) {
         self.pomodoroTimer = pomodoroTimer
@@ -42,7 +41,7 @@ class CountdownTimer {
     }
     
     func startStopTimer() {
-        if timerCounting {
+        if isCounting {
             setStopTime(date: Date())
             stopTimer()
             delegate?.pauseAnimation(self)
@@ -69,7 +68,7 @@ class CountdownTimer {
     private func startTimer() {
         scheduledTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(refreshValue), userInfo: nil, repeats: true)
         setTimerCounting(true)
-        delegate?.changeState(self, state: false)
+        delegate?.toggleIsRunning(self, iaRunning: false)
     }
     
     @objc private func refreshValue() {
@@ -95,7 +94,7 @@ class CountdownTimer {
     
     private func resetTimer() {
         
-        delegate?.resetLabel(self)
+        delegate?.reset(self)
         totalSeconds = pomodoroTimer.timeDurationModel.pomodoroSeconds
         pomodoroTimer.currentState = 0
         
@@ -109,7 +108,7 @@ class CountdownTimer {
             scheduledTimer.invalidate()
         }
         setTimerCounting(false)
-        delegate?.changeState(self, state: true)
+        delegate?.toggleIsRunning(self, iaRunning: true)
     }
     
     private func setStartTime(date: Date?) {
@@ -122,7 +121,7 @@ class CountdownTimer {
         //        userDefaults.set(stopTime, forKey: STOP_TIME_KEY)
     }
     private func setTimerCounting(_ val: Bool) {
-        timerCounting = val
+        isCounting = val
         //        userDefaults.set(timerCounting, forKey: COUNTING_KEY)
     }
 }

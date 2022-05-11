@@ -45,4 +45,8 @@ struct PomodoroTimer {
             return nil
         }
     }
+    
+    func switchTwo(closure: (Int) -> Void) {
+        
+    }
 }
