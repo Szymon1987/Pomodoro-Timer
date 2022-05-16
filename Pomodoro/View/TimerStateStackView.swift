@@ -38,7 +38,7 @@ class TimerStateStackView: UIStackView {
         
         isLayoutMarginsRelativeArrangement = true
         layoutMargins = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 10)
-//        pomodoroLabel.backgroundColor = .pomodoroOrange
+        pomodoroLabel.backgroundColor = .pomodoroOrange
     }
     
     override func layoutSubviews() {

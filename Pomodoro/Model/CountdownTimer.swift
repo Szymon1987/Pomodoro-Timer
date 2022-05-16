@@ -7,6 +7,7 @@
 
 import Foundation
 
+// implementation deatails below, fix it
 protocol CountdownTimerDelegate: AnyObject {
     
     // updates the delegate's view property every second
@@ -22,17 +23,14 @@ protocol CountdownTimerDelegate: AnyObject {
 
 class CountdownTimer {
 
+    // remove pomodoroTimer
     var pomodoroTimer: PomodoroTimer
    
     weak var delegate: CountdownTimerDelegate?
     
-    var isCountingChanged: ((Bool) -> Void)?
     
-    private var isCounting: Bool = false {
-        didSet {
-            isCountingChanged?(isCounting)
-        }
-    }
+    private var isCounting: Bool = false
+    
     private var startTime: Date?
     private var stopTime: Date?
     private var scheduledTimer: Timer!

@@ -26,6 +26,7 @@ struct PomodoroTimer {
 //    }
     
     var timeDurationModel: TimeDurationModel
+    
     init(timeDurationModel: TimeDurationModel) {
         self.timeDurationModel = timeDurationModel
     }

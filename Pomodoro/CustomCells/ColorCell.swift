@@ -37,6 +37,10 @@ class ColorCell: UITableViewCell {
         }
     }
     
+    func configure(with: AppearanceModel) {
+        
+    }
+    
     private let checkmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
     // is there a better way to moving the checkmark position when button is pressed?
     @objc private func tapped(_ sender: ReusableButton) {

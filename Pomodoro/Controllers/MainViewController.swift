@@ -35,7 +35,6 @@ class MainViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        timerStateStackView.pomodoroLabel.backgroundColor = AppearanceModel.defaultColor
     }
     
     // MARK: - Helpers

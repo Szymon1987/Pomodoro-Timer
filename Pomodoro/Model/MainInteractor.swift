@@ -24,7 +24,19 @@ struct MainInteractor {
         timer.startStopTimer()
     }
     
+    func setDelegate(_ delegate: CountdownTimerDelegate) {
+        timer.delegate = delegate
+    }
     
+//    func isCountingChanged() -> Bool {
+//        var isRunning = false
+//        timer.isCountingChanged = { isCounting in
+//            isRunning = isCounting
+//        }
+//        return isRunning
+//    }
+    
+
     // MARK: - Helpers
 
     public func setTimeLabel(_ val: Int) -> String {

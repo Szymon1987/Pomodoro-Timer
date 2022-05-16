@@ -11,7 +11,9 @@ class SettingsViewController: UIViewController {
     
     var mainVC: MainViewViewController?
     
-    let settingsInteractor = SettingsInteractor()
+    let appearanceModel = AppearanceModel()
+    let timeDurationModel = TimeDurationModel()
+    
     
     // DUMMY DATA READY TO BE SEND
     
@@ -72,11 +74,14 @@ class SettingsViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    
+    // maybe build additional layer for the navigation
+    
     @objc private func applyButtonTapped() {
         
         // avoid .   .   .it should be only mainVC?.mainInteractor = ...
-        mainVC?.mainInteractor.appearanceModel = settingsInteractor.appearanceModel
-        mainVC?.mainInteractor.timeDurationModel = settingsInteractor.timeDurationModel
+        mainVC?.mainInteractor.appearanceModel = appearanceModel
+        mainVC?.mainInteractor.timeDurationModel = timeDurationModel
         
     
         Haptics.light()

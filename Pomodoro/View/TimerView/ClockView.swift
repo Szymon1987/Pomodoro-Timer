@@ -20,13 +20,12 @@ class ClockView: UIView {
         startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
         self.mainInteractor = mainInteractor
         super.init(frame: .zero)
-        mainInteractor.timer.delegate = self
+        mainInteractor.setDelegate(self)
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = UIColor.darkPurple
         setupViews()
         setupShapeLayer()
         configureStartStopButton()
-        setupBindings()
     }
     
     required init?(coder: NSCoder) {
@@ -39,14 +38,13 @@ class ClockView: UIView {
     }
     
     @objc private func startStopButtonTapped() {
-        mainInteractor.startStopButtonTapped()
-    }
-    // double check if it is ok to do it this way
-    
-    private func setupBindings() {
-        mainInteractor.timer.isCountingChanged = { $0 ? self.startStopButton.setTitle(Constants.stop, for: .normal) : self.startStopButton.setTitle(Constants.start, for: .normal)
-            self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
+        if startStopButton.titleLabel?.text == Constants.start {
+            startStopButton.setTitle(Constants.stop, for: .normal)
+        } else {
+            startStopButton.setTitle(Constants.start, for: .normal)
         }
+        self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
+        mainInteractor.startStopButtonTapped()
     }
 
     //MARK: - View Setup
@@ -99,7 +97,9 @@ extension ClockView: CountdownTimerDelegate {
     }
     
     func reset(_ countdownTimerDelegate: CountdownTimer) {
-            self.clockLabel.text = "00:00"
+        self.clockLabel.text = "00:00"
+        self.startStopButton.setTitle(Constants.start, for: .normal)
+        self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
     
     
