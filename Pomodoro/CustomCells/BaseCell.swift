@@ -1,10 +1,3 @@
-//
-//  BaseCell.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 09/05/2022.
-//
-
 import UIKit
 
 protocol BaseCellDelegate: AnyObject {

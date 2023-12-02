@@ -17,7 +17,6 @@
 		8CC805202719F83100AF4D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */; };
 		AD00B95C27CFB1CA00A83D73 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD00B95B27CFB1CA00A83D73 /* Haptics.swift */; };
 		AD0784C7281994B80049BE75 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0784C6281994B80049BE75 /* ColorCell.swift */; };
-		AD0856DB2819B8C100AE442F /* TimeStateslCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */; };
 		AD0856DD2819C6A000AE442F /* TimeDurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */; };
 		AD1DB03E28298B2E00B23D96 /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DB03D28298B2E00B23D96 /* FontCell.swift */; };
 		AD1DB0422829A96D00B23D96 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DB0412829A96D00B23D96 /* BaseCell.swift */; };
@@ -52,7 +51,6 @@
 		8CC805212719F83100AF4D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD00B95B27CFB1CA00A83D73 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		AD0784C6281994B80049BE75 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
-		AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStateslCell.swift; sourceTree = "<group>"; };
 		AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDurationModel.swift; sourceTree = "<group>"; };
 		AD1DB03D28298B2E00B23D96 /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
 		AD1DB0412829A96D00B23D96 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
@@ -93,6 +91,8 @@
 				8C6AA3F92B1BA78500A1DFFE /* PomodoroSceneBuilder.swift */,
 				8C6AA3FB2B1BACD000A1DFFE /* AppCoordinator.swift */,
 				8C6AA3FD2B1BD5D400A1DFFE /* Storyboarded.swift */,
+				8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */,
+				8CC805212719F83100AF4D99 /* Info.plist */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -140,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				ADAAB39C27E4C02D00F6DA42 /* TimerStateStackView.swift */,
+				ADAAB3A627E8A86100F6DA42 /* ClockView.swift */,
+				ADAAB39E27E517AF00F6DA42 /* TimerBackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +165,7 @@
 		8C6AA4092B1BEE1000A1DFFE /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8CC8051C2719F83100AF4D99 /* Assets.xcassets */,
 				8C6AA40A2B1BEE4E00A1DFFE /* Views */,
 				AD00B95A27CFB1A800A83D73 /* Helpers */,
 			);
@@ -182,17 +185,12 @@
 			isa = PBXGroup;
 			children = (
 				ADAAB3B027E9034E00F6DA42 /* DividerView.swift */,
+				ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */,
+				ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */,
+				ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */,
+				ADD0676627EB5173008734B0 /* ColorView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		8C7842A927248DB800BC0337 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				ADAAB3A227E7C2A600F6DA42 /* TimerView */,
-				ADAAB3A427E7C32200F6DA42 /* SettingsView */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		8CC805042719F82B00AF4D99 = {
@@ -218,11 +216,7 @@
 				8C6AA3FF2B1BECC300A1DFFE /* MainView */,
 				8C6AA4012B1BED0200A1DFFE /* Settings */,
 				8C6AA4092B1BEE1000A1DFFE /* Common */,
-				8C7842A927248DB800BC0337 /* View */,
 				AD0784C52819948D0049BE75 /* CustomCells */,
-				8CC8051C2719F83100AF4D99 /* Assets.xcassets */,
-				8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */,
-				8CC805212719F83100AF4D99 /* Info.plist */,
 			);
 			path = Pomodoro;
 			sourceTree = "<group>";
@@ -239,32 +233,11 @@
 		AD0784C52819948D0049BE75 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				AD0784C6281994B80049BE75 /* ColorCell.swift */,
 				AD1DB03D28298B2E00B23D96 /* FontCell.swift */,
-				AD0856DA2819B8C100AE442F /* TimeStateslCell.swift */,
+				AD0784C6281994B80049BE75 /* ColorCell.swift */,
 				AD1DB0412829A96D00B23D96 /* BaseCell.swift */,
 			);
 			path = CustomCells;
-			sourceTree = "<group>";
-		};
-		ADAAB3A227E7C2A600F6DA42 /* TimerView */ = {
-			isa = PBXGroup;
-			children = (
-				ADAAB3A627E8A86100F6DA42 /* ClockView.swift */,
-				ADAAB39E27E517AF00F6DA42 /* TimerBackgroundView.swift */,
-			);
-			path = TimerView;
-			sourceTree = "<group>";
-		};
-		ADAAB3A427E7C32200F6DA42 /* SettingsView */ = {
-			isa = PBXGroup;
-			children = (
-				ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */,
-				ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */,
-				ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */,
-				ADD0676627EB5173008734B0 /* ColorView.swift */,
-			);
-			path = SettingsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,7 +321,6 @@
 				ADC59CDC2810941F006CF194 /* PomodoroTimerViewModel.swift in Sources */,
 				8C6AA3FA2B1BA78500A1DFFE /* PomodoroSceneBuilder.swift in Sources */,
 				8C6AA3FC2B1BACD000A1DFFE /* AppCoordinator.swift in Sources */,
-				AD0856DB2819B8C100AE442F /* TimeStateslCell.swift in Sources */,
 				AD1DB03E28298B2E00B23D96 /* FontCell.swift in Sources */,
 				AD1DB0422829A96D00B23D96 /* BaseCell.swift in Sources */,
 				ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */,
@@ -507,7 +479,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z4JMF9KZA4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Pomodoro/Info.plist;
+				INFOPLIST_FILE = Pomodoro/Shared/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -535,7 +507,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z4JMF9KZA4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Pomodoro/Info.plist;
+				INFOPLIST_FILE = Pomodoro/Shared/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
