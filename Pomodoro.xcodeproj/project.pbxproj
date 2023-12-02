@@ -97,32 +97,98 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		8C71F9CB2729BFF700BA62EC /* Model */ = {
+		8C6AA3FF2B1BECC300A1DFFE /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				8C6AA4072B1BEDC400A1DFFE /* Controller */,
+				8C6AA4062B1BEDA200A1DFFE /* Views */,
+				8C6AA4022B1BED4300A1DFFE /* Models */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		8C6AA4012B1BED0200A1DFFE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8C6AA4082B1BEDD800A1DFFE /* Controller */,
+				8C6AA40B2B1BEE6400A1DFFE /* Views */,
+				8C6AA4032B1BED6500A1DFFE /* Models */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		8C6AA4022B1BED4300A1DFFE /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				ADC59CDB2810941F006CF194 /* PomodoroTimerViewModel.swift */,
 				AD44A68328072392007C0463 /* CountdownTimer.swift */,
 				AD44A687280739FD007C0463 /* PomodoroTimer.swift */,
 				AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */,
-				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		8C7319FF2721CABA0030ABFE /* Controllers */ = {
+		8C6AA4032B1BED6500A1DFFE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8C6AA4062B1BEDA200A1DFFE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ADAAB39C27E4C02D00F6DA42 /* TimerStateStackView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8C6AA4072B1BEDC400A1DFFE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				ADA292E227D8EC9D00211876 /* PomodoroTimerViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8C6AA4082B1BEDD800A1DFFE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				ADAE94632818329D00B3DA92 /* SettingsViewController.swift */,
 			);
-			path = Controllers;
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8C6AA4092B1BEE1000A1DFFE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8C6AA40A2B1BEE4E00A1DFFE /* Views */,
+				AD00B95A27CFB1A800A83D73 /* Helpers */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		8C6AA40A2B1BEE4E00A1DFFE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ADAAB3A027E51D4E00F6DA42 /* ReusableButton.swift */,
+				ADAAB39A27E4B35400F6DA42 /* ReusableLabel.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8C6AA40B2B1BEE6400A1DFFE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ADAAB3B027E9034E00F6DA42 /* DividerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8C7842A927248DB800BC0337 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ADAAB3A327E7C2D600F6DA42 /* ReusableComponents */,
-				ADAAB39C27E4C02D00F6DA42 /* TimerStateStackView.swift */,
 				ADAAB3A227E7C2A600F6DA42 /* TimerView */,
 				ADAAB3A427E7C32200F6DA42 /* SettingsView */,
 			);
@@ -149,11 +215,11 @@
 			isa = PBXGroup;
 			children = (
 				8C6AA3F82B1BA75500A1DFFE /* Shared */,
-				AD00B95A27CFB1A800A83D73 /* Helpers */,
-				8C71F9CB2729BFF700BA62EC /* Model */,
+				8C6AA3FF2B1BECC300A1DFFE /* MainView */,
+				8C6AA4012B1BED0200A1DFFE /* Settings */,
+				8C6AA4092B1BEE1000A1DFFE /* Common */,
 				8C7842A927248DB800BC0337 /* View */,
 				AD0784C52819948D0049BE75 /* CustomCells */,
-				8C7319FF2721CABA0030ABFE /* Controllers */,
 				8CC8051C2719F83100AF4D99 /* Assets.xcassets */,
 				8CC8051E2719F83100AF4D99 /* LaunchScreen.storyboard */,
 				8CC805212719F83100AF4D99 /* Info.plist */,
@@ -188,16 +254,6 @@
 				ADAAB39E27E517AF00F6DA42 /* TimerBackgroundView.swift */,
 			);
 			path = TimerView;
-			sourceTree = "<group>";
-		};
-		ADAAB3A327E7C2D600F6DA42 /* ReusableComponents */ = {
-			isa = PBXGroup;
-			children = (
-				ADAAB3A027E51D4E00F6DA42 /* ReusableButton.swift */,
-				ADAAB39A27E4B35400F6DA42 /* ReusableLabel.swift */,
-				ADAAB3B027E9034E00F6DA42 /* DividerView.swift */,
-			);
-			path = ReusableComponents;
 			sourceTree = "<group>";
 		};
 		ADAAB3A427E7C32200F6DA42 /* SettingsView */ = {

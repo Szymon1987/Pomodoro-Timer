@@ -1,13 +1,8 @@
-
-//
-//  Created by Szymon Tadrzak on 18/03/2022.
-//
-
 import UIKit
 
 // this view class is basically the background view for the ClockView class with
 
-class TimerBackgroundView: UIView {
+final class TimerBackgroundView: UIView {
 
     private let roundedGradientView = UIView()
     
