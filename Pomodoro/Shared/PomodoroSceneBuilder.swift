@@ -1,6 +1,6 @@
 import UIKit
 
-class PomodoroSceneBuilder {
+final class PomodoroSceneBuilder {
     static func buildPomodoroTimerViewController(coordinator: AppCoordinator) -> UIViewController {
         let pomodoroTimerViewModel = PomodoroTimerViewModel()
         let vc = PomodoroTimerViewController(viewModel: pomodoroTimerViewModel, coordinator: coordinator)

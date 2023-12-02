@@ -7,12 +7,12 @@
 
 import UIKit
 
-class DividerView: UIView {
+final class DividerView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .lightGray
+        backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {

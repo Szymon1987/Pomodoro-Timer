@@ -1,13 +1,6 @@
-//
-//  ReusableButton.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 18/03/2022.
-//
-
 import UIKit
 
-class ReusableButton: UIButton {
+final class ReusableButton: UIButton {
 
     init() {
         super.init(frame: .zero)

@@ -7,13 +7,16 @@
 
 import UIKit
 
-class TitleView: UIView {
+final class TitleView: UIView {
     
-    private let settingsLabel: ReusableLabel
     private let dividerView = DividerView()
+    
+    private let settingsLabel: ReusableLabel = {
+        let label = ReusableLabel(text: "Settings", fontSize: 26, textColor: .black, textAlignment: .left)
+        return label
+    }()
 
     override init(frame: CGRect) {
-        settingsLabel = ReusableLabel(text: "Settings", fontSize: 26, textColor: .black, textAlignment: .left)
         super.init(frame: frame)
         setupView()
     }
@@ -33,5 +36,6 @@ class TitleView: UIView {
        
         addSubview(dividerView)
         dividerView.anchor(top: nil, bottom: bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, size: .init(width: 0, height: 1))
+        backgroundColor = .red
     }
 }

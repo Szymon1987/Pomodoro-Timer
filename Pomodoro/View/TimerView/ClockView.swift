@@ -1,13 +1,11 @@
-//
-//  ClockView.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 21/03/2022.
-//
-
 import UIKit
 
 class ClockView: UIView {
+    
+    struct Constants {
+        static let start = "START"
+        static let stop = "STOP"
+    }
     
     private let clockLabel: ReusableLabel
     private let startStopButton: ReusableButton

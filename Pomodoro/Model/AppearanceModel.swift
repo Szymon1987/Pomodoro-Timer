@@ -7,7 +7,7 @@ struct AppearanceModel {
     var color: UIColor
     var font: UIFont
     
-    internal init(color: UIColor = defaultColor, font: UIFont = defaultFont) {
+    init(color: UIColor = defaultColor, font: UIFont = defaultFont) {
         self.color = color
         self.font = font
     }

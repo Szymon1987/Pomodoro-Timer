@@ -16,7 +16,7 @@ protocol CountdownTimerDelegate: AnyObject {
     
 }
 
-class CountdownTimer {
+final class CountdownTimer {
 
     private var isCounting: Bool = false
     private var startTime: Date?

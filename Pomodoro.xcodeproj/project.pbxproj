@@ -22,16 +22,13 @@
 		AD1DB03E28298B2E00B23D96 /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DB03D28298B2E00B23D96 /* FontCell.swift */; };
 		AD1DB0422829A96D00B23D96 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1DB0412829A96D00B23D96 /* BaseCell.swift */; };
 		AD44A68428072392007C0463 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A68328072392007C0463 /* CountdownTimer.swift */; };
-		AD44A686280729DC007C0463 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A685280729DC007C0463 /* Constants.swift */; };
 		AD44A688280739FD007C0463 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD44A687280739FD007C0463 /* PomodoroTimer.swift */; };
-		AD8422A2282D647500518D72 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8422A1282D647400518D72 /* ReusableView.swift */; };
 		ADA292E327D8EC9E00211876 /* PomodoroTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA292E227D8EC9D00211876 /* PomodoroTimerViewController.swift */; };
 		ADAAB39B27E4B35400F6DA42 /* ReusableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39A27E4B35400F6DA42 /* ReusableLabel.swift */; };
 		ADAAB39D27E4C02D00F6DA42 /* TimerStateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39C27E4C02D00F6DA42 /* TimerStateStackView.swift */; };
 		ADAAB39F27E517AF00F6DA42 /* TimerBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB39E27E517AF00F6DA42 /* TimerBackgroundView.swift */; };
 		ADAAB3A127E51D4E00F6DA42 /* ReusableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A027E51D4E00F6DA42 /* ReusableButton.swift */; };
 		ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A627E8A86100F6DA42 /* ClockView.swift */; };
-		ADAAB3A927E8E24200F6DA42 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3A827E8E24200F6DA42 /* SettingsView.swift */; };
 		ADAAB3AB27E8E44E00F6DA42 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */; };
 		ADAAB3AD27E8FB1500F6DA42 /* MiddleTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */; };
 		ADAAB3AF27E8FC8B00F6DA42 /* FontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */; };
@@ -60,16 +57,13 @@
 		AD1DB03D28298B2E00B23D96 /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
 		AD1DB0412829A96D00B23D96 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		AD44A68328072392007C0463 /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
-		AD44A685280729DC007C0463 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AD44A687280739FD007C0463 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
-		AD8422A1282D647400518D72 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		ADA292E227D8EC9D00211876 /* PomodoroTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerViewController.swift; sourceTree = "<group>"; };
 		ADAAB39A27E4B35400F6DA42 /* ReusableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableLabel.swift; sourceTree = "<group>"; };
 		ADAAB39C27E4C02D00F6DA42 /* TimerStateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStateStackView.swift; sourceTree = "<group>"; };
 		ADAAB39E27E517AF00F6DA42 /* TimerBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerBackgroundView.swift; sourceTree = "<group>"; };
 		ADAAB3A027E51D4E00F6DA42 /* ReusableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableButton.swift; sourceTree = "<group>"; };
 		ADAAB3A627E8A86100F6DA42 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
-		ADAAB3A827E8E24200F6DA42 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleTopView.swift; sourceTree = "<group>"; };
 		ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontView.swift; sourceTree = "<group>"; };
@@ -111,7 +105,6 @@
 				AD44A687280739FD007C0463 /* PomodoroTimer.swift */,
 				AD0856DC2819C6A000AE442F /* TimeDurationModel.swift */,
 				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
-				AD44A685280729DC007C0463 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,7 +196,6 @@
 				ADAAB3A027E51D4E00F6DA42 /* ReusableButton.swift */,
 				ADAAB39A27E4B35400F6DA42 /* ReusableLabel.swift */,
 				ADAAB3B027E9034E00F6DA42 /* DividerView.swift */,
-				AD8422A1282D647400518D72 /* ReusableView.swift */,
 			);
 			path = ReusableComponents;
 			sourceTree = "<group>";
@@ -211,7 +203,6 @@
 		ADAAB3A427E7C32200F6DA42 /* SettingsView */ = {
 			isa = PBXGroup;
 			children = (
-				ADAAB3A827E8E24200F6DA42 /* SettingsView.swift */,
 				ADAAB3AA27E8E44E00F6DA42 /* TitleView.swift */,
 				ADAAB3AC27E8FB1500F6DA42 /* MiddleTopView.swift */,
 				ADAAB3AE27E8FC8B00F6DA42 /* FontView.swift */,
@@ -297,11 +288,9 @@
 				ADAAB39B27E4B35400F6DA42 /* ReusableLabel.swift in Sources */,
 				ADAAB3AD27E8FB1500F6DA42 /* MiddleTopView.swift in Sources */,
 				ADAAB3B127E9034F00F6DA42 /* DividerView.swift in Sources */,
-				AD8422A2282D647500518D72 /* ReusableView.swift in Sources */,
 				ADAE94642818329D00B3DA92 /* SettingsViewController.swift in Sources */,
 				ADC59CDC2810941F006CF194 /* PomodoroTimerViewModel.swift in Sources */,
 				8C6AA3FA2B1BA78500A1DFFE /* PomodoroSceneBuilder.swift in Sources */,
-				ADAAB3A927E8E24200F6DA42 /* SettingsView.swift in Sources */,
 				8C6AA3FC2B1BACD000A1DFFE /* AppCoordinator.swift in Sources */,
 				AD0856DB2819B8C100AE442F /* TimeStateslCell.swift in Sources */,
 				AD1DB03E28298B2E00B23D96 /* FontCell.swift in Sources */,
@@ -317,7 +306,6 @@
 				8C6AA3FE2B1BD5D400A1DFFE /* Storyboarded.swift in Sources */,
 				8C7842AB2725860F00BC0337 /* Extensions.swift in Sources */,
 				8CC805132719F82B00AF4D99 /* SceneDelegate.swift in Sources */,
-				AD44A686280729DC007C0463 /* Constants.swift in Sources */,
 				AD0784C7281994B80049BE75 /* ColorCell.swift in Sources */,
 				AD0856DD2819C6A000AE442F /* TimeDurationModel.swift in Sources */,
 				ADC59CDE2810A48B006CF194 /* AppearanceModel.swift in Sources */,

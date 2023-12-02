@@ -12,7 +12,7 @@ protocol PomodoroTimerDelegate {
     func reset()
 }
 
-class PomodoroTimer {
+final class PomodoroTimer {
    
    private enum TimerState {
         case pomodoro

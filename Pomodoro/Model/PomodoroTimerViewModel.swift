@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PomodoroTimerViewModel {
+final class PomodoroTimerViewModel {
 
     private let timeDurationModel = TimeDurationModel()
     private let pomodoroTimer: PomodoroTimer

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReusableLabel: UILabel {
+final class ReusableLabel: UILabel {
 
     init(text: String = "",
          fontSize: CGFloat = 18,
