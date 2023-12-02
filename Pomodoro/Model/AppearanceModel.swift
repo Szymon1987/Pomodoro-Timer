@@ -1,10 +1,3 @@
-//
-//  ApperanceModel.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 20/04/2022.
-//
-
 import UIKit
 
 struct AppearanceModel {

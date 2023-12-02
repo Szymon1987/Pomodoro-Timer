@@ -8,12 +8,13 @@ class AppCoordinator {
     }
     
     func start() {
-        let pomodoroVC = PomodoroSceneBuilder.buildPomodoroTimerViewController()
+        let pomodoroVC = PomodoroSceneBuilder.buildPomodoroTimerViewController(coordinator: self)
         window?.rootViewController = pomodoroVC
         window?.makeKeyAndVisible()
     }
     
     func showSettings() {
-        _ = PomodoroSceneBuilder.buildPomodoroSettingsViewController()
+        let settingsVC = PomodoroSceneBuilder.buildPomodoroSettingsViewController(coordinator: self)
+        window?.rootViewController?.present(settingsVC, animated: true)
     }
 }

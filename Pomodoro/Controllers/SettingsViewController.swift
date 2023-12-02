@@ -7,13 +7,12 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
-    var mainVC: PomodoroTimerViewController?
+    private let appearanceModel: AppearanceModel
+    private let coordinator: AppCoordinator
     
-    let appearanceModel = AppearanceModel()
-    let timeDurationModel = TimeDurationModel()
-    
+    private let timeDurationModel = TimeDurationModel()
     
     // DUMMY DATA READY TO BE SEND
     
@@ -26,15 +25,21 @@ class SettingsViewController: UIViewController {
     let color: UIColor = .purple
     let font: UIFont = .normalFont(size: 16)
 
-    init() {
+    init(appearanceModel: AppearanceModel, coordinator: AppCoordinator) {
+        self.appearanceModel = appearanceModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    deinit {
+        print("SettingsViewController is deinited")
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tb = UITableView()
         tb.dataSource = self
         tb.delegate = self
@@ -43,14 +48,14 @@ class SettingsViewController: UIViewController {
         return tb
     }()
     
-    lazy var xmarkButton: ReusableButton = {
+    private lazy var xmarkButton: ReusableButton = {
         let button = ReusableButton(systemImageName: "xmark")
         button.tintColor = .systemGray
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
     
-    lazy var applyButton: ReusableButton = {
+    private lazy var applyButton: ReusableButton = {
         let button = ReusableButton(title: "Apply", fontType: .boldFont(size: 22), textColor: .white, backgroundColor: .pomodoroOrange)
         button.addTarget(self, action: #selector(applyButtonTapped), for: .touchUpInside)
         return button
@@ -74,16 +79,7 @@ class SettingsViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    
-    // maybe build additional layer for the navigation
-    
     @objc private func applyButtonTapped() {
-        
-        // avoid .   .   .it should be only mainVC?.mainInteractor = ...
-//        mainVC?.mainInteractor.appearanceModel = appearanceModel
-//        mainVC?.mainInteractor.timeDurationModel = timeDurationModel
-//
-    
         Haptics.light()
         self.dismiss(animated: true)
     }
