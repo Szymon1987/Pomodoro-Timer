@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  Pomodoro
-///Users/szymon/Projects/UIKit/ToDoList/ToDoList
-//  Created by Szymon Tadrzak on 15/10/2021.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
