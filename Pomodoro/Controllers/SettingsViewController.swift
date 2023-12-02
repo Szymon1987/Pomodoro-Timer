@@ -9,7 +9,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    var mainVC: MainViewViewController?
+    var mainVC: PomodoroTimerViewController?
     
     let appearanceModel = AppearanceModel()
     let timeDurationModel = TimeDurationModel()
@@ -80,9 +80,9 @@ class SettingsViewController: UIViewController {
     @objc private func applyButtonTapped() {
         
         // avoid .   .   .it should be only mainVC?.mainInteractor = ...
-        mainVC?.mainInteractor.appearanceModel = appearanceModel
-        mainVC?.mainInteractor.timeDurationModel = timeDurationModel
-        
+//        mainVC?.mainInteractor.appearanceModel = appearanceModel
+//        mainVC?.mainInteractor.timeDurationModel = timeDurationModel
+//
     
         Haptics.light()
         self.dismiss(animated: true)

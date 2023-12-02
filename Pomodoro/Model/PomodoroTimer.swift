@@ -7,47 +7,68 @@
 
 import Foundation
 
-struct PomodoroTimer {
-    
-    enum TimerState {
+protocol PomodoroTimerDelegate {
+    func timerTick(_ currentTime: Int)
+    func reset()
+}
+
+class PomodoroTimer {
+   
+   private enum TimerState {
         case pomodoro
         case shortBreak
         case longBreak
     }
     
-    private let timerStates: [TimerState] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
+    private let timerMode: [TimerState] = [.pomodoro, .shortBreak, .pomodoro, .longBreak]
    
-    var currentState: Int = 0
-
-//    var timeDurationModel = TimeDurationModel() {
-//        didSet {
-//            print("set")
-//        }
-//    }
+    private var currentMode: Int = 1
+    var delegate: PomodoroTimerDelegate?
     
-    var timeDurationModel: TimeDurationModel
+    private let timeDurationModel: TimeDurationModel
+    private let timer: CountdownTimer
     
-    init(timeDurationModel: TimeDurationModel) {
+    init (timeDurationModel: TimeDurationModel, timer: CountdownTimer) {
         self.timeDurationModel = timeDurationModel
+        self.timer = timer
+        self.timer.delegate = self
     }
-    
-    mutating func switchState() -> Int? {
-        currentState += 1
-        if currentState < timerStates.count {
-            switch timerStates[currentState] {
+
+    func switchTimerMode() {
+        
+        if currentMode < timerMode.count {
+            switch timerMode[currentMode] {
             case .pomodoro:
-                return timeDurationModel.pomodoroSeconds
+                timer.setDuration(duration: timeDurationModel.pomodoroSeconds)
             case .shortBreak:
-                return timeDurationModel.shortBreakSeconds
+                timer.setDuration(duration: timeDurationModel.shortBreakSeconds)
             case .longBreak:
-                return timeDurationModel.longBreakSeconds
+                timer.setDuration(duration: timeDurationModel.longBreakSeconds)
             }
+            
+            timer.setStartTime(date: Date())
+            timer.startTimer()
+            currentMode += 1
         } else {
-            return nil
+            timer.stopTimer()
+            timer.setStopTime(date: nil)
+            currentMode = 1
+            timer.setDuration(duration: timeDurationModel.pomodoroSeconds)
+            delegate?.reset()
         }
     }
+}
+
+extension PomodoroTimer: CountdownTimerDelegate {
+   
+    func timerTick(_ currentTime: Int) {
+        self.delegate?.timerTick(currentTime)
+    }
     
-    func switchTwo(closure: (Int) -> Void) {
+    func timerFinished() {
+        switchTimerMode()
         
+        
+        // pass reset to the delegate later
     }
 }

@@ -5,19 +5,19 @@
 
 import UIKit
 
-class MainViewViewController: UIViewController {
+class PomodoroTimerViewController: UIViewController {
     
     let titleLabel: ReusableLabel
     let timerStateStackView: TimerStateStackView
     let timerBackgroundView: TimerBackgroundView
     let settingsButton : ReusableButton
     let clockView: ClockView
-    var mainInteractor: MainInteractor
+    var mainInteractor: PomodoroTimerViewModel
     
     // MARK: - Initialization
 
-    init(mainInteractor: MainInteractor) {
-        self.mainInteractor = mainInteractor
+    init(viewModel: PomodoroTimerViewModel) {
+        self.mainInteractor = viewModel
         self.titleLabel = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
         self.settingsButton = ReusableButton(imageName: "settingsIcon")
         self.timerStateStackView = TimerStateStackView()

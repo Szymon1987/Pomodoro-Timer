@@ -11,50 +11,38 @@ import Foundation
 protocol CountdownTimerDelegate: AnyObject {
     
     // updates the delegate's view property every second
-    func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int)
-    func reset(_ countdownTimerDelegate: CountdownTimer)
+    func timerTick(_ currentTime: Int)
+    func timerFinished()
     
-    
-    // animation delegates, should I create seperate delegate protocol for animation?
-    func startAnimation(_ countdownTimerDelegate: CountdownTimer, _ duration: Int)
-    func pauseAnimation(_ countdownTimerDelegate: CountdownTimer)
-    func resumeAnimation(_ countdownTimerDelegate: CountdownTimer)
 }
 
 class CountdownTimer {
 
-    // remove pomodoroTimer
-    var pomodoroTimer: PomodoroTimer
-   
-    weak var delegate: CountdownTimerDelegate?
-    
-    
     private var isCounting: Bool = false
-    
     private var startTime: Date?
     private var stopTime: Date?
     private var scheduledTimer: Timer!
-    private var totalSeconds: Int
+    private var totalSeconds: Int = 0
+    weak var delegate: CountdownTimerDelegate?
     
-    init(pomodoroTimer: PomodoroTimer) {
-        self.pomodoroTimer = pomodoroTimer
-        totalSeconds = pomodoroTimer.timeDurationModel.pomodoroSeconds
+    init(duration: Int) {
+        self.totalSeconds = duration
     }
     
     func startStopTimer() {
         if isCounting {
             setStopTime(date: Date())
             stopTimer()
-            delegate?.pauseAnimation(self)
+//            delegate?.pauseAnimation(self)
         } else {
             if let stop = stopTime {
                 let restartTime = calculateRestartTime(start: startTime!, stop: stop)
                 setStopTime(date: nil)
                 setStartTime(date: restartTime)
-                delegate?.resumeAnimation(self)
+//                delegate?.resumeAnimation(self)
 
             } else {
-                delegate?.startAnimation(self, totalSeconds)
+//                delegate?.startAnimation(self, totalSeconds)
                 setStartTime(date: Date())
             }
             startTimer()
@@ -66,7 +54,7 @@ class CountdownTimer {
         return Date().addingTimeInterval(difference)
     }
     
-    private func startTimer() {
+    public func startTimer() {
         scheduledTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(refreshValue), userInfo: nil, repeats: true)
         setTimerCounting(true)
     }
@@ -77,50 +65,43 @@ class CountdownTimer {
             let displayedTime = totalSeconds - Int(elapsedTime)
             
             if displayedTime > 0 {
-                delegate?.timerTick(self, currentTime: displayedTime)
+                delegate?.timerTick(displayedTime)
             } else {
                 stopTimer()
-                if let timerState = pomodoroTimer.switchState() {
-                    totalSeconds = timerState
-                    setStartTime(date: Date())
-                    startTimer()
-                    delegate?.startAnimation(self, totalSeconds)
-                } else {
-                    resetTimer()
-                }
+                setStartTime(date: Date())
+                startTimer()
+                countdownFinished()
             }
         }
     }
     
-    private func resetTimer() {
-        
-        delegate?.reset(self)
-        totalSeconds = pomodoroTimer.timeDurationModel.pomodoroSeconds
-        pomodoroTimer.currentState = 0
+    private func countdownFinished() {
         
         setStartTime(date: nil)
         setStopTime(date: nil)
         stopTimer()
+        delegate?.timerFinished()
     }
     
-    private func stopTimer() {
+    public func stopTimer() {
         if scheduledTimer != nil {
             scheduledTimer.invalidate()
         }
         setTimerCounting(false)
     }
     
-    private func setStartTime(date: Date?) {
+    public func setStartTime(date: Date?) {
         startTime = date
-        //        userDefaults.set(startTime, forKey: START_TIME_KEY)
     }
     
-    private func setStopTime(date: Date?) {
+    public func setStopTime(date: Date?) {
         stopTime = date
-        //        userDefaults.set(stopTime, forKey: STOP_TIME_KEY)
     }
     private func setTimerCounting(_ val: Bool) {
         isCounting = val
-        //        userDefaults.set(timerCounting, forKey: COUNTING_KEY)
+    }
+
+    public func setDuration(duration: Int) {
+        totalSeconds = duration
     }
 }

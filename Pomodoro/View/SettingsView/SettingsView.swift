@@ -24,7 +24,7 @@
 //        self.mainView = mainView
 //        self.xmarkButton = ReusableButton(systemImageName: "xmark")
 //        self.applyButton = ReusableButton(title: "Apply", fontType: .boldFont(size: 22), textColor: .white, backgroundColor: .pomodoroOrange)
-//        self.configurableTimerModel = configurableTimerModel
+
 //        self.configurableAppearanceModel = configurableAppearanceModel
 //        super.init(frame: .zero)
 //        self.colorView.delegate = self

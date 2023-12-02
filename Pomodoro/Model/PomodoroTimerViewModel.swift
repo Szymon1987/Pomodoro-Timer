@@ -7,35 +7,26 @@
 
 import UIKit
 
-struct MainInteractor {
+class PomodoroTimerViewModel {
 
-    var timeDurationModel = TimeDurationModel()
-    
-    var appearanceModel = AppearanceModel()
+    private let timeDurationModel = TimeDurationModel()
     private let pomodoroTimer: PomodoroTimer
-    public var timer: CountdownTimer
+    private let timer: CountdownTimer
     
     init() {
-        pomodoroTimer = PomodoroTimer(timeDurationModel: timeDurationModel)
-        timer = CountdownTimer(pomodoroTimer: pomodoroTimer)
+        timer = CountdownTimer(duration: timeDurationModel.pomodoroSeconds)
+        pomodoroTimer = PomodoroTimer(timeDurationModel: timeDurationModel, timer: timer)
     }
 
     func startStopButtonTapped() {
         timer.startStopTimer()
     }
     
-    func setDelegate(_ delegate: CountdownTimerDelegate) {
-        timer.delegate = delegate
+    func setTimerDelegate(_ delegate: PomodoroTimerDelegate) {
+        pomodoroTimer.delegate = delegate
+
     }
-    
-//    func isCountingChanged() -> Bool {
-//        var isRunning = false
-//        timer.isCountingChanged = { isCounting in
-//            isRunning = isCounting
-//        }
-//        return isRunning
-//    }
-    
+  
 
     // MARK: - Helpers
 
