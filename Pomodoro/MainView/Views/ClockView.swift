@@ -7,23 +7,29 @@ class ClockView: UIView {
         static let stop = "STOP"
     }
     
-    private let clockLabel: ReusableLabel
-    private let startStopButton: ReusableButton
-    private let mainInteractor: PomodoroTimerViewModel
+    private let clockLabel: ReusableLabel = {
+        let label = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
+        return label
+    }()
     
-    @objc public var startStopButtonTapped: (() -> Void)?
+    private let startStopButton: ReusableButton = {
+        let button = ReusableButton(
+            title: Constants.start,
+            fontType: .normalFont(size: 22),
+            textColor: .white)
+        return button
+    }()
+    
+    public var startStopButtonTapped: ((Bool) -> Void)?
 
     public let circleShapeLayer = CAShapeLayer()
 
-    init(mainInteractor: PomodoroTimerViewModel) {
-        clockLabel = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
-        startStopButton = ReusableButton(title: Constants.start, fontType: .normalFont(size: 22), textColor: .white)
-        self.mainInteractor = mainInteractor
+    init() {
         super.init(frame: .zero)
 //        mainInteractor.setTimerDelegate(self)
-        mainInteractor.setTimerDelegate(self)
+//        mainInteractor.setTimerDelegate(self)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = UIColor.darkPurple
+        backgroundColor = .darkPurple
         setupViews()
         setupShapeLayer()
         configureStartStopButton()
@@ -39,14 +45,16 @@ class ClockView: UIView {
     }
     
     @objc private func buttonTapped() {
+        var isRunning: Bool = false
         if startStopButton.titleLabel?.text == Constants.start {
             startStopButton.setTitle(Constants.stop, for: .normal)
+            isRunning = true
         } else {
+            isRunning = false
             startStopButton.setTitle(Constants.start, for: .normal)
         }
         self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
-//        mainInteractor.startStopButtonTapped()
-        startStopButtonTapped?()
+        startStopButtonTapped?(isRunning)
     }
 
     
@@ -133,7 +141,7 @@ class ClockView: UIView {
 extension ClockView: PomodoroTimerDelegate {
     
     func timerTick(_ currentTime: Int) {
-        clockLabel.text = mainInteractor.setTimeLabel(currentTime)
+//        clockLabel.text = mainInteractor.setTimeLabel(currentTime)
     }
     
     func reset() {

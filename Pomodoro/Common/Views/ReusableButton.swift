@@ -55,6 +55,5 @@ private extension ReusableButton {
     
     @objc func buttonTapped() {
         onTap?(self.backgroundColor, self.titleLabel?.font)
-        print("font: \(self.titleLabel?.font)")
     }
 }

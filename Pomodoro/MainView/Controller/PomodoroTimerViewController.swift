@@ -28,7 +28,7 @@ final class PomodoroTimerViewController: UIViewController {
     
     
     private lazy var clockView: ClockView = {
-        let view = ClockView(mainInteractor: viewModel)
+        let view = ClockView()
         return view
     }()
 
@@ -45,6 +45,9 @@ final class PomodoroTimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clockView.startStopButtonTapped = { [weak self] isRunning in
+            self?.viewModel.startStopButtonTapped()
+        }
     }
     
     @objc private func settingsIconTapped() {
