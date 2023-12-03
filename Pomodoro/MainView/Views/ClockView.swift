@@ -7,8 +7,8 @@ class ClockView: UIView {
         static let stop = "STOP"
     }
     
-    private let clockLabel: ReusableLabel = {
-        let label = ReusableLabel(text: "00:06", fontSize: 54, textColor: .white)
+    private lazy var clockLabel: ReusableLabel = {
+        let label = ReusableLabel(fontSize: 54, textColor: .white)
         return label
     }()
     
@@ -20,14 +20,17 @@ class ClockView: UIView {
         return button
     }()
     
-    public var startStopButtonTapped: ((Bool) -> Void)?
+    var startStopButtonTapped: ((Bool) -> Void)?
+    var updateTimeLabel: ((String) -> Void)?
 
     public let circleShapeLayer = CAShapeLayer()
 
+    func updateStrtStopLabel(title: String) {
+        startStopButton.setTitle(title, for: .normal)
+    }
+    
     init() {
         super.init(frame: .zero)
-//        mainInteractor.setTimerDelegate(self)
-//        mainInteractor.setTimerDelegate(self)
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .darkPurple
         setupViews()
@@ -57,6 +60,12 @@ class ClockView: UIView {
         startStopButtonTapped?(isRunning)
     }
 
+    func configure() {
+        updateTimeLabel = { [weak self] timeString in
+            self?.clockLabel.text = timeString
+            print( "time rstirng \(timeString)")
+        }
+    }
     
     //MARK: - View Setup
     
@@ -96,57 +105,5 @@ class ClockView: UIView {
         circleShapeLayer.fillColor = UIColor.clear.cgColor
         layer.addSublayer(circleShapeLayer)
 
-    }
-}
-
-    //MARK: - CountdownTimerDelegate
-
-//extension ClockView: CountdownTimerDelegate {
-//
-//    func timerTick(_ countdownTimerDelegate: CountdownTimer, currentTime: Int) {
-//        clockLabel.text = mainInteractor.setTimeLabel(currentTime)
-//    }
-//
-//    func timerFinished(_ countdownTimerDelegate: CountdownTimer) {
-//        self.clockLabel.text = "00:00"
-//        self.startStopButton.setTitle(Constants.start, for: .normal)
-//        self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
-//    }
-//
-//
-//    func startAnimation(_ countdownTimerDelegate: CountdownTimer, _ duration: Int) {
-//        let circleAnimation = CABasicAnimation(keyPath: "strokeEnd")
-//        circleAnimation.fromValue = 1
-//        circleAnimation.toValue = 0
-//        circleAnimation.duration = CFTimeInterval(duration)
-//        circleAnimation.isRemovedOnCompletion = false
-//        circleShapeLayer.add(circleAnimation, forKey: "animation")
-//    }
-//    func pauseAnimation(_ countdownTimerDelegate: CountdownTimer) {
-//        let pausedTime: CFTimeInterval = circleShapeLayer.convertTime(CACurrentMediaTime(), from: nil)
-//        circleShapeLayer.speed = 0.0
-//        circleShapeLayer.timeOffset = pausedTime
-//    }
-//    func resumeAnimation(_ countdownTimerDelegate: CountdownTimer) {
-//        let pausedTime = circleShapeLayer.timeOffset
-//        circleShapeLayer.speed = 1.0
-//        circleShapeLayer.timeOffset = 0.0
-//        circleShapeLayer.beginTime = 0.0
-//        circleShapeLayer.strokeEnd = 1.0
-//        let timeSincePause = circleShapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
-//        circleShapeLayer.beginTime = timeSincePause
-//    }
-//}
-
-extension ClockView: PomodoroTimerDelegate {
-    
-    func timerTick(_ currentTime: Int) {
-//        clockLabel.text = mainInteractor.setTimeLabel(currentTime)
-    }
-    
-    func reset() {
-        self.clockLabel.text = "00:00"
-        self.startStopButton.setTitle(Constants.start, for: .normal)
-        self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
 }

@@ -23,4 +23,17 @@ struct TimeDurationModel {
         self.shortBreakSeconds = shortBreakSeconds
         self.longBreakSeconds = longBreakSeconds
     }
+    
+    func duration(for stage: TimerStage) -> Int {
+        switch stage {
+        case .pomodoro:
+            return pomodoroSeconds
+        case .shortBreak:
+            return shortBreakSeconds
+        case .longBreak:
+            return longBreakSeconds
+        case .finished:
+            return 0
+        }
+    }
 }

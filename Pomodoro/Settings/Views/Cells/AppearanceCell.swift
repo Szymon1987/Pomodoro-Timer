@@ -33,7 +33,7 @@ final class AppearanceCell: UITableViewCell {
             self?.updateColorAndFont?(color, font)
             if let button = view as? ReusableButton {
                 button.setImage(nil, for: .normal)
-                if let font = font {
+                if font != nil {
                     button.backgroundColor = .backgroundGray
                     button.setTitleColor(.black, for: .normal)
                 }
