@@ -85,8 +85,6 @@ final class SettingsViewController: UIViewController {
     private func registerCells() {
         // UITableView extension methods
         tableView.register(UITableViewCell.self)
-        tableView.register(ColorCell.self)
-        tableView.register(FontCell.self)
         tableView.register(AppearanceCell.self)
     }
     
