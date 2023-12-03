@@ -1,11 +1,26 @@
-//
-//  SettingsViewController.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 26/04/2022.
-//
-
 import UIKit
+
+
+struct Presentable {
+    
+    enum ThemeType {
+        case font
+        case color
+    }
+    
+    let title: String?
+    let buttonConfig: [ButtonConfig]
+    let type: ThemeType
+    
+    struct ButtonConfig {
+        let title: String?
+        let backgroundcolor: UIColor
+        let image: UIImage?
+        let font: UIFont?
+        let textColor: UIColor?
+    }
+}
+
 
 final class SettingsViewController: UIViewController {
     
@@ -72,6 +87,7 @@ final class SettingsViewController: UIViewController {
         tableView.register(UITableViewCell.self)
         tableView.register(ColorCell.self)
         tableView.register(FontCell.self)
+        tableView.register(AppearanceCell.self)
     }
     
     @objc private func handleDismiss() {
@@ -106,6 +122,10 @@ final class SettingsViewController: UIViewController {
         applyButton.centerYAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
         applyButton.setRoundedCorner(withRadius: 25)
     }
+    
+    private func updateColor(color: UIColor?) {
+        applyButton.backgroundColor = color
+    }
 }
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -128,7 +148,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension SettingsViewController {
+private extension SettingsViewController {
     
     // MARK: - Helper Functions
     
@@ -151,6 +171,21 @@ extension SettingsViewController {
     func switchCells(for indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 //        cell.selectionStyle = .none
+        
+        let checkmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        
+        let fontPresentable = Presentable(title: "FONT", buttonConfig: [
+            Presentable.ButtonConfig(title: "Aa", backgroundcolor: .black, image: nil, font: nil, textColor: .white),
+            Presentable.ButtonConfig(title: "Aa", backgroundcolor: .backgroundGray, image: nil, font: .italicFont(size: 16), textColor: .black),
+            Presentable.ButtonConfig(title: "Aa", backgroundcolor: .backgroundGray, image: nil, font: .boldFont(size: 16), textColor: .black)
+        ], type: .font)
+
+        let colorPresentable = Presentable(title: "COLOR", buttonConfig: [
+            Presentable.ButtonConfig(title: nil, backgroundcolor: .pomodoroOrange, image: checkmarkImage, font: nil, textColor: nil),
+            Presentable.ButtonConfig(title: nil, backgroundcolor: .pomodoroBlue, image: nil, font: nil, textColor: nil),
+            Presentable.ButtonConfig(title: nil, backgroundcolor: .pomodoroPurple, image: nil, font: nil, textColor: nil),
+        ], type: .color)
+        
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
@@ -160,10 +195,15 @@ extension SettingsViewController {
             let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(FontCell.self)!
+            let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
+            cell.configure(presentable: fontPresentable)
             return cell
         case 3:
-            let cell = tableView.dequeueReusableCell(ColorCell.self)!
+            let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
+            cell.configure(presentable: colorPresentable)
+            cell.updateColorAndFont = { [weak self] color, font in
+                self?.updateColor(color: color)
+            }
             return cell
         default:
             let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
