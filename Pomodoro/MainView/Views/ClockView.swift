@@ -1,6 +1,6 @@
 import UIKit
 
-class ClockView: UIView {
+final class ClockView: UIView {
     
     struct Constants {
         static let start = "START"
@@ -9,6 +9,7 @@ class ClockView: UIView {
     
     private lazy var clockLabel: ReusableLabel = {
         let label = ReusableLabel(fontSize: 54, textColor: .white)
+        label.text = "00:00"
         return label
     }()
     
@@ -21,12 +22,12 @@ class ClockView: UIView {
     }()
     
     var startStopButtonTapped: ((Bool) -> Void)?
-    var updateTimeLabel: ((String) -> Void)?
 
     public let circleShapeLayer = CAShapeLayer()
 
-    func updateStrtStopLabel(title: String) {
-        startStopButton.setTitle(title, for: .normal)
+    func allCyclesFinished(pomodoroTime: String) {
+        startStopButton.setTitle(Constants.start, for: .normal)
+        clockLabel.text = pomodoroTime
     }
     
     init() {
@@ -43,6 +44,7 @@ class ClockView: UIView {
     }
 
     private func configureStartStopButton() {
+        startStopButton.setTitle(Constants.start, for: .normal)
         startStopButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         startStopButton.titleLabel?.setTextSpacingBy(value: 10)
     }
@@ -59,12 +61,10 @@ class ClockView: UIView {
         self.startStopButton.titleLabel?.setTextSpacingBy(value: 10)
         startStopButtonTapped?(isRunning)
     }
-
-    func configure() {
-        updateTimeLabel = { [weak self] timeString in
-            self?.clockLabel.text = timeString
-            print( "time rstirng \(timeString)")
-        }
+    
+    func updateTimeLabel(timeString: String) {
+        clockLabel.text = timeString
+        print( "time stirng \(timeString)")
     }
     
     //MARK: - View Setup

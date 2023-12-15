@@ -9,26 +9,27 @@ enum TimerStage {
 
 final class PomodoroTimerViewModel {
     
-    private let stages: [TimerStage] = [.pomodoro, .shortBreak, .pomodoro, .longBreak, .pomodoro, .finished]
+    private let stages: [TimerStage] = [.pomodoro, .shortBreak, .pomodoro, .longBreak, .finished]
     private var currentStageIndex = 0
     
     private let timeDurationModel = TimeDurationModel()
     private let countDownTimer = CountDownTimer()
     
     var updateClockViewTimeLabel: ((String) -> Void)?
-    var updateClockViewStartStopLabel: ((String) -> Void)?
+    var onFinishAllCycles: (() -> Void)?
+    var onStageChange: ((TimerStage) -> Void)?
     
     init() {
         countDownTimer.onTick = { [weak self] remainingTime in
             let timeString = self?.formatTimeInterval(remainingTime)
             self?.updateClockViewTimeLabel?(timeString ?? "00:00")
         }
-        countDownTimer.onCompletionCycle = { [weak self] in
-            self?.advanceToNextStage()
+        countDownTimer.onReset = { [weak self] in
+            self?.startNextStage()
         }
     }
     
-    private func formatTimeInterval(_ interval: TimeInterval) -> String {
+    public func formatTimeInterval(_ interval: TimeInterval) -> String {
         let minutes = Int(interval) / 60
         let seconds = Int(interval) % 60
         return String(format: "%02d:%02d", minutes, seconds)
@@ -42,22 +43,20 @@ final class PomodoroTimerViewModel {
         }
     }
     
-    private func advanceToNextStage() {
-        currentStageIndex += 1
-        startNextStage()
-    }
-    
     private func startNextStage() {
+        currentStageIndex += 1
         guard currentStageIndex < stages.count else {
             print("Timer sequence finished")
             return
         }
         let currentStage = stages[currentStageIndex]
+        onStageChange?(currentStage)
         let duration = TimeInterval(timeDurationModel.duration(for: currentStage))
         if currentStage != .finished {
             countDownTimer.startCountdown(duration: duration)
         } else {
-            updateClockViewStartStopLabel?("START")
+            onFinishAllCycles?()
+            currentStageIndex = 0
             print("Timer sequence finished")
         }
     }

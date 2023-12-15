@@ -36,7 +36,6 @@ final class PomodoroTimerViewController: UIViewController {
         self.viewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
-        clockView.configure()
         setup()
     }
     
@@ -49,14 +48,19 @@ final class PomodoroTimerViewController: UIViewController {
         clockView.startStopButtonTapped = { [weak self] isRunning in
             self?.viewModel.startStopButtonTapped(isRunning: isRunning)
         }
-       
         viewModel.updateClockViewTimeLabel = { [weak clockView] timeString in
-                   clockView?.updateTimeLabel?(timeString)
+            clockView?.updateTimeLabel(timeString: timeString)
                }
-        viewModel.updateClockViewStartStopLabel = { [weak clockView] text in
-                   clockView?.updateStrtStopLabel(title: text)
+        viewModel.onFinishAllCycles = { [weak clockView] in
+            clockView?.allCyclesFinished(pomodoroTime: TimeDurationModel.defaultPomodoroDuration.toFormattedTimeString())
                }
-
+        viewModel.onStageChange = { [weak self] state in
+            self?.stageChanges(state: state)
+        }
+    }
+    
+    private func stageChanges(state: TimerStage) {
+        timerStateStackView.updateViews(state: state)
     }
     
     @objc private func settingsIconTapped() {
@@ -67,6 +71,7 @@ final class PomodoroTimerViewController: UIViewController {
 
 private extension PomodoroTimerViewController {
     func setup() {
+        
         view.backgroundColor = .backgroundPurple
         
         [titleLabel, timerStateStackView, timerBackgroundView, clockView, settingsButton]

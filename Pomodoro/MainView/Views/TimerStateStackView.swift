@@ -24,6 +24,26 @@ class TimerStateStackView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public func updateViews(state: TimerStage) {
+        [pomodoroLabel, shortBreakLabel, longBreakLabel].forEach {
+            $0.backgroundColor = .darkPurple
+            $0.textColor = .lightTextColor }
+               switch state {
+               case .pomodoro:
+                   pomodoroLabel.backgroundColor = .pomodoroOrange
+                   pomodoroLabel.textColor = .darkPurple
+               case .shortBreak:
+                   shortBreakLabel.backgroundColor = .pomodoroOrange
+                   shortBreakLabel.textColor = .darkPurple
+               case .longBreak:
+                   longBreakLabel.backgroundColor = .pomodoroOrange
+                   longBreakLabel.textColor = .darkPurple
+               case .finished:
+                   pomodoroLabel.backgroundColor = .pomodoroOrange
+                   pomodoroLabel.textColor = .darkPurple
+               }
+    }
    
     private func setupTimerStateStackView() {
         backgroundColor = UIColor.darkPurple

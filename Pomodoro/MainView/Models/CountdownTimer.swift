@@ -7,7 +7,7 @@ class CountDownTimer {
     private var initialDuration: TimeInterval?  // Store the initial duration
 
     var onTick: ((TimeInterval) -> Void)?
-    var onCompletionCycle: (() -> Void)?
+    var onReset: (() -> Void)?
 
     func startCountdown(duration: TimeInterval) {
         initialDuration = duration  // Store the initial duration
@@ -48,7 +48,7 @@ class CountDownTimer {
         if let initialDuration = initialDuration {
             remainingTimeWhenStopped = nil  // Clear the remaining time
 //            startCountdown(duration: initialDuration)
-            onCompletionCycle?()
+            onReset?()
         }
     }
 }
