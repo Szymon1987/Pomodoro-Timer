@@ -1,14 +1,4 @@
-//
-//  FontColorView.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 21/03/2022.
-//
-
 import UIKit
-
-
-// what's the best way to create the ColorView class which is almost identicall with FontView? Should they both have common superclass?
 
 class FontView: UIView {
     

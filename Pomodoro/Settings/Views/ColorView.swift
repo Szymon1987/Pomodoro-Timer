@@ -1,10 +1,3 @@
-//
-//  ColorView.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 23/03/2022.
-//
-
 import UIKit
 
 protocol ColorViewDataSource: AnyObject {

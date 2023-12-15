@@ -1,7 +1,5 @@
 import UIKit
 
-// this view class is basically the background view for the ClockView class with
-
 final class TimerBackgroundView: UIView {
 
     private let roundedGradientView = UIView()

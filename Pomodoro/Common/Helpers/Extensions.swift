@@ -1,10 +1,3 @@
-//
-//  Extensions.swift
-//  Pomodoro
-//
-//  Created by Szymon Tadrzak on 24/10/2021.
-//
-
 import UIKit
 
 extension UIView {
