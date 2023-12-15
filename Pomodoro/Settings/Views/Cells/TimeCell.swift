@@ -1,6 +1,6 @@
 import UIKit
 
-final class MiddleTopView: UIView {
+final class TimeCell: UITableViewCell {
     
     let pomodoroMinutes = Array(1...7)
     let shortBreakMinutes = [1, 2, 3]
@@ -23,12 +23,12 @@ final class MiddleTopView: UIView {
         return pickerView
     }()
     
-    override init(frame: CGRect) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         titleLabel = ReusableLabel(text: "TIME (MINUTES)", fontSize: 20)
         pomodoroButton = ReusableButton(title: "pomodoro", backgroundColor: .backgroundGray)
         shortBreakButton = ReusableButton(title: "short break")
         longBreakButton = ReusableButton(title: "long break")
-        super.init(frame: frame)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         addTargetForButtons()
         //        configurePickerViews()
@@ -37,6 +37,7 @@ final class MiddleTopView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // this needs to be changed
     private func addTargetForButtons() {
         let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
@@ -101,7 +102,7 @@ final class MiddleTopView: UIView {
     }
 }
 
-extension MiddleTopView: UIPickerViewDelegate, UIPickerViewDataSource {
+extension TimeCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
@@ -124,10 +125,3 @@ extension MiddleTopView: UIPickerViewDelegate, UIPickerViewDataSource {
                 
     }
 }
-
-
-
-
-
-
-

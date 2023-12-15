@@ -86,6 +86,7 @@ final class SettingsViewController: UIViewController {
         // UITableView extension methods
         tableView.register(UITableViewCell.self)
         tableView.register(AppearanceCell.self)
+        tableView.register(TimeCell.self)
     }
     
     @objc private func handleDismiss() {
@@ -190,7 +191,7 @@ private extension SettingsViewController {
             cell.textLabel?.text = "Settings"
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(UITableViewCell.self)!
+            let cell = tableView.dequeueReusableCell(TimeCell.self)!
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
