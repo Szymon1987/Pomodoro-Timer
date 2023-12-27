@@ -21,11 +21,17 @@ struct Presentable {
     }
 }
 
+protocol AppearanceSettingsViewControllerDelegate: AnyObject {
+    func settingsViewControllerDidUpdateAppearance(appearanceModel: AppearanceModel)
+}
+
 
 final class SettingsViewController: UIViewController {
     
-    private let appearanceModel: AppearanceModel
+    private var appearanceModel: AppearanceModel
     private let coordinator: AppCoordinator
+    
+    weak var delegate: AppearanceSettingsViewControllerDelegate?
     
     private let timeDurationModel = TimeDurationModel()
     
@@ -96,6 +102,7 @@ final class SettingsViewController: UIViewController {
     
     @objc private func applyButtonTapped() {
         Haptics.light()
+        delegate?.settingsViewControllerDidUpdateAppearance(appearanceModel: appearanceModel)
         self.dismiss(animated: true)
     }
     
@@ -202,6 +209,8 @@ private extension SettingsViewController {
             cell.configure(presentable: colorPresentable)
             cell.updateColorAndFont = { [weak self] color, font in
                 self?.updateColor(color: color)
+                self?.appearanceModel.color = color ?? .red
+                self?.appearanceModel.font = font ?? .normalFont(size: 16)
             }
             return cell
         default:
@@ -211,4 +220,3 @@ private extension SettingsViewController {
         }
     }
 }
-

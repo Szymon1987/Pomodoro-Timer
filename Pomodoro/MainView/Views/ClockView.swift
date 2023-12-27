@@ -106,4 +106,11 @@ final class ClockView: UIView {
         layer.addSublayer(circleShapeLayer)
 
     }
+    
+    public func updateAppearance(appearanceModel: AppearanceModel) {
+        clockLabel.font = appearanceModel.font
+        startStopButton.titleLabel?.font = appearanceModel.font
+        
+        circleShapeLayer.strokeColor = appearanceModel.color.cgColor
+    }
 }

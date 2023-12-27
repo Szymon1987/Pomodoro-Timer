@@ -37,6 +37,7 @@ final class PomodoroTimerViewController: UIViewController {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
         setup()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -65,7 +66,7 @@ final class PomodoroTimerViewController: UIViewController {
     
     @objc private func settingsIconTapped() {
         Haptics.light()
-        coordinator.showSettings()
+        coordinator.showSettings(delegate: self)
     }
 }
 
@@ -103,3 +104,20 @@ private extension PomodoroTimerViewController {
         settingsButton.widthAnchor.constraint(equalToConstant: 28).isActive = true
     }
 }
+
+
+extension PomodoroTimerViewController: AppearanceSettingsViewControllerDelegate {
+    func settingsViewControllerDidUpdateAppearance(appearanceModel: AppearanceModel) {
+        print("aaaaaa \(appearanceModel.color) and font \(appearanceModel.font)")
+        updateColorAndFont(appearanceModel: appearanceModel)
+    }
+}
+
+private extension PomodoroTimerViewController {
+    func updateColorAndFont(appearanceModel: AppearanceModel) {
+        titleLabel.font = appearanceModel.font
+        
+        clockView.updateAppearance(appearanceModel: appearanceModel)
+    }
+}
+
