@@ -2,12 +2,16 @@ import Foundation
 
 struct TimeDurationModel {
     static let defaultPomodoroDuration:   Int = 6
-    static let defaultShortBreakDuration: Int = 2
-    static let defaultLongBreakDuration:  Int = 3
+    static let defaultShortBreakDuration: Int = 3
+    static let defaultLongBreakDuration:  Int = 4
     
     var pomodoroSeconds: Int
     var shortBreakSeconds: Int
     var longBreakSeconds: Int
+    
+    var pomArray = Array(1...defaultPomodoroDuration)
+    var shortBreakArray = Array(1...defaultShortBreakDuration)
+    var longBreakArray = Array(1...defaultLongBreakDuration)
     
     internal init(pomodoroSeconds: Int = defaultPomodoroDuration,
                   shortBreakSeconds: Int = defaultShortBreakDuration,

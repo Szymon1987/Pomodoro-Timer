@@ -64,7 +64,6 @@ final class ClockView: UIView {
     
     func updateTimeLabel(timeString: String) {
         clockLabel.text = timeString
-        print( "time stirng \(timeString)")
     }
     
     //MARK: - View Setup

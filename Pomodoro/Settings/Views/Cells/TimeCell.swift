@@ -2,12 +2,11 @@ import UIKit
 
 final class TimeCell: UITableViewCell {
     
-    let pomodoroMinutes = Array(1...7)
-    let shortBreakMinutes = [1, 2, 3]
-    let longBreakMinutes = [1, 2, 3, 4]
+    var timeDurationModel = TimeDurationModel()
+    
     var tempArray = Array(1...7)
     
-    var selectedTimes: [Int]?
+    var onDurationSelection: ((TimeDurationModel) -> Void)?
     
     private let titleLabel: ReusableLabel
     private let pomodoroButton: ReusableButton
@@ -31,7 +30,7 @@ final class TimeCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         addTargetForButtons()
-        //        configurePickerViews()
+//        configurePickerViews()
     }
     
     required init?(coder: NSCoder) {
@@ -57,48 +56,50 @@ final class TimeCell: UITableViewCell {
         sender.isSelected = true
         switch sender.currentTitle {
         case "pomodoro":
-            tempArray = pomodoroMinutes
+            tempArray = timeDurationModel.pomArray
         case "short break":
-            tempArray = shortBreakMinutes
+            tempArray = timeDurationModel.shortBreakArray
         case "long break":
-            tempArray = longBreakMinutes
+            tempArray = timeDurationModel.longBreakArray
         default:
             print("Error")
         }
+        
         pickerView.reloadAllComponents()
     }
     
     private func setupViews() {
         translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(titleLabel)
-        titleLabel.anchor(top: topAnchor, bottom: nil, leading: leadingAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
+        contentView.addSubview(titleLabel)
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
-        addSubview(shortBreakButton)
-        shortBreakButton.anchor(top: nil, bottom: nil, leading: leadingAnchor, trailing: nil, padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0))
-        shortBreakButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20).isActive = true
-        shortBreakButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
-        shortBreakButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15).isActive = true
-        
-        addSubview(pomodoroButton)
-        pomodoroButton.anchor(top: nil, bottom: shortBreakButton.topAnchor, leading: leadingAnchor, trailing: shortBreakButton.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 15, bottom: -10, right: 0))
+        contentView.addSubview(shortBreakButton)
+        shortBreakButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 20).isActive = true
+        shortBreakButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
+        shortBreakButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        shortBreakButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+
+        contentView.addSubview(pomodoroButton)
+        pomodoroButton.anchor(top: nil, bottom: shortBreakButton.topAnchor, leading: contentView.leadingAnchor, trailing: shortBreakButton.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 15, bottom: -10, right: 0))
         pomodoroButton.heightAnchor.constraint(equalTo: shortBreakButton.heightAnchor).isActive = true
-        
-        addSubview(longBreakButton)
-        longBreakButton.anchor(top: shortBreakButton.bottomAnchor, bottom: nil, leading: leadingAnchor, trailing: shortBreakButton.trailingAnchor, padding: UIEdgeInsets(top: 10, left: 15, bottom: 0, right: 0))
+
+        contentView.addSubview(longBreakButton)
+        longBreakButton.anchor(top: shortBreakButton.bottomAnchor, bottom: nil, leading: contentView.leadingAnchor, trailing: shortBreakButton.trailingAnchor, padding: UIEdgeInsets(top: 10, left: 15, bottom: 0, right: 0))
         longBreakButton.heightAnchor.constraint(equalTo: shortBreakButton.heightAnchor).isActive = true
-        
-        addSubview(dividerView)
-        dividerView.anchor(top: nil, bottom: bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: -20), size: .init(width: 0, height: 1))
-        
-        addSubview(pickerView)
+
+        contentView.addSubview(dividerView)
+        dividerView.anchor(top: nil, bottom: contentView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: -20), size: .init(width: 0, height: 1))
+
+        contentView.addSubview(pickerView)
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.topAnchor.constraint(equalTo: pomodoroButton.topAnchor).isActive = true
         pickerView.bottomAnchor.constraint(equalTo: longBreakButton.bottomAnchor).isActive = true
-        pickerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-        pickerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.45).isActive = true
+        pickerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+        pickerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.45).isActive = true
 
-        [shortBreakButton, pomodoroButton, longBreakButton].forEach{$0.layer.cornerRadius = 8}
+        [shortBreakButton, pomodoroButton, longBreakButton].forEach{ $0.layer.cornerRadius = 8 }
     }
 }
 
@@ -113,15 +114,20 @@ extension TimeCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        
-        
         "\(tempArray[row]) min"
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        let buttons = [pomodoroButton, shortBreakButton, longBreakButton]
+        [pomodoroButton, shortBreakButton, longBreakButton].forEach { button in
+            if button.isSelected && button.currentTitle == "pomodoro" {
+                timeDurationModel.pomodoroSeconds = row + 1
+            } else if button.isSelected && button.currentTitle == "short break" {
+                timeDurationModel.shortBreakSeconds = row + 1
+            } else {
+                timeDurationModel.longBreakSeconds = row + 1
+            }
+        }
         
-                
+        onDurationSelection?(timeDurationModel)
     }
 }

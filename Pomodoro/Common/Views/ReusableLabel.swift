@@ -1,6 +1,8 @@
 import UIKit
 
 final class ReusableLabel: UILabel {
+    
+    public var isChosen: Bool = false
 
     init(text: String = "",
          fontSize: CGFloat = 18,

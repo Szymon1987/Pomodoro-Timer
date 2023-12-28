@@ -29,6 +29,5 @@ final class TitleView: UIView {
        
         addSubview(dividerView)
         dividerView.anchor(top: nil, bottom: bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, size: .init(width: 0, height: 1))
-        backgroundColor = .red
     }
 }

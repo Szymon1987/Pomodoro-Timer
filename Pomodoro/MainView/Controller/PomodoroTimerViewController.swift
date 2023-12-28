@@ -5,8 +5,11 @@ final class PomodoroTimerViewController: UIViewController {
     private let viewModel: PomodoroTimerViewModel
     private let coordinator: AppCoordinator
     
+    private var appearanceModel: AppearanceModel?
+    
     private let titleLabel: ReusableLabel = {
         let label = ReusableLabel(text: "pomodoro", fontSize: 24, textColor: .white)
+
         return label
     }()
     
@@ -37,7 +40,9 @@ final class PomodoroTimerViewController: UIViewController {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
         setup()
-        
+        viewModel.onSettingsChange = { [weak self] appearance in
+            self?.updateColorAndFont(appearanceModel: appearance)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -56,17 +61,17 @@ final class PomodoroTimerViewController: UIViewController {
             clockView?.allCyclesFinished(pomodoroTime: TimeDurationModel.defaultPomodoroDuration.toFormattedTimeString())
                }
         viewModel.onStageChange = { [weak self] state in
-            self?.stageChanges(state: state)
+            self?.stageChanges(state: state, backgroundColor: self?.appearanceModel?.color ?? .green)
         }
     }
     
-    private func stageChanges(state: TimerStage) {
-        timerStateStackView.updateViews(state: state)
+    private func stageChanges(state: TimerStage, backgroundColor: UIColor) {
+        timerStateStackView.updateViews(state: state, backgroundColor: backgroundColor)
     }
     
     @objc private func settingsIconTapped() {
         Haptics.light()
-        coordinator.showSettings(delegate: self)
+        coordinator.showSettings(delegate: viewModel)
     }
 }
 
@@ -108,7 +113,6 @@ private extension PomodoroTimerViewController {
 
 extension PomodoroTimerViewController: AppearanceSettingsViewControllerDelegate {
     func settingsViewControllerDidUpdateAppearance(appearanceModel: AppearanceModel) {
-        print("aaaaaa \(appearanceModel.color) and font \(appearanceModel.font)")
         updateColorAndFont(appearanceModel: appearanceModel)
     }
 }
@@ -116,8 +120,11 @@ extension PomodoroTimerViewController: AppearanceSettingsViewControllerDelegate 
 private extension PomodoroTimerViewController {
     func updateColorAndFont(appearanceModel: AppearanceModel) {
         titleLabel.font = appearanceModel.font
-        
+        self.appearanceModel = appearanceModel
         clockView.updateAppearance(appearanceModel: appearanceModel)
+        timerStateStackView.updateLabelBackgroundColor(with: appearanceModel.color)
+        timerStateStackView.layoutIfNeeded()
+        timerStateStackView.setNeedsLayout()
     }
 }
 

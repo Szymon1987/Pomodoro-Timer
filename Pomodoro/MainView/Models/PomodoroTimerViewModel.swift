@@ -18,6 +18,7 @@ final class PomodoroTimerViewModel {
     var updateClockViewTimeLabel: ((String) -> Void)?
     var onFinishAllCycles: (() -> Void)?
     var onStageChange: ((TimerStage) -> Void)?
+    var onSettingsChange: ((AppearanceModel)-> Void)?
     
     init() {
         countDownTimer.onTick = { [weak self] remainingTime in
@@ -46,7 +47,6 @@ final class PomodoroTimerViewModel {
     private func startNextStage() {
         currentStageIndex += 1
         guard currentStageIndex < stages.count else {
-            print("Timer sequence finished")
             return
         }
         let currentStage = stages[currentStageIndex]
@@ -57,10 +57,16 @@ final class PomodoroTimerViewModel {
         } else {
             onFinishAllCycles?()
             currentStageIndex = 0
-            print("Timer sequence finished")
         }
     }
 }
+
+extension PomodoroTimerViewModel: AppearanceSettingsViewControllerDelegate {
+    func settingsViewControllerDidUpdateAppearance(appearanceModel: AppearanceModel) {
+        onSettingsChange?(appearanceModel)
+    }
+}
+
 //    func setTimerDelegate(_ delegate: PomodoroTimerDelegate) {
 //        pomodoroTimer.delegate = delegate
 //

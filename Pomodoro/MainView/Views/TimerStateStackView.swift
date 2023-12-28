@@ -18,22 +18,35 @@ class TimerStateStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func updateViews(state: TimerStage) {
+    public func updateLabelBackgroundColor(with color: UIColor) {
+        pomodoroLabel.isChosen = true
+        [pomodoroLabel, shortBreakLabel, longBreakLabel].filter { $0.isChosen == true }.forEach {
+            $0.backgroundColor = color
+        }
+    }
+    
+    public func updateViews(state: TimerStage, backgroundColor: UIColor) {
         [pomodoroLabel, shortBreakLabel, longBreakLabel].forEach {
             $0.backgroundColor = .darkPurple
-            $0.textColor = .lightTextColor }
+            $0.textColor = .lightTextColor
+            $0.isChosen = false
+        }
                switch state {
                case .pomodoro:
-                   pomodoroLabel.backgroundColor = .pomodoroOrange
+                   pomodoroLabel.backgroundColor = backgroundColor
+                   pomodoroLabel.isChosen = true
                    pomodoroLabel.textColor = .darkPurple
                case .shortBreak:
-                   shortBreakLabel.backgroundColor = .pomodoroOrange
+                   shortBreakLabel.isChosen = true
+                   shortBreakLabel.backgroundColor = backgroundColor
                    shortBreakLabel.textColor = .darkPurple
                case .longBreak:
-                   longBreakLabel.backgroundColor = .pomodoroOrange
+                   longBreakLabel.isChosen = true
+                   longBreakLabel.backgroundColor = backgroundColor
                    longBreakLabel.textColor = .darkPurple
                case .finished:
-                   pomodoroLabel.backgroundColor = .pomodoroOrange
+                   pomodoroLabel.isChosen = true
+                   pomodoroLabel.backgroundColor = backgroundColor
                    pomodoroLabel.textColor = .darkPurple
                }
     }

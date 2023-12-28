@@ -36,7 +36,6 @@ class CountDownTimer {
         let remainingTime = endTime.timeIntervalSinceNow
 
         if remainingTime <= 0 {
-            print("Timer completed")
             stopCountdown()
             resetTimer()
         } else {

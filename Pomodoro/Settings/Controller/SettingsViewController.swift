@@ -1,6 +1,5 @@
 import UIKit
 
-
 struct Presentable {
     
     enum ThemeType {
@@ -25,7 +24,6 @@ protocol AppearanceSettingsViewControllerDelegate: AnyObject {
     func settingsViewControllerDidUpdateAppearance(appearanceModel: AppearanceModel)
 }
 
-
 final class SettingsViewController: UIViewController {
     
     private var appearanceModel: AppearanceModel
@@ -33,18 +31,7 @@ final class SettingsViewController: UIViewController {
     
     weak var delegate: AppearanceSettingsViewControllerDelegate?
     
-    private let timeDurationModel = TimeDurationModel()
-    
-    // DUMMY DATA READY TO BE SEND
-    
-    /// TimeDurationModel
-    let pom: Int = 9
-    let short : Int = 3
-    let long: Int = 6
-    
-    /// AppearanceModel
-    let color: UIColor = .purple
-    let font: UIFont = .normalFont(size: 16)
+//    private let timeDurationModel = TimeDurationModel()
 
     init(appearanceModel: AppearanceModel, coordinator: AppCoordinator) {
         self.appearanceModel = appearanceModel
@@ -89,7 +76,6 @@ final class SettingsViewController: UIViewController {
     }
 
     private func registerCells() {
-        // UITableView extension methods
         tableView.register(UITableViewCell.self)
         tableView.register(AppearanceCell.self)
         tableView.register(TimeCell.self)
@@ -102,8 +88,9 @@ final class SettingsViewController: UIViewController {
     
     @objc private func applyButtonTapped() {
         Haptics.light()
-        delegate?.settingsViewControllerDidUpdateAppearance(appearanceModel: appearanceModel)
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) { [weak self] in
+            self?.delegate?.settingsViewControllerDidUpdateAppearance(appearanceModel: self?.appearanceModel ?? AppearanceModel())
+        }
     }
     
     private func setupViews() {
@@ -150,6 +137,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
  
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         getCellHeight(for: indexPath.row)
+//        return UITableView.automaticDimension
     }
     
 }
@@ -159,7 +147,7 @@ private extension SettingsViewController {
     // MARK: - Helper Functions
     
     func getCellHeight(for raw: Int) -> CGFloat {
-        let tableViewHeight = tableView.frame.height
+        let tableViewHeight = tableView.frame.size.height
         switch raw {
         case 0:
             return tableViewHeight * 0.15
@@ -199,6 +187,10 @@ private extension SettingsViewController {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(TimeCell.self)!
+            cell.onDurationSelection = { [weak self] times in
+                print("bbbbb times \(times)")
+                
+            }
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(AppearanceCell.self)!
