@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C5AC4442B3E3212003D65DC /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5AC4432B3E3212003D65DC /* SettingsModel.swift */; };
 		8C6AA3FA2B1BA78500A1DFFE /* PomodoroSceneBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA3F92B1BA78500A1DFFE /* PomodoroSceneBuilder.swift */; };
 		8C6AA3FC2B1BACD000A1DFFE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA3FB2B1BACD000A1DFFE /* AppCoordinator.swift */; };
 		8C6AA3FE2B1BD5D400A1DFFE /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA3FD2B1BD5D400A1DFFE /* Storyboarded.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C5AC4432B3E3212003D65DC /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		8C6AA3F92B1BA78500A1DFFE /* PomodoroSceneBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroSceneBuilder.swift; sourceTree = "<group>"; };
 		8C6AA3FB2B1BACD000A1DFFE /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		8C6AA3FD2B1BD5D400A1DFFE /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				ADC59CDD2810A48B006CF194 /* AppearanceModel.swift */,
+				8C5AC4432B3E3212003D65DC /* SettingsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				8C6AA3FC2B1BACD000A1DFFE /* AppCoordinator.swift in Sources */,
 				ADAAB3A727E8A86100F6DA42 /* ClockView.swift in Sources */,
 				AD44A68428072392007C0463 /* CountdownTimer.swift in Sources */,
+				8C5AC4442B3E3212003D65DC /* SettingsModel.swift in Sources */,
 				ADD0676727EB5173008734B0 /* ColorView.swift in Sources */,
 				8C9287B02B2CFA82007A8363 /* TimeCell.swift in Sources */,
 				ADAAB39F27E517AF00F6DA42 /* TimerBackgroundView.swift in Sources */,

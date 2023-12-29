@@ -8,8 +8,7 @@ final class PomodoroSceneBuilder {
     }
     
     static func buildPomodoroSettingsViewController(coordinator: AppCoordinator) -> UIViewController {
-        let appearanceModel = AppearanceModel()
-        let pomodoroSettingsViewController = SettingsViewController(appearanceModel: appearanceModel, coordinator: coordinator)
+        let pomodoroSettingsViewController = SettingsViewController(coordinator: coordinator)
         return pomodoroSettingsViewController
     }
 }

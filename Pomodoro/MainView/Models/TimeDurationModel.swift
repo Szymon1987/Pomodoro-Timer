@@ -9,6 +9,8 @@ struct TimeDurationModel {
     var shortBreakSeconds: Int
     var longBreakSeconds: Int
     
+    static let `default` = TimeDurationModel()
+    
     var pomArray = Array(1...defaultPomodoroDuration)
     var shortBreakArray = Array(1...defaultShortBreakDuration)
     var longBreakArray = Array(1...defaultLongBreakDuration)

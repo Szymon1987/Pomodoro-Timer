@@ -20,21 +20,18 @@ struct Presentable {
     }
 }
 
-protocol AppearanceSettingsViewControllerDelegate: AnyObject {
-    func settingsViewControllerDidUpdateAppearance(appearanceModel: AppearanceModel)
+protocol SettingsViewControllerDelegate: AnyObject {
+    func settingsViewControllerDidUpdateFromSettings(settingsModel: SettingsModel)
 }
 
 final class SettingsViewController: UIViewController {
     
-    private var appearanceModel: AppearanceModel
+    private var settingsModel: SettingsModel = .default
     private let coordinator: AppCoordinator
     
-    weak var delegate: AppearanceSettingsViewControllerDelegate?
-    
-//    private let timeDurationModel = TimeDurationModel()
+    weak var delegate: SettingsViewControllerDelegate?
 
-    init(appearanceModel: AppearanceModel, coordinator: AppCoordinator) {
-        self.appearanceModel = appearanceModel
+    init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -89,7 +86,7 @@ final class SettingsViewController: UIViewController {
     @objc private func applyButtonTapped() {
         Haptics.light()
         self.dismiss(animated: true) { [weak self] in
-            self?.delegate?.settingsViewControllerDidUpdateAppearance(appearanceModel: self?.appearanceModel ?? AppearanceModel())
+            self?.delegate?.settingsViewControllerDidUpdateFromSettings(settingsModel: self?.settingsModel ?? .default)
         }
     }
     
@@ -189,6 +186,7 @@ private extension SettingsViewController {
             let cell = tableView.dequeueReusableCell(TimeCell.self)!
             cell.onDurationSelection = { [weak self] times in
                 print("bbbbb times \(times)")
+                self?.settingsModel.timeDurationModel = times
                 
             }
             return cell
@@ -201,8 +199,8 @@ private extension SettingsViewController {
             cell.configure(presentable: colorPresentable)
             cell.updateColorAndFont = { [weak self] color, font in
                 self?.updateColor(color: color)
-                self?.appearanceModel.color = color ?? .red
-                self?.appearanceModel.font = font ?? .normalFont(size: 16)
+                self?.settingsModel.appearanceModel.color = color ?? .red
+                self?.settingsModel.appearanceModel.font = font ?? .normalFont(size: 16)
             }
             return cell
         default:

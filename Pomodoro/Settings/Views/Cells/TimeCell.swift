@@ -2,11 +2,17 @@ import UIKit
 
 final class TimeCell: UITableViewCell {
     
-    var timeDurationModel = TimeDurationModel()
+    var timeDurationModel: TimeDurationModel = .default
     
     var tempArray = Array(1...7)
     
     var onDurationSelection: ((TimeDurationModel) -> Void)?
+    
+    enum PickerType {
+        case pomodoro, shortBreak, longBreak
+    }
+    
+    var currentPickerType: PickerType = .pomodoro
     
     private let titleLabel: ReusableLabel
     private let pomodoroButton: ReusableButton
@@ -57,9 +63,12 @@ final class TimeCell: UITableViewCell {
         switch sender.currentTitle {
         case "pomodoro":
             tempArray = timeDurationModel.pomArray
+            currentPickerType = .pomodoro
         case "short break":
             tempArray = timeDurationModel.shortBreakArray
+            currentPickerType = .shortBreak
         case "long break":
+            currentPickerType = .longBreak
             tempArray = timeDurationModel.longBreakArray
         default:
             print("Error")
@@ -118,16 +127,20 @@ extension TimeCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        [pomodoroButton, shortBreakButton, longBreakButton].forEach { button in
-            if button.isSelected && button.currentTitle == "pomodoro" {
-                timeDurationModel.pomodoroSeconds = row + 1
-            } else if button.isSelected && button.currentTitle == "short break" {
-                timeDurationModel.shortBreakSeconds = row + 1
-            } else {
-                timeDurationModel.longBreakSeconds = row + 1
+        print("ccccc component \(component)")
+        let selectedValue = tempArray[row]  // Get the selected value from the picker
+
+            // Update the TimeDurationModel based on the current picker type
+            switch currentPickerType {
+            case .pomodoro:
+                timeDurationModel.pomodoroSeconds = selectedValue
+            case .shortBreak:
+                timeDurationModel.shortBreakSeconds = selectedValue
+            case .longBreak:
+                timeDurationModel.longBreakSeconds = selectedValue
             }
-        }
-        
+
+        print("aaaaa in picker view time pom \(timeDurationModel.pomodoroSeconds), short \(timeDurationModel.shortBreakSeconds)")
         onDurationSelection?(timeDurationModel)
     }
 }

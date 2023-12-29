@@ -12,13 +12,13 @@ final class PomodoroTimerViewModel {
     private let stages: [TimerStage] = [.pomodoro, .shortBreak, .pomodoro, .longBreak, .finished]
     private var currentStageIndex = 0
     
-    private let timeDurationModel = TimeDurationModel()
+    var timeDurationModel = TimeDurationModel()
     private let countDownTimer = CountDownTimer()
     
     var updateClockViewTimeLabel: ((String) -> Void)?
     var onFinishAllCycles: (() -> Void)?
     var onStageChange: ((TimerStage) -> Void)?
-    var onSettingsChange: ((AppearanceModel)-> Void)?
+    var onSettingsChange: ((SettingsModel)-> Void)?
     
     init() {
         countDownTimer.onTick = { [weak self] remainingTime in
@@ -61,9 +61,10 @@ final class PomodoroTimerViewModel {
     }
 }
 
-extension PomodoroTimerViewModel: AppearanceSettingsViewControllerDelegate {
-    func settingsViewControllerDidUpdateAppearance(appearanceModel: AppearanceModel) {
-        onSettingsChange?(appearanceModel)
+extension PomodoroTimerViewModel: SettingsViewControllerDelegate {
+    func settingsViewControllerDidUpdateFromSettings(settingsModel: SettingsModel) {
+        onSettingsChange?(settingsModel)
+        currentStageIndex = 0 // handle reset of the states and start the cycles from the beginning with the new times
     }
 }
 
